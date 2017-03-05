@@ -7,14 +7,10 @@ import java.util.List;
 import java.util.Stack;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
-import com.ssh.xep.entity.JobInfo;
 import com.xeq.file.dao.FolderDao;
 import com.xeq.file.domain.FileAndFolder;
 import com.xeq.file.domain.PageSource;
@@ -25,11 +21,12 @@ public class FolderDaoImpl extends BaseDao implements FolderDao {
 
 	@Override
 	public String parentPath(Integer parentFolderId, Stack<FileAndFolder> folderStack, String rootPath) {
-		String path = rootPath;
+		
+		String path = PathFormat.strEnd(rootPath);
 
 		for (FileAndFolder fgr : folderStack) {
 			try {
-				path = path + fgr.getName() + File.separator;
+				path = PathFormat.strEnd(path + fgr.getName());
 			} catch (Exception e) {
 				log.info(e.getStackTrace());
 				break;

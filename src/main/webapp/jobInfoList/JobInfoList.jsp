@@ -61,20 +61,21 @@
 			</table>
 		</div>
 		<!-- 分页效果开始 -->
+		
 		<div>
 			<ul class="pagination">
 				<li>
 					<a href="jobsList.action?jobpageSource.currentPage=1">&laquo;</a>
 				</li>
 				<li>
-					<a href="jobsList.action?jobpageSource.currentPage=${jobpagesource.currentPage-1 }">Prev</a>
+					<a href="jobsList.action?jobpageSource.currentPage=${jobpagesource.currentPage-1 }">previous</a>
 				</li>
 				<li>
-					<a>[${jobpagesource.currentPage}/${jobpagesource.totalPages }]
+					<a>[${jobpagesource.currentPage} of ${jobpagesource.totalPages }]
 						[total:${jobpagesource.totalRows}]</a>
 				</li>
 				<li>
-					<a href="jobsList.action?jobpageSource.currentPage=${jobpagesource.currentPage+1 }">Next</a>
+					<a href="jobsList.action?jobpageSource.currentPage=${jobpagesource.currentPage+1 }">next</a>
 				</li>
 				<li>
 					<a href="jobsList.action?jobpageSource.currentPage=${jobpagesource.totalPages}">&raquo;</a>

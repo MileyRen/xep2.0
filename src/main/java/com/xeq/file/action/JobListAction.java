@@ -1,7 +1,5 @@
 package com.xeq.file.action;
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -60,6 +58,9 @@ public class JobListAction extends ActionSupport
 			if (user == null) {
 				return INPUT;
 			}
+			if(user.getRoleId()==null){
+				user.setRoleId(0);
+			}
 			int userId = user.getId();
 			String hql = "FROM JobInfo ";
 			if (user.getRoleId() == 1) {
@@ -68,6 +69,7 @@ public class JobListAction extends ActionSupport
 				hql += " where userId=" + userId;
 			}
 			// String createTime = request.getParameter("createTime");
+			
 			long fTime = jobsService.getTime(request.getParameter("fTime"));
 			long tTime = jobsService.getTime(request.getParameter("tTime"));
 			// String sort = request.getParameter("sort");

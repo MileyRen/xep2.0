@@ -43,7 +43,7 @@ input[type=file] {
 
 body {
 	font-family: verdana, helvetica, arial, sans-serif;
-	font-size: 12px;
+	/* font-size: 12px; */
 	padding: 0px;
 	margin: 0;
 }
@@ -52,9 +52,8 @@ body {
 <body>
 	<%@include file="/WEB-INF/content/navigator.jsp"%>
 	<div class="container">
-		<div class="row clearfix">
-			<div class="col-md-12 column">
-				<%-- 	<s:actionerror /> --%>
+		 <div class="row clearfix"> 
+			<div class="col-md-12 column"> 
 				<!-- 初始化页面列表结束 -->
 				<!-- 导航按钮开始-->
 				<nav class="navbar navbar-default" role="navigation">
@@ -68,7 +67,9 @@ body {
 								</a>
 							</li>
 							<s:iterator value="#session.breadcrumb" status="FileAndFolder">
-								<li>${name}</li>
+								<li>
+									<a onclick="return into(${id })">${name}</a>
+								</li>
 							</s:iterator>
 						</ol>
 					</ul>
@@ -122,7 +123,7 @@ body {
 						<th>Create Time</th>
 						<th>Type</th>
 						<th>Size</th>
-						<th>Folder Path</th>
+						<!-- <th>Folder Path</th> -->
 						<th></th>
 					</tr>
 					<s:iterator value="#session.fileList" status="FileAndFolder">
@@ -134,7 +135,7 @@ body {
 								<td onclick="return into(${id})"><s:date name="time" format="yyyy-MM-dd" /></td>
 								<td onclick="return into(${id})">${type}</td>
 								<td onclick="return into(${id})">${size}</td>
-								<td onclick="return into(${id})">${folderPath}</td>
+								<%-- <td onclick="return into(${id})">${folderPath}</td> --%>
 								<td>
 									<div class="btn-group">
 										<a class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown">
@@ -181,7 +182,7 @@ body {
 								<td><s:date name="time" format="yyyy-MM-dd" /></td>
 								<td>${type}</td>
 								<td>${size}</td>
-								<td>${folderPath}</td>
+								<%-- <td>${folderPath}</td> --%>
 								<td>
 									<!-- 按钮组开始 -->
 									<div class="btn-group">
@@ -237,6 +238,27 @@ body {
 				<!-- 文件列表结束 -->
 				<!-- 分页效果开始 -->
 				<div style="margin: 20px 0;"></div>
+				<div>
+			<ul class="pagination">
+				<li>
+					<a onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=1'">&laquo;</a>
+				</li>
+				<li>
+					<a onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=${pagesource.currentPage-1 }'">previous</a>
+				</li>
+				<li>
+					<a>[ ${pagesource.currentPage} of ${pagesource.totalPages }]
+						 [total:${pagesource.totalRows}]</a>
+				</li>
+				<li>
+					<a onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=${pagesource.currentPage+1 }'">next</a>
+				</li>
+				<li>
+					<a onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=${pagesource.totalPages }'">&raquo;</a>
+				</li>
+			</ul>
+		</div>
+			<%-- 	
 				<div class="easyui-panel" style="height: 50px; padding: 10px 20px 10px 40px;">
 					<a class="easyui-linkbutton" data-options="plain:true,iconCls:'pagination-first'"
 						onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=1'"></a>
@@ -248,7 +270,7 @@ body {
 					<a class="easyui-linkbutton" data-options="plain:true,iconCls:'pagination-last'"
 						onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=${pagesource.totalPages }'"></a>
 					[total:${pagesource.totalRows}]
-				</div>
+				</div> --%>
 				<!-- 分页效果结束 -->
 			</div>
 		</div>
@@ -484,6 +506,7 @@ body {
 		var sucSize="${sucSize}";
 		alert("Upload Success:"+sucSize+" ; Upload Failed: "+failedSize,function(){
 			<%session.setAttribute("failedSize", null);%>
+			location.reload();
 		});
 		} 
 	});

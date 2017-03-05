@@ -1,10 +1,8 @@
 package com.xeq.file.dao.impl;
 
 import java.io.File;
-
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
-
 import com.xeq.file.dao.FolderOperate;
 
 @Repository("FolderOperate")
@@ -15,7 +13,7 @@ public class FolderOperateImpl extends BaseDao implements FolderOperate {
 	public boolean createRealFolder(String name, String path) {
 		boolean ret = false;
 		try {
-			String newPath = path + name + File.separator;
+			String newPath = PathFormat.strEnd(path + name);
 			System.out.println("----------" + newPath + "----------");
 			File file = new File(newPath);
 			if (!file.exists()) {// 路径不存在，创建
@@ -53,8 +51,9 @@ public class FolderOperateImpl extends BaseDao implements FolderOperate {
 	@Override
 	public boolean deleteDirectory(String dir) {
 		// 如果dir不以文件分隔符结尾，自动添加文件分隔符
-		if (!dir.endsWith(File.separator))
-			dir = dir + File.separator;
+		/*if (!dir.endsWith(File.separator))
+			dir = dir + File.separator;*/
+		dir=PathFormat.strEnd(dir);
 		File dirFile = new File(dir);
 		// 如果dir对应的文件不存在，或者不是一个目录，则退出
 		if ((!dirFile.exists()) || (!dirFile.isDirectory())) {

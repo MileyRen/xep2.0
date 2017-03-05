@@ -8,9 +8,9 @@ import java.util.Stack;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ssh.xep.entity.JobInfo;
 import com.xeq.file.dao.FolderDao;
 import com.xeq.file.dao.impl.BaseDao;
+import com.xeq.file.dao.impl.PathFormat;
 import com.xeq.file.domain.FileAndFolder;
 import com.xeq.file.domain.PageSource;
 import com.xeq.file.service.FolderService;
@@ -28,10 +28,11 @@ public class FolderServiceImpl extends BaseDao implements FolderService {
 		this.folderDao = folderDao;
 	}
 
-//	@Override
-//	public List<FileAndFolder> getByFolderOrFiles(Integer userId, Integer parentFolderId) {
-//		return folderDao.getByFolderOrFiles(userId, parentFolderId);
-//	}
+	// @Override
+	// public List<FileAndFolder> getByFolderOrFiles(Integer userId, Integer
+	// parentFolderId) {
+	// return folderDao.getByFolderOrFiles(userId, parentFolderId);
+	// }
 
 	@Override
 	public FileAndFolder getById(Integer Id) {
@@ -97,6 +98,7 @@ public class FolderServiceImpl extends BaseDao implements FolderService {
 
 	@Override
 	public String getToPath(Integer fId, Integer tId, String root_Path, Integer userId) {
+		root_Path = PathFormat.strEnd(root_Path);
 		String result = root_Path;
 		try {
 			List<String> list = new ArrayList<String>();
@@ -104,7 +106,7 @@ public class FolderServiceImpl extends BaseDao implements FolderService {
 			StringBuffer sf = new StringBuffer();
 			sf.append(root_Path);
 			for (int i = list.size() - 1; i >= 0; i--) {
-				sf.append(list.get(i) + File.separator);
+				sf.append(PathFormat.strEnd(list.get(i)));
 			}
 			result = sf.toString();
 		} catch (NullPointerException e) {
@@ -130,14 +132,14 @@ public class FolderServiceImpl extends BaseDao implements FolderService {
 
 	@Override
 	public String intoPath(Integer tId, Integer userId, String rootPath) {
-		String result = rootPath;
+		String result = PathFormat.strEnd(rootPath);
 		try {
 			List<FileAndFolder> list = new ArrayList<FileAndFolder>();
 			list = intoPath(tId, list, userId);
 			StringBuffer sf = new StringBuffer();
-			sf.append(rootPath);
+			sf.append(PathFormat.strEnd(rootPath));
 			for (int i = list.size() - 1; i >= 0; i--) {
-				sf.append(list.get(i).getName() + File.separator);
+				sf.append(PathFormat.strEnd(list.get(i).getName()));
 			}
 			result = sf.toString();
 		} catch (NullPointerException e) {
@@ -150,7 +152,6 @@ public class FolderServiceImpl extends BaseDao implements FolderService {
 	@Override
 	public JSONArray getJsonArray(Integer userId) {
 		String hqlFolder = "From FileAndFolder where userId=" + userId + "  and type='folder'";
-		
 		JSONArray ja = new JSONArray();
 		JSONObject jObject = new JSONObject();
 		jObject.put("id", -1);
@@ -165,7 +166,7 @@ public class FolderServiceImpl extends BaseDao implements FolderService {
 				jsonArray.add(getJson(fileAndFolder, 1));
 			}
 		}
-		
+
 		jObject.put("children", jsonArray);
 		ja.add(jObject);
 		System.out.println(ja.toString());
@@ -195,7 +196,4 @@ public class FolderServiceImpl extends BaseDao implements FolderService {
 		}
 		return jt;
 	}
-
-
-
 }
