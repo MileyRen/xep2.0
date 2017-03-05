@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:g="http://www.jboss.org/drools/flow/gpd"
+	xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+	xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.jboss.org/drools"
+	id="Definition" targetNamespace="http://www.jboss.org/drools"
+	typeLanguage="http://www.java.com/javaTypes" expressionLanguage="http://www.mvel.org/2.0"
+	xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+	<process processType="Private" isExecutable="true" name="{0}">
+		<startEvent id="_1" />
+		<endEvent id="_3" />
+		<bpmndi:BPMNShape bpmnElement="_jbpm-unique-17">
+			<dc:Bounds x="50" y="50" width="86" height="24" />
+		</bpmndi:BPMNShape>
+		<scriptTask id="_jbpm-unique-9" name="Script" tool-name="9" />
+		<scriptTask id="_jbpm-unique-10" name="Script" tool-name="10" />
+		<parallelGateway id="_jbpm-unique-15" name="Gateway"
+			gatewayDirection="Diverging" />
+		<parallelGateway id="_jbpm-unique-17" name="Gateway"
+			gatewayDirection="Converging" />
+		<sequenceFlow id="16" sourceRef="_jbpm-unique-9"
+			targetRef="_jbpm-unique-15" />
+		<sequenceFlow id="18" sourceRef="_jbpm-unique-17"
+			targetRef="_3" />
+		<sequenceFlow id="_jbpm-unique-11" sourceRef="_1"
+			targetRef="_jbpm-unique-9" />
+		<sequenceFlow id="_jbpm-unique-12" sourceRef="_jbpm-unique-15"
+			targetRef="_jbpm-unique-10" />
+		<sequenceFlow id="_jbpm-unique-13" sourceRef="_jbpm-unique-10"
+			targetRef="_jbpm-unique-17" />
+		<sequenceFlow id="_jbpm-unique-14" sourceRef="_jbpm-unique-15"
+			targetRef="_jbpm-unique-17" />
+	</process>
+	<bpmndi:BPMNDiagram>
+		<bpmndi:BPMNPlane bpmnElement="com.sample.bpmn.hello2">
+			<bpmndi:BPMNShape bpmnElement="_jbpm-unique-17">
+				<dc:Bounds x="500" y="50" width="86" height="24" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_jbpm-unique-17">
+				<dc:Bounds x="240" y="277" width="86" height="24" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_jbpm-unique-17">
+				<dc:Bounds x="581" y="319" width="86" height="24" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_jbpm-unique-17">
+				<dc:Bounds x="0" y="0" width="86" height="24" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_jbpm-unique-17">
+				<dc:Bounds x="0" y="0" width="86" height="24" />
+			</bpmndi:BPMNShape>
+		</bpmndi:BPMNPlane>
+	</bpmndi:BPMNDiagram>
+</definitions>

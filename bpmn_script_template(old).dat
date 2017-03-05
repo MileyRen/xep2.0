@@ -1,0 +1,54 @@
+// 共有两个参数，一个是完整的commandStr，一个是当前部分的ID
+
+String commandStr = "%s"; // 路径输入前就决定了
+// 但是从数据库中取得的文件的名字则没有确定，以$开头，要进行替换。
+commandStr = App.replaceAll$(commandStr);
+int id = %d;
+int jobId = App.getJobId();
+// 单例模式
+// 数据库查询
+// 取出id和jobId，获取对应的job，修改对应的id的信息
+Connection conn = App.getConnection();
+PreparedStatement ps = conn.preparedStatement("select processInfo from jobInfo where id=?");
+ps.setInt(1, jobId);
+ResultSet rs = ps.executeQuery();
+rs.next();
+String jobState = rs.getString("jobState");
+rs.close();
+ps.close();
+jobState = App.updateJobState(id, jobState, "running", 0, pid, new Date().getTime(), 0);
+JSONArray obj = info.getJSONArray("Obj");
+
+Process p = new Process();
+p.create("这里是工具的路径 absToolPath", "这里是参数", "参数", "参数");
+int pid = p.getPID();
+
+Iterator<JSONObject> it = obj.iterator();
+JSONObject o = null;
+while(it.hasNext()) {
+	o = it.next();
+	if(o.getInt("id") == id) {
+		o.put("state", "start");
+		o.put("bgTime", new Date().getTime());
+		o.put("pid", pid);
+		break;
+	}
+}
+ps = conn.preparedStatement("update jobInfo set processInfo="+info.toString()+" where id=?");
+ps.executeUpdate();
+ps.close();
+
+int ret = p.waitFor();
+o.put("state", "end");
+o.put("edTime", new Date().getTime());
+o.put("ret", ret);
+
+ps = conn.preparedStatement("update jobInfo set processInfo="+info.toString()+" where id=?");
+ps.executeUpdate();
+ps.close();
+
+
+
+
+
+

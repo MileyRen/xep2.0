@@ -1,0 +1,47 @@
+.view-table {
+	width: 1000px;
+}
+
+.view-table .delete {
+	text-align: center;
+	width: 3%;
+}
+
+.view-table .name {
+	text-align: center;
+	width: 25%;
+}
+
+.view-table .user {
+	text-align: center;
+	width: 25%;
+}
+
+.view-table .flow-name {
+	text-align: center;
+	width: 27%;
+}
+
+.view-table .detail {
+	text-align: center;
+	width: 10%;
+}
+
+.view-table .start {
+	text-align: center;
+	width: 10%;
+}
+
+#page {
+	margin-top: 30px;
+}
+
+#page > div {
+	float: right;
+}
+
+#delete {
+	width: 82px;
+	float: right;
+	margin-left: 20px;
+}

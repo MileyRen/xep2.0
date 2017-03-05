@@ -1,0 +1,145 @@
+{
+    "Obj": [
+        {
+            "id": "位置ID",
+            "name": "位置名字",
+            "tool-id": "工具ID",
+            "tool-name": "工具名字",
+            "tool-type": "工具类型：pyhton、java等",
+            "tool-path": "工具所在路径",
+            "tool-info": [
+                {
+                    "id": "参数ID，用来唯一表示这个参数，并且，在这个数组里，顺序应当是确定的，跟命令的输入顺序一样",
+                    "name": "参数的名字",
+                    "type": "dbInputFile 代表来自数据库的文件 idInputFile 代表来自流程输出位置的文件，格式为【位置ID】_【参数ID】 dbOutputFile idOutputFile value部分为空 integer float boolean text select 代表参数 fixed代表固定值",
+                    "value": "如果db开头则储存文件ID，如果是select则记录select的值，fixed则预先填写数据，但是不显示出来【客户端填写】",
+                    "size": "如果是参数并且不是select则有size，参数是从服务器端获取，传到客户端的",
+                    "select": [
+                        {
+                            "label": "如果参数是select则此处是一个数组，储存选项",
+                            "value": "真实的值"
+                        }
+                    ],
+                    "path": "如果是dbFile则有此选项，但选项是从客户端传到服务器端后，服务器端解析的"
+                }
+            ],
+            "state": "jobInfo",
+            "pid": "执行的pid",
+            "bgTime": "jobInfo",
+            "edTime": "jobInfo",
+            "ret": "jobInfo"
+        },
+        {
+            "id": "13",
+            "name": "流程2",
+            "tool-id": "136",
+            "tool-name": "完美2"
+        },
+        {
+            "id": "14",
+            "name": "流程3",
+            "tool-id": "137",
+            "tool-name": "完美3"
+        },
+        {
+            "id": "18",
+            "name": "流程4",
+            "tool-id": "138",
+            "tool-name": "完美4"
+        },
+        {
+            "id": "19",
+            "name": "流程5",
+            "tool-id": "119",
+            "tool-name": "完美5"
+        },
+        {
+            "id": "_1",
+            "name": "start"
+        },
+        {
+            "id": "_3",
+            "name": "end"
+        }
+    ],
+    "Link": [
+        {
+            "from": "位置ID",
+            "to": "位置ID"
+        },
+        {
+            "from": "11",
+            "to": "8"
+        },
+        {
+            "from": "_1",
+            "to": "11"
+        },
+        {
+            "from": "18",
+            "to": "12"
+        },
+        {
+            "from": "19",
+            "to": "12"
+        },
+        {
+            "from": "11",
+            "to": "13"
+        },
+        {
+            "from": "11",
+            "to": "14"
+        },
+        {
+            "from": "8",
+            "to": "15"
+        },
+        {
+            "from": "16",
+            "to": "15"
+        },
+        {
+            "from": "13",
+            "to": "16"
+        },
+        {
+            "from": "14",
+            "to": "17"
+        },
+        {
+            "from": "16",
+            "to": "17"
+        },
+        {
+            "from": "15",
+            "to": "18"
+        },
+        {
+            "from": "17",
+            "to": "19"
+        }
+    ],
+    "Gateway": [
+        {
+            "id": "11",
+            "gatewayDirection": "Diverging"
+        },
+        {
+            "id": "12",
+            "gatewayDirection": "Converging"
+        },
+        {
+            "id": "15",
+            "gatewayDirection": "Converging"
+        },
+        {
+            "id": "16",
+            "gatewayDirection": "Diverging"
+        },
+        {
+            "id": "17",
+            "gatewayDirection": "Converging"
+        }
+    ]
+}

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="Definition" targetNamespace="http://www.jboss.org/drools"
+	typeLanguage="http://www.java.com/javaTypes" expressionLanguage="http://www.mvel.org/2.0"
+	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+	xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+	xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+	xmlns:tns="http://www.jboss.org/drools">
+	<process processType="Private" isExecutable="true" name="流程的名字">
+		<!-- nodes -->
+		<startEvent id="_1">
+		</startEvent>
+		<endEvent id="_3">
+		</endEvent>
+		<scriptTask id="_jbpm-unique-8" name="Script" data-name="流程1"
+			tool-name="工具的名字" >
+		</scriptTask>
+		<parallelGateway id="_jbpm-unique-11" name="Gateway"
+			gatewayDirection="Diverging" />
+		<parallelGateway id="_jbpm-unique-12" name="Gateway"
+			gatewayDirection="Converging" />
+
+		<!-- 各个节点之间的关系，会有很多用不到了，因为都删除了 -->
+		<sequenceFlow id="_jbpm-unique-12-_3" sourceRef="_jbpm-unique-12"
+			targetRef="_3" />
+		<sequenceFlow id="_jbpm-unique-11-_jbpm-unique-8"
+			sourceRef="_jbpm-unique-11" targetRef="_jbpm-unique-8" />
+		<sequenceFlow id="_1-_jbpm-unique-11" sourceRef="_1"
+			targetRef="_jbpm-unique-11" />
+		<sequenceFlow id="_jbpm-unique-18-_jbpm-unique-12"
+			sourceRef="_jbpm-unique-18" targetRef="_jbpm-unique-12" />
+		<sequenceFlow id="_jbpm-unique-19-_jbpm-unique-12"
+			sourceRef="_jbpm-unique-19" targetRef="_jbpm-unique-12" />
+		<sequenceFlow id="_jbpm-unique-11-_jbpm-unique-13"
+			sourceRef="_jbpm-unique-11" targetRef="_jbpm-unique-13" />
+		<sequenceFlow id="_jbpm-unique-11-_jbpm-unique-14"
+			sourceRef="_jbpm-unique-11" targetRef="_jbpm-unique-14" />
+		<sequenceFlow id="_jbpm-unique-8-_jbpm-unique-15"
+			sourceRef="_jbpm-unique-8" targetRef="_jbpm-unique-15" />
+		<sequenceFlow id="_jbpm-unique-16-_jbpm-unique-15"
+			sourceRef="_jbpm-unique-16" targetRef="_jbpm-unique-15" />
+		<sequenceFlow id="_jbpm-unique-13-_jbpm-unique-16"
+			sourceRef="_jbpm-unique-13" targetRef="_jbpm-unique-16" />
+		<sequenceFlow id="_jbpm-unique-14-_jbpm-unique-17"
+			sourceRef="_jbpm-unique-14" targetRef="_jbpm-unique-17" />
+		<sequenceFlow id="_jbpm-unique-16-_jbpm-unique-17"
+			sourceRef="_jbpm-unique-16" targetRef="_jbpm-unique-17" />
+		<sequenceFlow id="_jbpm-unique-15-_jbpm-unique-18"
+			sourceRef="_jbpm-unique-15" targetRef="_jbpm-unique-18" />
+		<sequenceFlow id="_jbpm-unique-17-_jbpm-unique-19"
+			sourceRef="_jbpm-unique-17" targetRef="_jbpm-unique-19" />
+	</process>
+
+	<bpmndi:BPMNDiagram>
+		<bpmndi:BPMNPlane bpmnElement="com.sample.bpmn.hello2">
+			<!-- 在图片上显示的位置，会有很多用不到了，因为都删除了 -->
+			<bpmndi:BPMNShape bpmnElement="_1">
+				<dc:Bounds x="0" y="0" width="48" height="48" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_3">
+				<dc:Bounds x="760" y="222" width="48" height="48" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_jbpm-unique-8">
+				<dc:Bounds x="152" y="54" width="80" height="48" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_jbpm-unique-11">
+				<dc:Bounds x="28" y="163" width="48" height="48" />
+			</bpmndi:BPMNShape>
+		</bpmndi:BPMNPlane>
+	</bpmndi:BPMNDiagram>
+
+</definitions>

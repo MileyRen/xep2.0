@@ -1,0 +1,39 @@
+// 共有两个参数，一个是完整的commandStr，一个是当前部分的ID
+
+try {
+String toolName = "%s"; // 执行用程序java等 工具的绝对路径
+String commandStr = "%s"; // 路径输入前就决定了
+
+// 但是从数据库中取得的文件的名字则没有确定，以$开头，要进行替换。
+commandStr = App.replaceAll$(commandStr);
+int id = %d;		// 此处ID是节点的ID，_jbpm-unique-8
+int jobId = App.getJobId();
+
+// 命令在第一行，在生成本job的时候就生成了，不存在不确定的参数。
+// 如果是来自数据库的文件，则在下面对其进行查找，并且这些ID都以$开头，如果有，则被替换为文件的绝对路径
+String[] commands = commandStr.split(" ");
+App.replaceAll$(commands);	// 此处是获取数据库里的文件的路径
+
+// 单例模式
+// 数据库查询
+// 取出id和jobId，获取对应的job，修改对应的id的信息
+Connection conn = App.getConnection();
+PreparedStatement ps = conn.preparedStatement("select * from jobs where id=?");
+ps.setInt(1, jobId);
+ResultSet rs = ps.executeQuery();
+rs.next();
+String jobState = rs.getString("jobState");
+rs.close();
+ps.close();
+Process p = new Process();
+int pid = p.create(toolName, "这里是参数", "参数", "参数");
+jobState = App.updateJobState(id, jobState, "running", 0, pid, new Date().getTime(), 0);
+ps = conn.preparedStatement("update jobs set jobState='"+jobState+"' where id="+jobId);
+ps.executeUpdate();
+ps.close();
+int ret = p.waitFor();
+jobState = App.updateJobState(id, jobState, "finish", ret, 0, 0, new Date().getTime());
+ps = conn.preparedStatement("update jobs set jobState='"+jobState+"' where id="+jobId);
+ps.executeUpdate();
+ps.close();
+} catch(Exception e) {}

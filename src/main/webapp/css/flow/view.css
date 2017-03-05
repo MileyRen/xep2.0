@@ -1,0 +1,173 @@
+.view-table {
+/* 	width: 1000px; */
+}
+
+.view-table .delete {
+/* 	text-align: center; */
+	width: 3%;
+}
+
+.view-table .name {
+/* 	text-align: center; */
+	width: 26.75%;
+}
+
+.view-table .user-id {
+/* 	text-align: center; */
+	width: 15.5%;
+}
+
+.view-table .group-id {
+/* 	text-align: center; */
+	width: 11.5%;
+}
+
+.view-table .privilege {
+/* 	text-align: center; */
+	width: 11.5%;
+}
+
+.view-table .node-num {
+/* 	text-align: center; */
+	width: 11.5%;
+}
+
+.view-table .create-date {
+/* 	text-align: center; */
+	width: 16.75%;
+}
+
+.view-table .detail {
+/* 	text-align: center; */
+	width: 7.5%;
+	padding: 5px 0px 5px 0px;
+}
+
+.view-table .create-job {
+/* 	text-align: center; */
+	width: 7.5%;
+	padding: 5px 0px 5px 0px;
+}
+
+#work-area {
+	position: absolute;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 34px;
+}
+
+#work-area .worker {
+	position: absolute;
+	top: 0;
+	left: 0;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#work-area .worker > * {
+	position: absolute;
+	height: 100%;
+	border: 0;
+	padding: 0;
+	margin: 0;
+}
+
+#confirm {
+	left: 85%;
+	width: 82px;
+}
+
+#cancel {
+	left: 92.5%;
+	width: 82px;
+}
+
+#filterDate {
+	width: 82px;
+	float: right;
+}
+
+#work-area .worker > .privilege {
+	left: 44.7%;
+	width: 11.5%;
+
+	border-radius: 4px;
+    height: 34px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    padding: 6px 12px;
+}
+
+#work-area .worker > .group {
+	left: 33.9%;
+	width: 11.5%;
+
+	border-radius: 4px;
+    height: 34px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    padding: 6px 12px;
+}
+
+#work-area .worker > .name {
+	width: 26.75%;
+	box-shadow: inset 0 0 4px gray;
+	left: 3%;
+
+	display: inline-block;
+	padding: 6px 12px;
+}
+
+#startDate, #endDate {
+	display: inline-block;
+	width: 200px;
+	margin-right: 20px;
+	background: white;
+}
+
+.group-filter {
+	border-radius: 4px;
+    width: 200px;
+    height: 34px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border: 1px solid #ccc;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    padding: 6px 12px;
+}
+
+#page {
+	margin-top: 30px;
+}
+
+#page > div {
+	float: right;
+}
+
+#add {
+	width: 82px;
+	margin: 10px 0 20px 20px;
+}
+
+#delete {
+	width: 82px;
+	margin: 10px 0 20px 20px;
+}
+
+.btn {
+	border-radius: 0px !important;
+	line-height: 1 !important;
+}
+
+.view-btn-in-table {
+	width: 82px;
+}

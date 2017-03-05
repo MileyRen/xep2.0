@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions id="Definition" targetNamespace="http://www.jboss.org/drools"
+	typeLanguage="http://www.java.com/javaTypes" expressionLanguage="http://www.mvel.org/2.0"
+	xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+	xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+	xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+	xmlns:tns="http://www.jboss.org/drools">
+
+	<process processType="Private" isExecutable="true"
+		id="com.ssh.xep.bpmn.1.233" name="Hello World">
+
+		<extensionElements>
+			<tns:import name="com.ssh.xep.util.process.Process" />
+			<tns:import name="com.jbpm.jbpm.App" />
+			<tns:import name="java.sql.Connection" />
+			<tns:import name="java.sql.PreparedStatement" />
+			<tns:import name="java.sql.ResultSet" />
+			<tns:import name="java.util.Iterator" />
+			<tns:import name="java.util.Date" />
+			<tns:import name="net.sf.json.JSONArray" />
+			<tns:import name="net.sf.json.JSONObject" />
+		</extensionElements>
+		<!-- nodes -->
+		<startEvent id="_1" isInterrupting="true">
+		</startEvent>
+		<endEvent id="_3">
+			<terminateEventDefinition />
+		</endEvent>
+		<scriptTask id="_jbpm-unique-8" name="Script" data-name="显示在流程上的名字"
+			tool-id="工具在工具数据库里的ID" tool-name="工具的名字" tool-type ="java工具的类型" tool-path="/tmp/tool.jar，工具的绝对路径"
+			scriptFormat="http://www.java.com/java">
+			<script>
+				try {
+				String toolName = "执行用程序java等 工具的绝对路径";
+				String commandStr = p1 p2 input1 input2 output1 output2";
+				// 命令在第一行，在生成本job的时候就生成了，不存在不确定的参数。
+				// 如果是来自数据库的文件，则在下面对其进行查找，并且这些ID都以$开头，如果有，则被替换为文件的绝对路径
+				String[] commands = commandStr.split(" ");
+				App.replaceAll$(commands);	// 此处是获取数据库里的文件的路径
+				String id = "_jbpm-unique-8";		// 此处ID是流程的ID
+				int jobId = App.getJobId();
+				// 单例模式
+				// 数据库查询
+				// 取出id和jobId，获取对应的job，修改对应的id的信息
+				Connection conn = App.getConnection();
+				PreparedStatement ps = conn.preparedStatement("select * from jobs where id=?");
+				ps.setInt(1, jobId);
+				ResultSet rs = ps.executeQuery();
+				rs.next();
+				String jobState = rs.getString("jobState");
+				rs.close();
+				ps.close();
+				Process p = new Process();
+				int pid = p.create(toolName, "这里是参数", "参数", "参数");
+				jobState = App.updateJobState(id, jobState, "running", 0, pid, new Date().getTime(), 0);
+				ps = conn.preparedStatement("update jobs set jobState='"+jobState+"' where id="+jobId);
+				ps.executeUpdate();
+				ps.close();
+				int ret = p.waitFor();
+				jobState = App.updateJobState(id, jobState, "finish", ret, 0, 0, new Date().getTime());
+				ps = conn.preparedStatement("update jobs set jobState='"+jobState+"' where id="+jobId);
+				ps.executeUpdate();
+				ps.close();
+				} catch(Exception e) {}
+			</script>
+		</scriptTask>
+		<parallelGateway id="_jbpm-unique-11" name="Gateway"
+			gatewayDirection="Diverging">
+		</parallelGateway>
+		<parallelGateway id="_jbpm-unique-12" name="Gateway"
+			gatewayDirection="Converging">
+		</parallelGateway>
+		<scriptTask id="_jbpm-unique-13" name="Script" data-name="流程2"
+			tool-id="136" tool-name="完美2" scriptFormat="http://www.java.com/java">
+			<script>
+				表明可以有多个
+			</script>
+		</scriptTask>
+
+		<!-- connections -->
+		<sequenceFlow id="_jbpm-unique-12-_3" sourceRef="_jbpm-unique-12"
+			targetRef="_3" />
+		<sequenceFlow id="_jbpm-unique-11-_jbpm-unique-8"
+			sourceRef="_jbpm-unique-11" targetRef="_jbpm-unique-8" />
+		<sequenceFlow id="_1-_jbpm-unique-11" sourceRef="_1"
+			targetRef="_jbpm-unique-11" />
+		<sequenceFlow id="_jbpm-unique-18-_jbpm-unique-12"
+			sourceRef="_jbpm-unique-18" targetRef="_jbpm-unique-12" />
+		<sequenceFlow id="_jbpm-unique-19-_jbpm-unique-12"
+			sourceRef="_jbpm-unique-19" targetRef="_jbpm-unique-12" />
+		<sequenceFlow id="_jbpm-unique-11-_jbpm-unique-13"
+			sourceRef="_jbpm-unique-11" targetRef="_jbpm-unique-13" />
+		<sequenceFlow id="_jbpm-unique-11-_jbpm-unique-14"
+			sourceRef="_jbpm-unique-11" targetRef="_jbpm-unique-14" />
+		<sequenceFlow id="_jbpm-unique-8-_jbpm-unique-15"
+			sourceRef="_jbpm-unique-8" targetRef="_jbpm-unique-15" />
+		<sequenceFlow id="_jbpm-unique-16-_jbpm-unique-15"
+			sourceRef="_jbpm-unique-16" targetRef="_jbpm-unique-15" />
+		<sequenceFlow id="_jbpm-unique-13-_jbpm-unique-16"
+			sourceRef="_jbpm-unique-13" targetRef="_jbpm-unique-16" />
+		<sequenceFlow id="_jbpm-unique-14-_jbpm-unique-17"
+			sourceRef="_jbpm-unique-14" targetRef="_jbpm-unique-17" />
+		<sequenceFlow id="_jbpm-unique-16-_jbpm-unique-17"
+			sourceRef="_jbpm-unique-16" targetRef="_jbpm-unique-17" />
+		<sequenceFlow id="_jbpm-unique-15-_jbpm-unique-18"
+			sourceRef="_jbpm-unique-15" targetRef="_jbpm-unique-18" />
+		<sequenceFlow id="_jbpm-unique-17-_jbpm-unique-19"
+			sourceRef="_jbpm-unique-17" targetRef="_jbpm-unique-19" />
+
+	</process>
+
+	<bpmndi:BPMNDiagram>
+		<bpmndi:BPMNPlane bpmnElement="com.sample.bpmn.hello2">
+			<bpmndi:BPMNShape bpmnElement="_1">
+				<dc:Bounds x="0" y="0" width="48" height="48" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_3">
+				<dc:Bounds x="760" y="222" width="48" height="48" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_jbpm-unique-8">
+				<dc:Bounds x="152" y="54" width="80" height="48" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_jbpm-unique-11">
+				<dc:Bounds x="28" y="163" width="48" height="48" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_jbpm-unique-12">
+				<dc:Bounds x="604" y="232" width="48" height="48" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_jbpm-unique-13">
+				<dc:Bounds x="130" y="189" width="80" height="48" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_jbpm-unique-14">
+				<dc:Bounds x="110" y="342" width="80" height="48" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_jbpm-unique-15">
+				<dc:Bounds x="370" y="101" width="48" height="48" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_jbpm-unique-16">
+				<dc:Bounds x="299" y="215" width="48" height="48" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_jbpm-unique-17">
+				<dc:Bounds x="321" y="385" width="48" height="48" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_jbpm-unique-18">
+				<dc:Bounds x="482" y="131" width="80" height="48" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNShape bpmnElement="_jbpm-unique-19">
+				<dc:Bounds x="476" y="353" width="80" height="48" />
+			</bpmndi:BPMNShape>
+			<bpmndi:BPMNEdge bpmnElement="_jbpm-unique-12-_3">
+				<di:waypoint x="628" y="256" />
+				<di:waypoint x="784" y="246" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="_jbpm-unique-11-_jbpm-unique-8">
+				<di:waypoint x="52" y="187" />
+				<di:waypoint x="192" y="78" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="_1-_jbpm-unique-11">
+				<di:waypoint x="24" y="24" />
+				<di:waypoint x="52" y="187" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="_jbpm-unique-18-_jbpm-unique-12">
+				<di:waypoint x="522" y="155" />
+				<di:waypoint x="628" y="256" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="_jbpm-unique-19-_jbpm-unique-12">
+				<di:waypoint x="516" y="377" />
+				<di:waypoint x="628" y="256" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="_jbpm-unique-11-_jbpm-unique-13">
+				<di:waypoint x="52" y="187" />
+				<di:waypoint x="170" y="213" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="_jbpm-unique-11-_jbpm-unique-14">
+				<di:waypoint x="52" y="187" />
+				<di:waypoint x="150" y="366" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="_jbpm-unique-8-_jbpm-unique-15">
+				<di:waypoint x="192" y="78" />
+				<di:waypoint x="394" y="125" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="_jbpm-unique-16-_jbpm-unique-15">
+				<di:waypoint x="323" y="239" />
+				<di:waypoint x="394" y="125" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="_jbpm-unique-13-_jbpm-unique-16">
+				<di:waypoint x="170" y="213" />
+				<di:waypoint x="323" y="239" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="_jbpm-unique-14-_jbpm-unique-17">
+				<di:waypoint x="150" y="366" />
+				<di:waypoint x="345" y="409" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="_jbpm-unique-16-_jbpm-unique-17">
+				<di:waypoint x="323" y="239" />
+				<di:waypoint x="345" y="409" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="_jbpm-unique-15-_jbpm-unique-18">
+				<di:waypoint x="394" y="125" />
+				<di:waypoint x="522" y="155" />
+			</bpmndi:BPMNEdge>
+			<bpmndi:BPMNEdge bpmnElement="_jbpm-unique-17-_jbpm-unique-19">
+				<di:waypoint x="345" y="409" />
+				<di:waypoint x="516" y="377" />
+			</bpmndi:BPMNEdge>
+		</bpmndi:BPMNPlane>
+	</bpmndi:BPMNDiagram>
+
+</definitions>

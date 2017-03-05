@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:g="http://www.jboss.org/drools/flow/gpd" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.jboss.org/drools" id="Definition" targetNamespace="http://www.jboss.org/drools" typeLanguage="http://www.java.com/javaTypes" expressionLanguage="http://www.mvel.org/2.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"><process processType="Private" isExecutable="true" id="com.ssh.xep.bpmn.1" name="1 name"><extensionElements><tns:import name="com.jbpm.jbpm.App"/><tns:import name="com.ssh.xep.util.process.Process"/><tns:import name="java.util.Iterator"/><tns:import name="java.util.Date"/><tns:import name="java.sql.Connection"/><tns:import name="java.sql.PreparedStatement"/><tns:import name="java.sql.ResultSet"/><tns:import name="net.sf.json.JSONArray"/><tns:import name="net.sf.json.JSONObject"/></extensionElements><startEvent id="_1" isInterrupting="true"/><endEvent id="_3"><terminateEventDefinition/></endEvent><scriptTask id="_jbpm-unique-9" name="Script" tool-name="9" tool-id="1"><script>// 共有两个参数，一个是完整的commandStr，一个是当前部分的ID
+
+try {
+String toolName = "工具的绝对路径 "; // 执行用程序java等 工具的绝对路径
+String commandStr = "C:/Users/qilin/AppData/Local/Temp/13-_jbpm-unique-9--输出文件的唯一标识 C:/Users/qilin/AppData/Local/Temp/13-输出文件的唯一标识-输出文件的唯一标识 参数，-S等固定的值 asd 值 asd "; // 路径输入前就决定了
+
+// 但是从数据库中取得的文件的名字则没有确定，以$开头，要进行替换。
+commandStr = App.replaceAll$(commandStr);
+int id = 9;		// 此处ID是节点的ID，_jbpm-unique-8
+int jobId = App.getJobId();
+
+// 命令在第一行，在生成本job的时候就生成了，不存在不确定的参数。
+// 如果是来自数据库的文件，则在下面对其进行查找，并且这些ID都以$开头，如果有，则被替换为文件的绝对路径
+String[] commands = commandStr.split(" ");
+App.replaceAll$(commands);	// 此处是获取数据库里的文件的路径
+
+// 单例模式
+// 数据库查询
+// 取出id和jobId，获取对应的job，修改对应的id的信息
+Connection conn = App.getConnection();
+PreparedStatement ps = conn.preparedStatement("select * from jobs where id=?");
+ps.setInt(1, jobId);
+ResultSet rs = ps.executeQuery();
+rs.next();
+String jobState = rs.getString("jobState");
+rs.close();
+ps.close();
+Process p = new Process();
+int pid = p.create(toolName, "这里是参数", "参数", "参数");
+jobState = App.updateJobState(id, jobState, "running", 0, pid, new Date().getTime(), 0);
+ps = conn.preparedStatement("update jobs set jobState='"+jobState+"' where id="+jobId);
+ps.executeUpdate();
+ps.close();
+int ret = p.waitFor();
+jobState = App.updateJobState(id, jobState, "finish", ret, 0, 0, new Date().getTime());
+ps = conn.preparedStatement("update jobs set jobState='"+jobState+"' where id="+jobId);
+ps.executeUpdate();
+ps.close();
+} catch(Exception e) {}
+</script></scriptTask></process><bpmndi:BPMNDiagram><bpmndi:BPMNPlane bpmnElement="com.ssh.xep.bpmn.1"><bpmndi:BPMNShape bpmnElement="_1"><dc:Bounds x="50" y="50" width="86" height="24"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="_3"><dc:Bounds x="500" y="50" width="86" height="24"/></bpmndi:BPMNShape><bpmndi:BPMNShape bpmnElement="_jbpm-unique-9"><dc:Bounds x="430" y="311" width="86" height="24"/></bpmndi:BPMNShape></bpmndi:BPMNPlane></bpmndi:BPMNDiagram></definitions>

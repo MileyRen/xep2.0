@@ -1,0 +1,16 @@
+{
+    "tool-type": "工具类型",
+    "tool-info": [
+        {
+            "type": "fixed inputFile outputFile integer float boolean text select",
+            "value": "如果是fixed，则有此值",
+            "options": [
+                {
+                    "label": "如果参数是select则此处是一个数组，储存选项",
+                    "value": "真实的值"
+                }
+            ],
+            "size": "如果是integer float boolean text则有此限制"
+        }
+    ]
+}

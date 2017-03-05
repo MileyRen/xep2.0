@@ -1,0 +1,48 @@
+.view-table {
+/* 	width: 800px; */
+}
+
+.view-table .delete {
+/* 	text-align: center; */
+	width: 3%;
+}
+
+.view-table .id {
+/* 	text-align: center; */
+	width: 18.75%;
+}
+
+.view-table .name {
+	width: 20.25%;
+}
+
+.view-table .intro {
+	width: 48%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.view-table .modify {
+/* 	text-align: center; */
+	width: 10%;
+}
+
+#page {
+	margin-top: 30px;
+}
+
+#page > div {
+	float: right;
+}
+
+#add {
+	width: 82px;
+	float: right;
+	margin-left: 20px;
+}
+
+#delete {
+	width: 82px;
+	float: right;
+	margin-left: 20px;
+}

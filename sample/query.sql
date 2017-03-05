@@ -1,0 +1,1 @@
+insert into jobInfo (userId, flowBasicInfoId, bpmn, processInfo) values(1, 2, 'good', 'name');
