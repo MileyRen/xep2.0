@@ -11,6 +11,8 @@ public class JobCss {
 	private String bgTime;
 	private String edTime;
 	private String state;
+	private String name;
+	private String addOn;
 
 	// 样式
 	private String css;
@@ -93,6 +95,22 @@ public class JobCss {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getAddOn() {
+		return addOn;
+	}
+
+	public void setAddOn(String addOn) {
+		this.addOn = addOn;
 	}
 
 	public String getCss() {

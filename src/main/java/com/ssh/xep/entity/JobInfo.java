@@ -24,6 +24,8 @@ public class JobInfo implements Serializable {
 	private long edTime;
 	private int pId;
 	private String state;
+	private String addOn;
+	private String name;
 
 	@Id
 	@Column(name = "id", unique = true, nullable = false)
@@ -104,7 +106,25 @@ public class JobInfo implements Serializable {
 		return state;
 	}
 
+	@Column(name = "addOn")
+	public String getAddOn() {
+		return addOn;
+	}
+
+	public void setAddOn(String addOn) {
+		this.addOn = addOn;
+	}
+
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	@Column(name = "name")
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

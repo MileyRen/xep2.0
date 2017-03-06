@@ -29,7 +29,7 @@
 				<nav class="navbar navbar-default" role="navigation">
 				<div class="container-fluid">
 					<div class="navbar-header">
-						<a class="navbar-brand" href="#">JOB:${jobStep.id}</a>
+						<a class="navbar-brand" href="#">name:${jobStep.name}</a>
 					</div>
 					<div>
 						<ul class="nav navbar-nav">
@@ -61,7 +61,7 @@
 							<s:iterator value="#session.processInfo" status="JobStep">
 								<tr class="${css}">
 									<%-- <td>${id}</td> --%>
-									<td>${name}</td>
+									<td>${id}</td>
 									<td>${bgTime}</td>
 									<td>${edTime}</td>
 									<td><span class="label label-${label}">${state}</span></td>
@@ -69,7 +69,7 @@
 							</s:iterator>
 						</table>
 
-						<div class="row">
+						<%-- <div class="row">
 							<div class="col-md-1" style="width:60px;height:60px" >
 								<canvas id="start" width="60" height="60"> </canvas>
 							</div>
@@ -89,7 +89,7 @@
 									</table>
 								</div>
 							</s:iterator>
-						</div>
+						</div> --%>
 					</div>
 				</div>
 			</div>

@@ -99,6 +99,8 @@ public class JobsServiceImpl implements JobsService {
 				jCss.setProcessInfo(jobInfo.getProcessInfo());
 				jCss.setUserId(jobInfo.getUserId());
 				jCss.setState(jobInfo.getState());
+				jCss.setName(jobInfo.getName());
+				jCss.setAddOn(jobInfo.getAddOn());
 				String value = jobInfo.getState();
 				if (value == null || value.equals("")) {
 					jCss.setCss("");

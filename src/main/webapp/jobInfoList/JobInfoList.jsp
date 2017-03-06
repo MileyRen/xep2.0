@@ -4,6 +4,7 @@
 <%@page import="com.ssh.xep.entity.JobInfo"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="com.xeq.file.domain.JobCss"%>
+<%@page import="com.gene.utils.User" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <%
@@ -37,19 +38,24 @@
 		<div id="show">
 			<table class="table table-hover" id="jobList">
 				<tr>
-					<th>Id</th>
+					<!-- <th>Id</th> -->
+					<TH>Name</TH>
 					<th>Begin Time</th>
 					<th>End Time</th>
-					<!-- <th>userId</th> -->
+					<% User user =(User)session.getAttribute("user");
+					if(user.getRoleId()==1){%>
+					<th>userId</th><%} %>
 					<th>state</th>
 					<th></th>
 				</tr>
 				<s:iterator value="#session.jcList" status="JobCss">
 					<tr>
-						<td>${id}</td>
+						<%-- <td>${id}</td> --%>
+						<td>${name}</td>
 						<td>${bgTime}</td>
 						<td>${edTime}</td>
-						<%-- <td>${userId}</td> --%>
+						<% if(user.getRoleId()==1){%>
+					    <th>userId</th><%} %>
 						<td><span class="label label-${label}">${state}</span></td>
 						<td><a type="button" class="btn btn-xs btn-info"
 								onclick="javascript:window.location.href='jobInfo.action?id=${id}'">
