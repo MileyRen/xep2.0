@@ -22,4 +22,6 @@ public interface JobsDao {
 	 * @return list列表
 	 */
 	List<JobInfo> jobpage(PageSource page, String hql);
+
+	String getUserName(Integer userId);
 }

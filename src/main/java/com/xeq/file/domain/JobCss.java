@@ -13,6 +13,7 @@ public class JobCss {
 	private String state;
 	private String name;
 	private String addOn;
+	private String userName;
 
 	// 样式
 	private String css;
@@ -111,6 +112,14 @@ public class JobCss {
 
 	public void setAddOn(String addOn) {
 		this.addOn = addOn;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getCss() {

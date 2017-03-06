@@ -33,11 +33,11 @@
 					</div>
 					<div>
 						<ul class="nav navbar-nav">
-							<li>
+							<%-- <li>
 								<a>user:${jobStep.userId}</a>
-							</li>
+							</li> --%>
 							<li>
-								<a>state:${jobStep.state}</a>
+								<a>status:${jobStep.state}</a>
 							</li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
@@ -56,12 +56,12 @@
 								<th>Name</th>
 								<th>Begin Time</th>
 								<th>End Time</th>
-								<th>State</th>
+								<th>Status</th>
 							</tr>
 							<s:iterator value="#session.processInfo" status="JobStep">
 								<tr class="${css}">
 									<%-- <td>${id}</td> --%>
-									<td>${id}</td>
+									<td>${name}</td>
 									<td>${bgTime}</td>
 									<td>${edTime}</td>
 									<td><span class="label label-${label}">${state}</span></td>

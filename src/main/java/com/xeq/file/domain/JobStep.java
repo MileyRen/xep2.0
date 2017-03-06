@@ -10,6 +10,7 @@ public class JobStep {
 	private String bgTime;
 	private String edTime;
 	private String state;
+	private String userName;
 
 	// 样式
 	private String css;
@@ -95,6 +96,14 @@ public class JobStep {
 
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public JobStep() {

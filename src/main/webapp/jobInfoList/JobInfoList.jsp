@@ -42,11 +42,11 @@
 					<TH>Name</TH>
 					<th>Begin Time</th>
 					<th>End Time</th>
-					<% User user =(User)session.getAttribute("user");
-					if(user.getRoleId()==1){%>
-					<th>userId</th><%} %>
-					<th>state</th>
-					<th></th>
+					<%-- <% User user =(User)session.getAttribute("user");
+					if(user.getRoleId()==1){%> --%>
+					<th>UserName</th><%-- <%} %> --%>
+					<th>Status</th>
+					<th>Action</th>
 				</tr>
 				<s:iterator value="#session.jcList" status="JobCss">
 					<tr>
@@ -54,10 +54,10 @@
 						<td>${name}</td>
 						<td>${bgTime}</td>
 						<td>${edTime}</td>
-						<% if(user.getRoleId()==1){%>
-					    <th>userId</th><%} %>
+						<%-- <% if(user.getRoleId()==1){%> --%>
+					    <td>${userName}</td><%-- <%} %> --%>
 						<td><span class="label label-${label}">${state}</span></td>
-						<td><a type="button" class="btn btn-xs btn-info"
+						<td><a type="button" class="btn btn-primary btn-xs"
 								onclick="javascript:window.location.href='jobInfo.action?id=${id}'">
 								<span class="glyphicon glyphicon-search"></span>
 								Info

@@ -24,7 +24,7 @@ public interface JobsService {
 
 	/** 将String转换为Time */
 	long getTime(String date);
-	
+
 	/**
 	 * 作业的分页查询
 	 * 
@@ -33,4 +33,6 @@ public interface JobsService {
 	 * @return list列表
 	 */
 	List<JobInfo> pageReview(PageSource page, String hql);
+
+	String getUserName(Integer userId);
 }

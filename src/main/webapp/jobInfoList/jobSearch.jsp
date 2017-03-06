@@ -15,7 +15,7 @@
 <body>
 	<form action="jobsList.action" id="search" class="form-horizontal" role="form" method="post">
 		<div class="form-group">
-			State:
+			Status:
 			<select required name="jobstate" id="state" >
 				<option value="ALL" selected>--ALL--</option>
 				<option value=" and state = 'stop' ">STOP</option>
@@ -57,7 +57,7 @@
 				<option value=" desc " >desc</option>
 				<option value=" asc ">asc</option>
 			</select>
-			<a class="btn btn-info btn-xs" onclick="javascript:$('form#search').submit()"> <span class="glyphicon glyphicon-search"></span> SEARCH
+			<a class="btn btn-primary btn-xs" onclick="javascript:$('form#search').submit()"> <span class="glyphicon glyphicon-search"></span> SEARCH
 			</a>
 			
 			

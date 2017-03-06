@@ -58,7 +58,7 @@ public class JobListAction extends ActionSupport
 			if (user == null) {
 				return INPUT;
 			}
-			if(user.getRoleId()==null){
+			if (user.getRoleId() == null) {
 				user.setRoleId(0);
 			}
 			int userId = user.getId();
@@ -69,7 +69,7 @@ public class JobListAction extends ActionSupport
 				hql += " where userId=" + userId;
 			}
 			// String createTime = request.getParameter("createTime");
-			
+
 			long fTime = jobsService.getTime(request.getParameter("fTime"));
 			long tTime = jobsService.getTime(request.getParameter("tTime"));
 			// String sort = request.getParameter("sort");
@@ -134,6 +134,9 @@ public class JobListAction extends ActionSupport
 			}
 
 			List<JobCss> jcList = jobsService.getJobCss(jobPageList);
+			for (JobCss jobCss : jcList) {
+				jobCss.setUserName(jobsService.getUserName(jobCss.getUserId()));
+			}
 
 			// for (JobInfo jobInfo : jList) {
 			// try {

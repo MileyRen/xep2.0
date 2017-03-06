@@ -105,8 +105,8 @@ body {
 
 						<li>
 							<a href="#" onclick="javascript:window.location.href='backStack.action'" class="btn">
-								<span class="glyphicon glyphicon-circle-arrow-left"></span>
-								Previous
+								<span class="glyphicon glyphicon-arrow-up"></span>
+								Up
 							</a>
 						</li>
 
@@ -124,7 +124,7 @@ body {
 						<th>Type</th>
 						<th>Size</th>
 						<!-- <th>Folder Path</th> -->
-						<th></th>
+						<th>Action</th>
 					</tr>
 					<s:iterator value="#session.fileList" status="FileAndFolder">
 						<s:if test="type=='folder'">
@@ -138,9 +138,9 @@ body {
 								<%-- <td onclick="return into(${id})">${folderPath}</td> --%>
 								<td>
 									<div class="btn-group">
-										<a class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown">
+										<a class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown">
 											<span class="glyphicon  glyphicon-pencil"></span>
-											edit
+											Action
 											<span class="caret"></span>
 										</a>
 										<ul class="dropdown-menu" role="menu" style="min-width: 100%;">
@@ -186,9 +186,9 @@ body {
 								<td>
 									<!-- 按钮组开始 -->
 									<div class="btn-group">
-										<a class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown">
+										<a class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown">
 											<span class="glyphicon glyphicon-pencil"></span>
-											edit
+											Action
 											<span class="caret"></span>
 										</a>
 										<ul class="dropdown-menu" role="menu" style="min-width: 100%;">

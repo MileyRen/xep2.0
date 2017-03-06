@@ -143,4 +143,9 @@ public class JobsServiceImpl implements JobsService {
 		return jobsDao.jobpage(page, hql);
 	}
 
+	@Override
+	public String getUserName(Integer userId) {
+		return jobsDao.getUserName(userId);
+	}
+
 }
