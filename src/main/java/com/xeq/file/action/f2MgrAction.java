@@ -334,7 +334,7 @@ public class f2MgrAction extends ActionSupport implements SessionAware, ModelDri
 						System.out.println("后缀：" + tp + ";名称：" + fileName + ";大小：" + uploadFiles.get(i).length());
 						uploadFilesContentType.add(tp);// 类型
 						targetFileNames[i] = fileN;// 名称,全名
-						String fsize = FormetFileSize(uploadFiles.get(i).length());
+						String fsize = folderOperate.FormetFileSize(uploadFiles.get(i).length());
 						fileSize.add(fsize);//
 						// 大小
 						System.out.println("文件名称：" + targetFileNames[i]);
@@ -413,21 +413,6 @@ public class f2MgrAction extends ActionSupport implements SessionAware, ModelDri
 			e.printStackTrace();
 		}
 		return downFileName;
-	}
-
-	private String FormetFileSize(long fileS) {// 转换文件大小
-		DecimalFormat df = new DecimalFormat("#.00");
-		String fileSizeString = "";
-		if (fileS < 1024) {
-			fileSizeString = df.format((double) fileS) + "b";
-		} else if (fileS < 1048576) {
-			fileSizeString = df.format((double) fileS / 1024) + "k";
-		} else if (fileS < 1073741824) {
-			fileSizeString = df.format((double) fileS / 1048576) + "m";
-		} else {
-			fileSizeString = df.format((double) fileS / 1073741824) + "g";
-		}
-		return fileSizeString;
 	}
 
 	public FolderService getFolderService() {

@@ -216,6 +216,7 @@ public class FolderServiceImpl extends BaseDao implements FolderService {
 
 	@Override
 	public boolean syncFiles(String mappingRootPath, String rootPath, File mappingFile, User user) {
+		String fileSize = folderOperate.FormetFileSize(mappingFile.length());
 		boolean syncRet = false;
 		String mappingPathStr = mappingFile.getPath();
 		String path = mappingPathStr.substring(PathFormat.strEnd(mappingRootPath).length());
@@ -250,7 +251,7 @@ public class FolderServiceImpl extends BaseDao implements FolderService {
 				folderOperate.removeFileOrFolder(mappingPathStr, temp);
 				f2File.setName(fileName);
 				f2File.setParentFolderId(j);
-				f2File.setSize(folderOperate.FormetFileSize(mappingFile.length()));
+				f2File.setSize(fileSize);
 				f2File.setTime(new Date());
 				f2File.setType(tp);
 				f2File.setUserId(user.getId());
