@@ -1,9 +1,11 @@
 package com.xeq.file.service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Stack;
 
-import com.ssh.xep.entity.JobInfo;
+import com.gene.utils.User;
 import com.xeq.file.domain.FileAndFolder;
 import com.xeq.file.domain.PageSource;
 
@@ -26,8 +28,6 @@ public interface FolderService {
 	 * @return list列表
 	 */
 	List<FileAndFolder> pageReviwe(PageSource page, String hql);
-
-	
 
 	int createFolder(FileAndFolder fgr);
 
@@ -76,4 +76,24 @@ public interface FolderService {
 	/** 返回所有文件夹的JsonArray */
 	public JSONArray getJsonArray(Integer userId);
 
+	/**
+	 * 扫描映射地址下文件
+	 * 
+	 * @param mappingRootPath
+	 *            映射路径
+	 * @throws FileNotFoundException
+	 */
+	public List<File> scanMappingPath(String mappingRootPath);
+
+	/**
+	 * 进行文件同步
+	 * 
+	 * @param mappingRootPath
+	 *            用户映射路径根目录
+	 * @param rootPath
+	 *            用户根目录
+	 * @param mappingFile
+	 *            被同步文件
+	 */
+	public boolean syncFiles(String mappingRootPath, String rootPah, File mappingFile, User user);
 }

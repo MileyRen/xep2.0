@@ -1,6 +1,8 @@
 package com.xeq.file.dao.impl;
 
 import java.io.File;
+import java.text.DecimalFormat;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 import com.xeq.file.dao.FolderOperate;
@@ -51,9 +53,10 @@ public class FolderOperateImpl extends BaseDao implements FolderOperate {
 	@Override
 	public boolean deleteDirectory(String dir) {
 		// 如果dir不以文件分隔符结尾，自动添加文件分隔符
-		/*if (!dir.endsWith(File.separator))
-			dir = dir + File.separator;*/
-		dir=PathFormat.strEnd(dir);
+		/*
+		 * if (!dir.endsWith(File.separator)) dir = dir + File.separator;
+		 */
+		dir = PathFormat.strEnd(dir);
 		File dirFile = new File(dir);
 		// 如果dir对应的文件不存在，或者不是一个目录，则退出
 		if ((!dirFile.exists()) || (!dirFile.isDirectory())) {
@@ -101,5 +104,21 @@ public class FolderOperateImpl extends BaseDao implements FolderOperate {
 		File fnew = new File(toPath + fold.getName());
 		fold.renameTo(fnew);
 		return true;
+	}
+
+	@Override
+	public String FormetFileSize(long fileS) {// 转换文件大小
+		DecimalFormat df = new DecimalFormat("#.00");
+		String fileSizeString = "";
+		if (fileS < 1024) {
+			fileSizeString = df.format((double) fileS) + "b";
+		} else if (fileS < 1048576) {
+			fileSizeString = df.format((double) fileS / 1024) + "k";
+		} else if (fileS < 1073741824) {
+			fileSizeString = df.format((double) fileS / 1048576) + "m";
+		} else {
+			fileSizeString = df.format((double) fileS / 1073741824) + "g";
+		}
+		return fileSizeString;
 	}
 }

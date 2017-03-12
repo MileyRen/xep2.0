@@ -1,14 +1,19 @@
 package com.xeq.file.service.impl;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Stack;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gene.utils.User;
 import com.xeq.file.dao.FolderDao;
+import com.xeq.file.dao.FolderOperate;
 import com.xeq.file.dao.impl.BaseDao;
 import com.xeq.file.dao.impl.PathFormat;
 import com.xeq.file.domain.FileAndFolder;
@@ -23,6 +28,8 @@ public class FolderServiceImpl extends BaseDao implements FolderService {
 
 	@Autowired
 	private FolderDao folderDao;
+	@Autowired
+	private FolderOperate folderOperate;
 
 	public void setFolderDao(FolderDao folderDao) {
 		this.folderDao = folderDao;
@@ -195,5 +202,95 @@ public class FolderServiceImpl extends BaseDao implements FolderService {
 			jt.put("children", array);
 		}
 		return jt;
+	}
+
+	@Override
+	public List<File> scanMappingPath(String mappingRootPath) {
+		List<File> fileLists = new ArrayList<File>();
+		List<File> files = (List<File>) FileUtils.listFiles(new File(mappingRootPath), null, true);
+		for (File file : files) {
+			fileLists.add(file);
+		}
+		return fileLists;
+	}
+
+	@Override
+	public boolean syncFiles(String mappingRootPath, String rootPath, File mappingFile, User user) {
+		boolean syncRet = false;
+		String mappingPathStr = mappingFile.getPath();
+		String path = mappingPathStr.substring(PathFormat.strEnd(mappingRootPath).length());
+		System.out.println(path);
+		String split = "";
+		if (File.separator.equals("\\")) {
+			split = "\\\\";
+		} else
+			split = "\\";
+		String[] pathList = path.split(split);
+
+		/** j为parentId;temp为实际路径 ,temp_map为映射路径 */
+		String temp = PathFormat.strEnd(rootPath);
+
+		for (int i = 0, j = -1; i < pathList.length; i++) {
+			FileAndFolder f2File = new FileAndFolder();
+			FileAndFolder deleteFlag = this.getById(j);
+			String pathindex = temp + PathFormat.strEnd(pathList[i]);
+			if (i == pathList.length - 1) {
+				String fileN = mappingFile.getName();
+				String tp = fileN.substring(fileN.indexOf("."));
+				String fileName = fileN.substring(0, fileN.indexOf("."));
+				Integer size = this.getAll("from  FileAndFolder where userId=" + user.getId() + " and parentFolderId="
+						+ j + " and name='" + fileName + "' and type='" + tp + "'").size();
+				if (size > 0) {
+					fileName = fileName + new Date().getTime();
+					mappingFile.renameTo(
+							new File(PathFormat.strEnd(mappingFile.getParentFile().getPath()) + fileName + tp));
+					mappingPathStr = PathFormat.strEnd(mappingFile.getParentFile().getPath()) + fileName + tp;
+				}
+				// 若该级别为文件，则进行移动，并将结果插入到数据库
+				folderOperate.removeFileOrFolder(mappingPathStr, temp);
+				f2File.setName(fileName);
+				f2File.setParentFolderId(j);
+				f2File.setSize(folderOperate.FormetFileSize(mappingFile.length()));
+				f2File.setTime(new Date());
+				f2File.setType(tp);
+				f2File.setUserId(user.getId());
+				f2File.setDeleteFlag(deleteFlag);
+				this.saveFileAndFolder(f2File);
+				syncRet = true;
+				continue;
+			} else if ((!new File(pathindex).exists()) && (i != pathList.length - 1)) {
+				// pathindex为一个文件夹路径，且真实路径下不存在，则创建一个文件夹，并将结果插入到数据库中,并将temp加一级
+				try {
+					FileUtils.forceMkdir(new File(pathindex));
+					f2File.setName(pathList[i]);
+					f2File.setParentFolderId(j);
+					f2File.setSize("");
+					f2File.setTime(new Date());
+					f2File.setType("folder");
+					f2File.setUserId(user.getId());
+					f2File.setDeleteFlag(deleteFlag);
+					this.saveFileAndFolder(f2File);
+				} catch (IOException e) {
+					System.out.println("创建文件夹失败");
+				}
+			}
+			temp = pathindex;
+			// 将j进入一级
+			j = folderDao.getAll("from  FileAndFolder where userId=" + user.getId() + " and parentFolderId=" + j
+					+ " and name='" + pathList[i] + "'").get(0).getId();
+		}
+		return syncRet;
+	}
+
+	public FolderOperate getFolderOperate() {
+		return folderOperate;
+	}
+
+	public void setFolderOperate(FolderOperate folderOperate) {
+		this.folderOperate = folderOperate;
+	}
+
+	public FolderDao getFolderDao() {
+		return folderDao;
 	}
 }

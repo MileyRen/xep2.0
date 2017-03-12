@@ -102,13 +102,20 @@ body {
 								Move
 							</a>
 						</li>
-
+						<li>
+						    <a href="#"  onclick="javascript:window.location.href='syncFile.action'" class="btn">
+								<span class="glyphicon glyphicon-refresh"></span>
+								Sync
+							</a>
+						
+						</li>
 						<li>
 							<a href="#" onclick="javascript:window.location.href='backStack.action'" class="btn">
 								<span class="glyphicon glyphicon-arrow-up"></span>
 								Up
 							</a>
 						</li>
+					
 
 					</ul>
 				</div>
@@ -174,7 +181,7 @@ body {
 						</s:if>
 					</s:iterator>
 					<s:iterator value="#session.fileList" status="FileAndFolder">
-						<s:if test="type!='folder'">
+						<s:if test="type!='folder' && type!='mapping'">
 							<tr>
 								<td><input class="delbulk" type="checkbox" value="[arr]${id}[arr]${type}[arr]${name}"></td>
 								<td><span class="icon tree-file"></span> ${id}</td>

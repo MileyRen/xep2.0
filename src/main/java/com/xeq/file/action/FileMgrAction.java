@@ -24,6 +24,7 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 import com.xeq.file.dao.FolderOperate;
 import com.xeq.file.dao.impl.BaseDao;
+import com.xeq.file.dao.impl.PathFormat;
 import com.xeq.file.domain.FileAndFolder;
 import com.xeq.file.domain.PageSource;
 import com.xeq.file.service.FolderService;
@@ -59,20 +60,15 @@ public class FileMgrAction extends ActionSupport implements SessionAware, ModelD
 	private Integer toId;
 
 	private Integer toIdBulk;
-	
-	//moveBulk
+
+	// moveBulk
 	private Integer movesize;
 
-	@Action(value = "BulkMove",
-			results = { 
-					@Result(name = "pagerlist", location = "/fileManager/f2Mgr.jsp"),
+	@Action(value = "BulkMove", results = { @Result(name = "pagerlist", location = "/fileManager/f2Mgr.jsp"),
 			@Result(name = "error", location = "/fileManager/f2Mgr.jsp"),
 			@Result(name = "input", location = "/fileManager/f2Mgr.jsp"),
-			@Result(name = "invalid.token",location = "/fileManager/f2Mgr.jsp") }
-	,interceptorRefs = { 
-			@InterceptorRef(value = "defaultStack"),
-			@InterceptorRef(value = "token")
-			})
+			@Result(name = "invalid.token", location = "/fileManager/f2Mgr.jsp") }, interceptorRefs = {
+					@InterceptorRef(value = "defaultStack"), @InterceptorRef(value = "token") })
 	public String BulkMove() throws Exception {
 		logger.info("----------批量移动文件-----------");
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -82,7 +78,7 @@ public class FileMgrAction extends ActionSupport implements SessionAware, ModelD
 		if (user == null) {
 			return "error";
 		}
-		//int movesize = Integer.parseInt(request.getParameter("movesize"));
+		// int movesize = Integer.parseInt(request.getParameter("movesize"));
 		int toIdBulk = 0;
 		if (request.getParameter("toIdBulk") == null) {
 			toIdBulk = parentFolderId;
@@ -93,8 +89,9 @@ public class FileMgrAction extends ActionSupport implements SessionAware, ModelD
 		int failedMove = 0;
 		for (int i = 0; i < movesize; i++) {
 			int fromId = Integer.parseInt(request.getParameter("fromId[" + i + "]"));
-		   // int fromId = Integer.parseInt(request.getParameter("fromId" + i + ""));
-		    logger.info("fromId_"+i+":"+fromId);
+			// int fromId = Integer.parseInt(request.getParameter("fromId" + i +
+			// ""));
+			logger.info("fromId_" + i + ":" + fromId);
 			boolean move = moveFolderOrFile(parentPath, user, fromId, toIdBulk);
 			if (move) {
 				moveSize++;
@@ -104,7 +101,7 @@ public class FileMgrAction extends ActionSupport implements SessionAware, ModelD
 				logger.info("文件移动失败，跳过.....");
 			}
 		}
-		session.put("moveBulkMgs", "Move Success:"+moveSize+"; Move Filed:"+failedMove);
+		session.put("moveBulkMgs", "Move Success:" + moveSize + "; Move Filed:" + failedMove);
 		logger.info("移动文件成功 " + moveSize + " 个");
 		return getPage();
 	}
@@ -195,18 +192,11 @@ public class FileMgrAction extends ActionSupport implements SessionAware, ModelD
 		}
 	}
 
-
-
-	@Action(value = "moveAction", 
-			results = { 
-					@Result(name = "pagerlist", location = "/fileManager/f2Mgr.jsp"),
+	@Action(value = "moveAction", results = { @Result(name = "pagerlist", location = "/fileManager/f2Mgr.jsp"),
 			@Result(name = "error", location = "/fileManager/f2Mgr.jsp"),
 			@Result(name = "input", location = "/fileManager/f2Mgr.jsp"),
-			@Result(name = "invalid.token",location = "/fileManager/f2Mgr.jsp") },
-	interceptorRefs = { 
-			@InterceptorRef(value = "defaultStack"),
-			@InterceptorRef(value = "token")
-			})
+			@Result(name = "invalid.token", location = "/fileManager/f2Mgr.jsp") }, interceptorRefs = {
+					@InterceptorRef(value = "defaultStack"), @InterceptorRef(value = "token") })
 	public String moveFileOrFolder() throws Exception {
 		logger.info("----------移动文件-----------");
 		// 获取当前路径
@@ -230,8 +220,7 @@ public class FileMgrAction extends ActionSupport implements SessionAware, ModelD
 		}
 	}
 
-	@Action(value = "pageList", results = { 
-			@Result(name = "pagerlist", location = "/fileManager/f2Mgr.jsp"),
+	@Action(value = "pageList", results = { @Result(name = "pagerlist", location = "/fileManager/f2Mgr.jsp"),
 			@Result(name = "error", location = "/fileManager/f2Mgr.jsp") })
 	public String getPage() throws Exception {
 		try {
@@ -317,7 +306,7 @@ public class FileMgrAction extends ActionSupport implements SessionAware, ModelD
 
 			session.put("folderlist", all_folder);
 			session.put("fileList", list);// 所有文件和文件夹列表
-			
+
 			session.put("pagesource", pagesource);
 			session.put("parentPath", folderPath);
 			session.put("parentId", parentFolderId);
@@ -357,6 +346,23 @@ public class FileMgrAction extends ActionSupport implements SessionAware, ModelD
 
 		logger.info("上一页的parentFolderId=" + pid);
 		// 调用getPage
+		return getPage();
+	}
+
+	@Action(value = "syncFile", results = { @Result(name = "pagerlist", location = "/fileManager/f2Mgr.jsp") })
+	public String syncFile() throws Exception {
+		logger.info("------同步文件操作开始----------");
+		User user = (User) session.get("user");
+		if (user == null)
+			return ERROR;
+		Integer userId = user.getId();
+		String ROOT_FOLDER = PathFormat.strEnd(user.getFolder());
+		String MAPPING_FOLDER = ROOT_FOLDER + folderService
+				.getAll("From FileAndFolder where userId=" + userId + " and type='mapping'").get(0).getName();
+		List<File> files = folderService.scanMappingPath(MAPPING_FOLDER);
+		for (File file : files) {
+			folderService.syncFiles(MAPPING_FOLDER, ROOT_FOLDER, file, user);
+		}
 		return getPage();
 	}
 
@@ -455,7 +461,6 @@ public class FileMgrAction extends ActionSupport implements SessionAware, ModelD
 	public void setToIdBulk(Integer toIdBulk) {
 		this.toIdBulk = toIdBulk;
 	}
-	
 
 	public Integer getMovesize() {
 		return movesize;

@@ -3,7 +3,6 @@ package com.xeq.file.dao;
 import java.util.List;
 import java.util.Stack;
 
-import com.ssh.xep.entity.JobInfo;
 import com.xeq.file.domain.FileAndFolder;
 import com.xeq.file.domain.PageSource;
 
@@ -42,7 +41,8 @@ public interface FolderDao {
 	 * @param parentFolderid父文件夹Id
 	 * @return 返回一个FileAndFolder类型的列表
 	 */
-	//List<FileAndFolder> getByFolderOrFiles(Integer userId, Integer parentFolderId);
+	// List<FileAndFolder> getByFolderOrFiles(Integer userId, Integer
+	// parentFolderId);
 
 	/**
 	 * 查找parentFolderId当前级别下的文件及文件夹

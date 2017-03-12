@@ -28,7 +28,6 @@ import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ssh.xep.util.*;
 import com.gene.utils.User;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -92,9 +91,8 @@ public class f2MgrAction extends ActionSupport implements SessionAware, ModelDri
 	}
 
 	@Action(value = "delbulk", results = {
-			@Result(name = "success", type = "redirect", 
-					location = "pageList.action", 
-					params = { "parentFolderId", "%{parentFolderId}" }) })
+			@Result(name = "success", type = "redirect", location = "pageList.action", params = { "parentFolderId",
+					"%{parentFolderId}" }) })
 	public String deleteBulk() {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		User user = (User) session.get("user");
@@ -138,7 +136,7 @@ public class f2MgrAction extends ActionSupport implements SessionAware, ModelDri
 			}
 			session.put("delNum", delNum);
 			logger.info("删除成功" + delNum + "个..");
-			session.put("deleteBulkMgs", "Delete Success: "+delNum+";Delete Failed:"+failedNum);
+			session.put("deleteBulkMgs", "Delete Success: " + delNum + ";Delete Failed:" + failedNum);
 		}
 		return "success";
 	}
@@ -184,18 +182,14 @@ public class f2MgrAction extends ActionSupport implements SessionAware, ModelDri
 
 	/***/
 	// 直接在类名称的上端写入即可，value中指定要引入的拦截器的名称即可
-	@Action(value = "addFolder", 
-			results = {
-			@Result(name = "createFolder", type = "redirect", 
-					location = "pageList.action", params = { "parentFolderId", "%{parentFolderId}" }),
-			@Result(name = "error", type = "redirect", 
-			       location = "pageList.action",  params = { "parentFolderId","%{parentFolderId}" }) , 
-			@Result(name = "invalid.token", type = "redirect", 
-		       location = "pageList.action", params = { "parentFolderId","%{parentFolderId}" }) }, 
-			interceptorRefs = { 
-					@InterceptorRef(value = "defaultStack"),
-					@InterceptorRef(value = "token")
-					})
+	@Action(value = "addFolder", results = {
+			@Result(name = "createFolder", type = "redirect", location = "pageList.action", params = { "parentFolderId",
+					"%{parentFolderId}" }),
+			@Result(name = "error", type = "redirect", location = "pageList.action", params = { "parentFolderId",
+					"%{parentFolderId}" }),
+			@Result(name = "invalid.token", type = "redirect", location = "pageList.action", params = {
+					"parentFolderId", "%{parentFolderId}" }) }, interceptorRefs = {
+							@InterceptorRef(value = "defaultStack"), @InterceptorRef(value = "token") })
 	public String createFolder() {
 		// 创建文件夹,要判断同级文件夹是否重名，若重名则重新插入
 		boolean ret = true;
@@ -207,17 +201,21 @@ public class f2MgrAction extends ActionSupport implements SessionAware, ModelDri
 			} else {
 				int userId = user.getId();
 				if (name == null || name.equals("")) {
-					//addFieldError("name", "The name " + name + " is not null.");
+					// addFieldError("name", "The name " + name + " is not
+					// null.");
 					ret = false;
 				} else {
 					String str = StringFilter(name);
 					if (str.length() > 0) {
-						//addFieldError("name", "FolderName cant't contions '/','\',';','*','\"','<','>'");
+						// addFieldError("name", "FolderName cant't contions
+						// '/','\',';','*','\"','<','>'");
 						ret = false;
 					} else {
 						// 判断name是否已被占用
 						List<FileAndFolder> fileAndFolders = folderService.getAll("From FileAndFolder where userId="
 								+ userId + " and parentFolderId= " + parentFolderId + " and type='folder'");
+						fileAndFolders.add((FileAndFolder) folderService.getAll("From FileAndFolder where userId="
+								+ userId + " and parentFolderId= " + parentFolderId + " and type='mapping'"));
 						for (FileAndFolder fileAndFolder : fileAndFolders) {
 							if (name == fileAndFolder.getName() || name.equals(fileAndFolder.getName())) {
 								addFieldError("name", "The " + name + " is already exist!");
@@ -283,11 +281,10 @@ public class f2MgrAction extends ActionSupport implements SessionAware, ModelDri
 			@Result(name = "success", type = "redirect", location = "pageList.action", params = { "parentFolderId",
 					"%{parentFolderId}", "pagesource.currentPage", "%{pagesource.currentPage}" }),
 			@Result(name = "error", type = "redirect", location = "pageList.action", params = { "parentFolderId",
-					"%{parentFolderId}", "pagesource.currentPage", "%{pagesource.currentPage}" }),  
-			@Result(name = "invalid.token", type = "redirect", location = "pageList.action", 
-			       params = { "parentFolderId","%{parentFolderId}", "pagesource.currentPage", "%{pagesource.currentPage}" })},
-			interceptorRefs = {
-							@InterceptorRef(value = "defaultStack"),
+					"%{parentFolderId}", "pagesource.currentPage", "%{pagesource.currentPage}" }),
+			@Result(name = "invalid.token", type = "redirect", location = "pageList.action", params = {
+					"parentFolderId", "%{parentFolderId}", "pagesource.currentPage",
+					"%{pagesource.currentPage}" }) }, interceptorRefs = { @InterceptorRef(value = "defaultStack"),
 							@InterceptorRef(value = "token"),
 							@InterceptorRef(value = "fileUpload", params = { "maximumSize", "52428800" }) })
 	public String uploadFiles() {
@@ -390,7 +387,6 @@ public class f2MgrAction extends ActionSupport implements SessionAware, ModelDri
 		InputStream inputStream = new FileInputStream(file);
 		logger.info("下载路径：" + realpath);
 		System.out.println("input==" + inputStream);
-
 		if (inputStream == null) {
 			session.put("downFlage", "Down Failed!");
 			logger.info("请检查文件名");
