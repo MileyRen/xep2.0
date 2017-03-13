@@ -359,9 +359,11 @@ public class FileMgrAction extends ActionSupport implements SessionAware, ModelD
 		String ROOT_FOLDER = PathFormat.strEnd(user.getFolder());
 		String MAPPING_FOLDER = ROOT_FOLDER + folderService
 				.getAll("From FileAndFolder where userId=" + userId + " and type='mapping'").get(0).getName();
+		String MAPPING_FOLDER_COPY = ROOT_FOLDER + folderService
+				.getAll("From FileAndFolder where userId=" + userId + " and type='mapping_copy'").get(0).getName();
 		List<File> files = folderService.scanMappingPath(MAPPING_FOLDER);
 		for (File file : files) {
-			folderService.syncFiles(MAPPING_FOLDER, ROOT_FOLDER, file, user);
+			folderService.syncFiles(MAPPING_FOLDER, MAPPING_FOLDER_COPY, file, user);
 		}
 		return getPage();
 	}

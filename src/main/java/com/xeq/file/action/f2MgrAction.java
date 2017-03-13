@@ -154,7 +154,7 @@ public class f2MgrAction extends ActionSupport implements SessionAware, ModelDri
 		logger.info("删除：" + flag + ";删除文件：" + folderPath + URLDecoder.decode(name, "utf-8") + type);
 		boolean ret = folderOperate.delete(folderPath + URLDecoder.decode(name, "utf-8") + type);
 		if (ret) {
-			session.put("del", "Delte File Success!");
+			session.put("del", "Delete File Success!");
 		}
 		return "success";
 	}
@@ -175,7 +175,7 @@ public class f2MgrAction extends ActionSupport implements SessionAware, ModelDri
 		boolean flag = folderOperate
 				.deleteDirectory(folderPath + URLDecoder.decode(folder.getName(), "utf-8") + File.separator);
 		if (flag) {
-			session.put("del", "Delte Folder Success!");
+			session.put("del", "Delete Folder Success!");
 		}
 		return "success";
 	}
@@ -186,10 +186,10 @@ public class f2MgrAction extends ActionSupport implements SessionAware, ModelDri
 			@Result(name = "createFolder", type = "redirect", location = "pageList.action", params = { "parentFolderId",
 					"%{parentFolderId}" }),
 			@Result(name = "error", type = "redirect", location = "pageList.action", params = { "parentFolderId",
-					"%{parentFolderId}" }),
+					"%{parentFolderId}" })/*,
 			@Result(name = "invalid.token", type = "redirect", location = "pageList.action", params = {
 					"parentFolderId", "%{parentFolderId}" }) }, interceptorRefs = {
-							@InterceptorRef(value = "defaultStack"), @InterceptorRef(value = "token") })
+							@InterceptorRef(value = "defaultStack"), @InterceptorRef(value = "token")*/ })
 	public String createFolder() {
 		// 创建文件夹,要判断同级文件夹是否重名，若重名则重新插入
 		boolean ret = true;
@@ -213,9 +213,8 @@ public class f2MgrAction extends ActionSupport implements SessionAware, ModelDri
 					} else {
 						// 判断name是否已被占用
 						List<FileAndFolder> fileAndFolders = folderService.getAll("From FileAndFolder where userId="
-								+ userId + " and parentFolderId= " + parentFolderId + " and type='folder'");
-						fileAndFolders.add((FileAndFolder) folderService.getAll("From FileAndFolder where userId="
-								+ userId + " and parentFolderId= " + parentFolderId + " and type='mapping'"));
+								+ userId + " and parentFolderId= " + parentFolderId + " and (type='folder' or type='mapping' or type='mapping_copy')");
+						
 						for (FileAndFolder fileAndFolder : fileAndFolders) {
 							if (name == fileAndFolder.getName() || name.equals(fileAndFolder.getName())) {
 								addFieldError("name", "The " + name + " is already exist!");

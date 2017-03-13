@@ -67,7 +67,7 @@ function promList_old(arr1, arr2) {
 function allCheck(name, boolValue) {
 	var allvalue = document.getElementsByClassName(name);
 	for (var i = 0; i < allvalue.length; i++) {
-		if (allvalue[i].type == "checkbox")
+		if ((allvalue[i].type == "checkbox") && (allvalue[i].disabled=!true))
 			allvalue[i].checked = boolValue;
 	}
 }

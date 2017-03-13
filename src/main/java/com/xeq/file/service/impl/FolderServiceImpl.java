@@ -230,8 +230,10 @@ public class FolderServiceImpl extends BaseDao implements FolderService {
 
 		/** j为parentId;temp为实际路径 ,temp_map为映射路径 */
 		String temp = PathFormat.strEnd(rootPath);
-
-		for (int i = 0, j = -1; i < pathList.length; i++) {
+		int j = this.getAll(
+				"FROM FileAndFolder WHERE userId=" + user.getId() + " and parentFolderId=-1 and type='mapping_copy'")
+				.get(0).getId();
+		for (int i = 0; i < pathList.length; i++) {
 			FileAndFolder f2File = new FileAndFolder();
 			FileAndFolder deleteFlag = this.getById(j);
 			String pathindex = temp + PathFormat.strEnd(pathList[i]);

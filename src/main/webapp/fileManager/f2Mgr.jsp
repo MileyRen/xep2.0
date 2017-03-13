@@ -132,27 +132,33 @@ body {
 						<th>Create Time</th>
 						<th>Type</th>
 						<th>Size</th>
-						<!-- <th>Folder Path</th> -->
 						<th>Action</th>
 					</tr>
 					<s:iterator value="#session.fileList" status="FileAndFolder">
-						<s:if test="type=='folder'">
+						<s:if test="type=='folder' or type=='mapping_copy'">
 							<tr>
-								<td><input class="delbulk" type="checkbox" value="[arr]${id}[arr]${type}[arr]${name}"></td>
+								<td>
+								<s:if test="type=='mapping_copy'">
+								    <input  type="checkbox" value="[arr]${id}[arr]${type}[arr]${name}" disabled>
+								</s:if>
+								<s:else>
+								    <input class="delbulk" type="checkbox" value="[arr]${id}[arr]${type}[arr]${name}" >
+								</s:else>
+								</td>
 								<td onclick="return into(${id})"><span class="icon tree-folder"></span> ${id}</td>
 								<td onclick="return into(${id})">${name}</td>
 								<td onclick="return into(${id})"><s:date name="time" format="yyyy-MM-dd" /></td>
 								<td onclick="return into(${id})">${type}</td>
 								<td onclick="return into(${id})">${size}</td>
-								<%-- <td onclick="return into(${id})">${folderPath}</td> --%>
 								<td>
 									<div class="btn-group">
-										<a class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown">
+										<a class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown"  <s:if test="type=='mapping_copy'">disabled="disabled"</s:if>>
 											<span class="glyphicon  glyphicon-pencil"></span>
 											Action
 											<span class="caret"></span>
 										</a>
-										<ul class="dropdown-menu" role="menu" style="min-width: 100%;">
+										
+										<ul class="dropdown-menu" role="menu" style="min-width: 100%;" >
 											<li>
 												<form id="del${id}" action="deleteDir.action" method="post" style="display: none">
 													<input type="hidden" name="id" value="${id}">
@@ -177,13 +183,13 @@ body {
 												</a>
 											</li>
 										</ul>
+										</s:if>
 									</div>
 								</td>
 							</tr>
-						</s:if>
 					</s:iterator>
 					<s:iterator value="#session.fileList" status="FileAndFolder">
-						<s:if test="type!='folder' && type!='mapping'">
+						<s:if test="type!='folder' && type!='mapping' && type!='mapping_copy'">
 							<tr>
 								<td><input class="delbulk" type="checkbox" value="[arr]${id}[arr]${type}[arr]${name}"></td>
 								<td><span class="icon tree-file"></span> ${id}</td>
@@ -441,12 +447,10 @@ body {
 				<div class="modal-body">
 					<form action="addFolder.action" id="addF" target="_parent"
 						style="padding: 10px 20px 10px 40px;" method="post">
-						<s:token />
-						<%-- <s:fielderror /> --%>
+						<%-- <s:token /> --%>
 						<input type="hidden" name="parentFolderId" value=${session.parentId }>
 						<input type="hidden" name="folderPath" value=${session.parentPath }>
 						<input type="hidden" name="pagesource.currentPage" value="${pagesource.currentPage}">
-						<%-- <s:fielderror name="name" /> --%>
 						<div class="input-group">
 							<span class="input-group-addon">
 								<span class="glyphicon glyphicon-folder-close"></span>
