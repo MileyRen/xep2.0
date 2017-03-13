@@ -75,13 +75,21 @@ body {
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<a href="#modal-container-create" class="btn" data-toggle="modal">
+						    <a href="#"  onclick="javascript:window.location.href='syncFile.action'" class="btn"
+						    data-toggle="tooltip" data-placement="top" title="Sync files and folders">
+								<span class="glyphicon glyphicon-refresh"></span>
+								Sync
+							</a>
+						
+						</li>
+						<li>
+							<a href="#modal-container-create" class="btn" data-toggle="modal" title="Create new folder">
 								<span class="glyphicon glyphicon-plus-sign"></span>
 								Create
 							</a>
 						</li>
 						<li>
-							<a href="#modal-container-upload" class="btn" data-toggle="modal">
+							<a href="#modal-container-upload" class="btn" data-toggle="modal" title="Upload files">
 								<span class="glyphicon glyphicon-cloud-upload"></span>
 								Upload
 							</a>
@@ -91,26 +99,20 @@ body {
 								onclick="confirm(' ARE YOU SURE DELETE THE FOLDER AND FILES IN THOST FOLDER?',
 								function(flag){if(flag){delbulk(${parentId});}
 								else{return false;}
-										})">
+										})" title="Delete files or folders">
 								<span class="glyphicon glyphicon-trash"></span>
 								delete
 							</a>
 						</li>
 						<li>
-							<a class="btn" data-toggle="modal" data-target="#BulkMoveModal">
+							<a class="btn" data-toggle="modal" data-target="#BulkMoveModal" title="Move files or folders">
 								<span class="glyphicon glyphicon-move"></span>
 								Move
 							</a>
 						</li>
+				
 						<li>
-						    <a href="#"  onclick="javascript:window.location.href='syncFile.action'" class="btn">
-								<span class="glyphicon glyphicon-refresh"></span>
-								Sync
-							</a>
-						
-						</li>
-						<li>
-							<a href="#" onclick="javascript:window.location.href='backStack.action'" class="btn">
+							<a href="#" onclick="javascript:window.location.href='backStack.action'" class="btn" title="Up">
 								<span class="glyphicon glyphicon-arrow-up"></span>
 								Up
 							</a>
