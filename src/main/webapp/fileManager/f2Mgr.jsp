@@ -127,7 +127,7 @@ body {
 					<tr>
 						<th><input type="checkbox"
 								onclick="if(this.checked==true){allCheck('delbulk',true);}else{allCheck('delbulk',false);}"></th>
-						<th>Id</th>
+						 <th>Icon</th> 
 						<th>Name</th>
 						<th>Create Time</th>
 						<th>Type</th>
@@ -145,7 +145,7 @@ body {
 								    <input class="delbulk" type="checkbox" value="[arr]${id}[arr]${type}[arr]${name}" >
 								</s:else>
 								</td>
-								<td onclick="return into(${id})"><span class="icon tree-folder"></span> ${id}</td>
+								<td onclick="return into(${id})"><span class="icon tree-folder"></span><%--  ${id} --%></td>
 								<td onclick="return into(${id})">${name}</td>
 								<td onclick="return into(${id})"><s:date name="time" format="yyyy-MM-dd" /></td>
 								<td onclick="return into(${id})">${type}</td>
@@ -192,7 +192,7 @@ body {
 						<s:if test="type!='folder' && type!='mapping' && type!='mapping_copy'">
 							<tr>
 								<td><input class="delbulk" type="checkbox" value="[arr]${id}[arr]${type}[arr]${name}"></td>
-								<td><span class="icon tree-file"></span> ${id}</td>
+								<td><span class="icon tree-file"></span> <%-- ${id} --%></td>
 								<td>${name}</td>
 								<td><s:date name="time" format="yyyy-MM-dd" /></td>
 								<td>${type}</td>

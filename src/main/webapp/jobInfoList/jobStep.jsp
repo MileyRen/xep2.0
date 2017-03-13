@@ -42,7 +42,9 @@
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
 							<li>
-								<a href="jobsList.action">BACK</a>
+							<%if(session.getAttribute("jobType").equals("stop")){ %>
+								<a href="jobsListStop.action">BACK</a><%} else{%>
+								<a href="jobsListRun.action">BACK</a><%} %>
 							</li>
 						</ul>
 					</div>

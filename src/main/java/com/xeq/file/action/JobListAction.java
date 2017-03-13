@@ -155,6 +155,184 @@ public class JobListAction extends ActionSupport
 		return SUCCESS;
 	}
 
+	@Action(value = "jobsListRun", results = { @Result(name = "success", location = "/jobInfoList/JobInfoList.jsp"),
+			@Result(name = "input", location = "login.jsp") })
+	public String getJobsRunning() {
+		logger.info("-----------------------查询用户的所有rUNNINGJob------------------------");
+		try {
+			User user = (User) session.get("user");
+			if (user == null) {
+				return INPUT;
+			}
+			if (user.getRoleId() == null) {
+				user.setRoleId(0);
+			}
+			int userId = user.getId();
+			String hql = "FROM JobInfo ";
+			if (user.getRoleId() == 1) {
+				hql += " where userId >0 ";
+			} else {
+				hql += " where userId=" + userId;
+			}
+			// String createTime = request.getParameter("createTime");
+
+			long fTime = jobsService.getTime(request.getParameter("fTime"));
+			long tTime = jobsService.getTime(request.getParameter("tTime"));
+			// String sort = request.getParameter("sort");
+			String sortByTime = request.getParameter("sortByTime");
+			String sortDA = request.getParameter("sortDA");
+			String jobstate = " and state = 'running' ";
+
+			StringBuffer sf = new StringBuffer();
+			sf.append(hql);
+
+			sf.append(jobstate);
+
+			if (fTime != 0 && tTime == 0) {
+				sf.append(" and bgTime > " + fTime + " ");
+			} else if (fTime == 0 && tTime != 0) {
+				sf.append(" and bgTime < " + tTime + " ");
+			} else if (fTime != 0 && tTime != 0) {
+				sf.append(" and bgTime between " + fTime + " and " + tTime + " ");
+			}
+
+			if (StringUtils.isNotBlank(sortDA)) {
+				sf.append(sortByTime + sortDA);
+			}
+			String HQL = sf.toString();
+
+			logger.info("hql==" + HQL);
+			List<JobInfo> jList = jobsService.getJobList(HQL);
+
+			List<JobInfo> jobPageList = new ArrayList<JobInfo>();
+
+			jobpageSource.setTotalRows(jList.size());
+			if (jobPage != null) {
+				jobpageSource.init(jList.size(), (new BaseDao()).pageSize());// 初始化，用以获取总页数
+				jobpageSource.setCurrentPage(1);
+				jobpageSource.setPageSize((new BaseDao()).pageSize());
+
+				logger.info(jobpageSource.toString());
+				jobPageList = jobsService.pageReview(jobpageSource, HQL);
+				logger.info("hql=" + HQL + ";size=" + jobPageList.size());
+				logger.info("没有执行分页的代码");
+			} else {
+				// /执行分页操纵
+				logger.info("执行了分页的代码");
+				jobpageSource.init(jList.size(), jobpageSource.getPageSize());// 初始化，用以获取总页数
+				jobpageSource.setPageSize(jobpageSource.getPageSize());
+
+				if (jobpageSource.getCurrentPage() >= jobpageSource.getTotalPages()) {
+					jobpageSource.setCurrentPage(jobpageSource.getTotalPages());
+				} else if (jobpageSource.getCurrentPage() < 1) {
+					jobpageSource.setCurrentPage(1);
+				}
+				logger.info(jobpageSource.toString());
+				jobPageList = jobsService.pageReview(jobpageSource, HQL);
+			}
+
+			List<JobCss> jcList = jobsService.getJobCss(jobPageList);
+			for (JobCss jobCss : jcList) {
+				jobCss.setUserName(jobsService.getUserName(jobCss.getUserId()));
+			}
+			session.put("jobpagesource", jobpageSource);
+			session.put("jcList", jcList);
+			session.put("jList", jList);
+			session.put("jobType", "run");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+
+	
+	@Action(value = "jobsListStop", results = { @Result(name = "success", location = "/jobInfoList/JobInfoList.jsp"),
+			@Result(name = "input", location = "login.jsp") })
+	public String getJobsStop() {
+		logger.info("-----------------------查询用户的所有rUNNINGJob------------------------");
+		try {
+			User user = (User) session.get("user");
+			if (user == null) {
+				return INPUT;
+			}
+			if (user.getRoleId() == null) {
+				user.setRoleId(0);
+			}
+			int userId = user.getId();
+			String hql = "FROM JobInfo ";
+			if (user.getRoleId() == 1) {
+				hql += " where userId >0 ";
+			} else {
+				hql += " where userId=" + userId;
+			}
+			long fTime = jobsService.getTime(request.getParameter("fTime"));
+			long tTime = jobsService.getTime(request.getParameter("tTime"));
+			String sortByTime = request.getParameter("sortByTime");
+			String sortDA = request.getParameter("sortDA");
+			String jobstate = " and state = 'stop' ";
+
+			StringBuffer sf = new StringBuffer();
+			sf.append(hql);
+
+			sf.append(jobstate);
+
+			if (fTime != 0 && tTime == 0) {
+				sf.append(" and bgTime > " + fTime + " ");
+			} else if (fTime == 0 && tTime != 0) {
+				sf.append(" and bgTime < " + tTime + " ");
+			} else if (fTime != 0 && tTime != 0) {
+				sf.append(" and bgTime between " + fTime + " and " + tTime + " ");
+			}
+
+			if (StringUtils.isNotBlank(sortDA)) {
+				sf.append(sortByTime + sortDA);
+			}
+			String HQL = sf.toString();
+
+			logger.info("hql==" + HQL);
+			List<JobInfo> jList = jobsService.getJobList(HQL);
+
+			List<JobInfo> jobPageList = new ArrayList<JobInfo>();
+
+			jobpageSource.setTotalRows(jList.size());
+			if (jobPage != null) {
+				jobpageSource.init(jList.size(), (new BaseDao()).pageSize());// 初始化，用以获取总页数
+				jobpageSource.setCurrentPage(1);
+				jobpageSource.setPageSize((new BaseDao()).pageSize());
+
+				logger.info(jobpageSource.toString());
+				jobPageList = jobsService.pageReview(jobpageSource, HQL);
+				logger.info("hql=" + HQL + ";size=" + jobPageList.size());
+				logger.info("没有执行分页的代码");
+			} else {
+				// /执行分页操纵
+				logger.info("执行了分页的代码");
+				jobpageSource.init(jList.size(), jobpageSource.getPageSize());// 初始化，用以获取总页数
+				jobpageSource.setPageSize(jobpageSource.getPageSize());
+
+				if (jobpageSource.getCurrentPage() >= jobpageSource.getTotalPages()) {
+					jobpageSource.setCurrentPage(jobpageSource.getTotalPages());
+				} else if (jobpageSource.getCurrentPage() < 1) {
+					jobpageSource.setCurrentPage(1);
+				}
+				logger.info(jobpageSource.toString());
+				jobPageList = jobsService.pageReview(jobpageSource, HQL);
+			}
+
+			List<JobCss> jcList = jobsService.getJobCss(jobPageList);
+			for (JobCss jobCss : jcList) {
+				jobCss.setUserName(jobsService.getUserName(jobCss.getUserId()));
+			}
+			session.put("jobpagesource", jobpageSource);
+			session.put("jcList", jcList);
+			session.put("jList", jList);
+			session.put("jobType", "stop");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return SUCCESS;
+	}
+
 	@Action(value = "jobInfo", results = { @Result(name = "success", location = "/jobInfoList/jobStep.jsp"),
 			@Result(name = "input", location = "login.jsp"),
 			@Result(name = "noStart", location = "/jobInfoList/jobStep.jsp") })

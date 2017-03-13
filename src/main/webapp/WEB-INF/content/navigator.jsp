@@ -7,7 +7,7 @@
 	<div>
 		<ul class="nav navbar-nav">
 <!-- 			<li class="active"><a href="#">iOS</a></li> -->
-			<li><a a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+			<li><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
 				工具<b class="caret"></b></a>
 				<ul class="dropdown-menu">
 					<li><a href="${pageContext.request.contextPath}/tooltype/get_all_tooltype.action">工具类型管理</a></li>
@@ -22,7 +22,8 @@
 				<ul class="dropdown-menu">
 					<li><a href="job/create.action">新建作业</a></li>
 					<li><a href="job/view.action">查看未开始作业</a></li>
-					<li><a href="jobsList.action">作业状态查询</a></li>
+					<li><a href="jobsListRun.action">作业状态查询-Running</a></li>
+					<li><a href="jobsListStop.action">作业状态查询-Stop</a></li>
 				</ul>
 			</li>
 			<li><a href="pageList.action?pageTag=1">文件管理页面</a></li>
