@@ -27,7 +27,7 @@
 			<%
 				} else if (jobstate.equals("running")) {
 			%>
-			<input type="text" name="jobstate" value="running" required>
+			<input type="hidden" name="jobstate" value="running" required>
 			<%
 				}
 			%>

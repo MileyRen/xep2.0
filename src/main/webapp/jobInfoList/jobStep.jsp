@@ -25,7 +25,6 @@
 	<div class="container">
 		<div class="row clearfix">
 			<div class="col-md-12 column">
-
 				<nav class="navbar navbar-default" role="navigation">
 				<div class="container-fluid">
 					<div class="navbar-header">
@@ -33,19 +32,10 @@
 					</div>
 					<div>
 						<ul class="nav navbar-nav">
-							<%-- <li>
-								<a>user:${jobStep.userId}</a>
-							</li> --%>
-							<li>
-								<a>status:${jobStep.state}</a>
-							</li>
+							<li><a>status:${jobStep.state}</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li>
-							<%if(session.getAttribute("jobType").equals("stop")){ %>
-								<a href="jobsListStop.action">BACK</a><%} else{%>
-								<a href="jobsListRun.action">BACK</a><%} %>
-							</li>
+							<li><a href="jobsList.action?jobstate=${jobstate}">BACK</a></li>
 						</ul>
 					</div>
 				</div>
@@ -54,7 +44,6 @@
 					<div class="col-md-12 column">
 						<table class="table table-condensed">
 							<tr>
-								<!-- <th>Id</th> -->
 								<th>Name</th>
 								<th>Begin Time</th>
 								<th>End Time</th>
@@ -62,36 +51,15 @@
 							</tr>
 							<s:iterator value="#session.processInfo" status="JobStep">
 								<tr class="${css}">
-									<%-- <td>${id}</td> --%>
 									<td>${name}</td>
 									<td>${bgTime}</td>
 									<td>${edTime}</td>
-									<td><span class="label label-${label}">${state}</span></td>
+									<td>
+										<span class="label label-${label}">${state}</span>
+									</td>
 								</tr>
 							</s:iterator>
 						</table>
-
-						<%-- <div class="row">
-							<div class="col-md-1" style="width:60px;height:60px" >
-								<canvas id="start" width="60" height="60"> </canvas>
-							</div>
-							<s:iterator value="#session.processInfo" status="JobStep">
-								<div class="col-md-1" >
-									<img src="styleRen/arr.png" />
-								</div>
-								<div class="col-md-1" style="width:12%">
-									<table class="table" border="1" >
-										<tr>
-											<td class="${css}" style="height: 68px">
-											<a class="btn"
-													data-toggle="tooltip" data-placement="bottom" title="${state}"> ${name}
-											</a>
-											</td>
-										</tr>
-									</table>
-								</div>
-							</s:iterator>
-						</div> --%>
 					</div>
 				</div>
 			</div>
