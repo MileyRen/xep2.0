@@ -64,6 +64,8 @@
 				</div>
 			</div>
 		</div>
+		
+		<div><%@include file="draw.jsp"%></div>
 	</div>
 
 	<script type="text/javascript">

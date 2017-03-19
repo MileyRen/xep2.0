@@ -1,0 +1,54 @@
+{ "class": "go.GraphLinksModel",
+  "linkFromPortIdProperty": "fromPort",
+  "linkToPortIdProperty": "toPort",
+  "nodeDataArray": [ 
+{"key":-1, "category":"Start", "loc":"175 0", "text":"Start"},
+{"key":1, "loc":"175 100", "text":"我是步骤1"},
+{"key":2, "loc":"175 190", "text":"我是步骤2"},
+{"key":3, "loc":"175 270", "text":"我是步骤3"},
+{"key":-2, "category":"End", "loc":"173.99999999999997 368.9999999999999", "text":"End"}
+ ],
+  "linkDataArray": [ 
+{"from":1, "to":2, "fromPort":"B", "toPort":"T", "points":[175,116.30000000000001,175,126.30000000000001,175,145,175,145,175,163.7,175,173.7]},
+{"from":2, "to":3, "fromPort":"B", "toPort":"T", "points":[175,206.29999999999998,175,216.29999999999998,175,230,175,230,175,243.7,175,253.7]},
+{"from":-1, "to":1, "fromPort":"B", "toPort":"T", "points":[175,25.209302325581397,175,35.2093023255814,175,54.4546511627907,175,54.4546511627907,175,73.7,175,83.7]},
+{"from":3, "to":-2, "fromPort":"B", "toPort":"T", "points":[175,286.3,175,296.3,175,317.22558139534885,174,317.22558139534885,174,338.15116279069764,174,348.15116279069764]}
+ ]}{ "class": "go.GraphLinksModel",
+  "linkFromPortIdProperty": "fromPort",
+  "linkToPortIdProperty": "toPort",
+  "nodeDataArray": [ 
+{"key":-1, "category":"Start", "loc":"175 0", "text":"Start"},
+{"key":1, "loc":"175 100", "text":"我是步骤1"},
+{"key":2, "loc":"175 190", "text":"我是步骤2"},
+{"key":3, "loc":"175 270", "text":"我是步骤3"},
+{"key":-2, "category":"End", "loc":"173.99999999999997 368.9999999999999", "text":"End"}
+ ],
+  "linkDataArray": [ 
+{"from":1, "to":2, "fromPort":"B", "toPort":"T", "points":[175,116.30000000000001,175,126.30000000000001,175,145,175,145,175,163.7,175,173.7]},
+{"from":2, "to":3, "fromPort":"B", "toPort":"T", "points":[175,206.29999999999998,175,216.29999999999998,175,230,175,230,175,243.7,175,253.7]},
+{"from":-1, "to":1, "fromPort":"B", "toPort":"T", "points":[175,25.209302325581397,175,35.2093023255814,175,54.4546511627907,175,54.4546511627907,175,73.7,175,83.7]},
+{"from":3, "to":-2, "fromPort":"B", "toPort":"T", "points":[175,286.3,175,296.3,175,317.22558139534885,174,317.22558139534885,174,338.15116279069764,174,348.15116279069764]}
+ ]}
+ 
+ 
+ {
+ "class": "go.GraphLinksModel",
+  "linkFromPortIdProperty": "fromPort",
+  "linkToPortIdProperty": "toPort",
+  "nodeDataArray":[	 
+	{"key":-1, "category":"Start", "loc":"175 20", "text":"Start"},
+	{"key":0, "loc":"275 0", "text":"步骤1已完成"},
+	{"key":1, "loc":"275 90", "text":"步骤2已完成"},
+	{"key":2, "loc":"375 20", "text":"步骤3已完成"},
+	{"key":3, "loc":"475 20", "text":"步骤4已完成"},
+	{"key":-2, "category":"End","loc":"575 20", "text":"End"}
+	  ],
+ "linkDataArray": [
+	{"from":-1, "to":0, "fromPort":"R", "toPort":"L"},
+	{"from":-1, "to":1, "fromPort":"R", "toPort":"L"},
+	{"from":0, "to":2, "fromPort":"R", "toPort":"L"},
+	{"from":1, "to":2, "fromPort":"R", "toPort":"L"},
+	{"from":2, "to":3, "fromPort":"R", "toPort":"L"},
+	{"from":3, "to":-2, "fromPort":"R", "toPort":"L"}
+	 ]
+}

@@ -1,5 +1,4 @@
 package com.xeq.file.action;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -8,16 +7,17 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
+import org.dom4j.Element;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.gene.utils.User;
@@ -26,11 +26,12 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 import com.ssh.xep.entity.JobInfo;
 import com.xeq.file.dao.impl.BaseDao;
+import com.xeq.file.dao.impl.PathFormat;
 import com.xeq.file.domain.JobCss;
 import com.xeq.file.domain.JobStep;
 import com.xeq.file.domain.PageSource;
+import com.xeq.file.domain.ScriptState;
 import com.xeq.file.service.JobsService;
-import org.apache.commons.lang.*;
 
 @Namespace("/")
 public class JobListAction extends ActionSupport
@@ -157,8 +158,8 @@ public class JobListAction extends ActionSupport
 		/***** 解析processInfo *****/
 		Document document;
 		try {
-			document = DocumentHelper.parseText(URLDecoder.decode(processInfo, "utf-8"));
-			Element rootElement = document.getRootElement();
+			document = (Document) DocumentHelper.parseText(URLDecoder.decode(processInfo, "utf-8"));
+			Element rootElement = (org.dom4j.Element) document.getRootElement();
 			List<JobStep> processLists = new ArrayList<JobStep>();
 			processLists = jobsService.getNodes(rootElement, processLists);
 			for (JobStep jobStep : processLists) {
@@ -174,6 +175,13 @@ public class JobListAction extends ActionSupport
 		}
 		/***** 解析processInfo结束 *****/
 
+		/** 绘图开始 */
+		List<ScriptState> list = new ArrayList<ScriptState>();
+		list = PathFormat.getDraw(processInfo);
+		String jsonStr = ConvertToJSON.convert(list);
+		System.out.println(jsonStr);
+		request.setAttribute("jsonStr", jsonStr);
+		/** 绘图结束 */
 		return SUCCESS;
 	}
 
