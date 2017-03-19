@@ -1,5 +1,4 @@
 package com.xeq.file.action;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -49,9 +48,9 @@ public class ConvertToJSON {
 				boolean isFinished = false;
 				if("finish".equals(list.get(i).getState())){
 					isFinished = true;
-					nodes[i].setText("步骤"+(i+1)+"已完成");
+					nodes[i].setText("step "+(i+1)+" "+list.get(i).getState());
 				}else{
-					nodes[i].setText("步骤"+(i+1)+"未完成");
+					nodes[i].setText("step "+(i+1)+" "+list.get(i).getState());
 				}
 			}
 			

@@ -130,7 +130,7 @@ public class usermanage extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/user/userinfo.jsp?msg=Your password has changed!");
 			else
 				response.sendRedirect(
-						request.getContextPath() + "/user/userinfotemp.jsp?msg=Your password has changed!");
+						request.getContextPath() + "/user/userinfo.jsp?msg=Your password has changed!");
 
 		} else {
 			response.sendRedirect(request.getContextPath() + "/user/modify.jsp?msg=Old password not correct!");
@@ -187,7 +187,7 @@ public class usermanage extends HttpServlet {
 				if (user.getIsAvailable() == 2)
 					response.sendRedirect(request.getContextPath() + "/user/userinfo.jsp");
 				else
-					response.sendRedirect(request.getContextPath() + "/user/userinfotemp.jsp");
+					response.sendRedirect(request.getContextPath() + "/user/userinfo.jsp");
 				// if(user.getRoleId()==0)
 				// request.getRequestDispatcher("/user/userinfo.jsp").forward(request,
 				// response);
@@ -278,7 +278,7 @@ public class usermanage extends HttpServlet {
 		request.setAttribute("cuser", user);
 		HttpSession wsession = request.getSession();
 		wsession.setAttribute("user", user);
-		request.getRequestDispatcher("/user/userinfotemp.jsp").forward(request, response);
+		request.getRequestDispatcher("/user/userinfo.jsp").forward(request, response);
 
 	}
 
