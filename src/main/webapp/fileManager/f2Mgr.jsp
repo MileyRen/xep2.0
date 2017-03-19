@@ -294,7 +294,7 @@ body {
 				</li>
 				<li>
 					<a>[ ${pagesource.currentPage} of ${pagesource.totalPages }]
-						 [total:${pagesource.totalRows}]</a>
+					</a>
 				</li>
 				<li>
 					<a onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=${pagesource.currentPage+1 }'">next</a>
@@ -304,20 +304,6 @@ body {
 				</li>
 			</ul>
 		</div>
-			<%-- 	
-				<div class="easyui-panel" style="height: 50px; padding: 10px 20px 10px 40px;">
-					<a class="easyui-linkbutton" data-options="plain:true,iconCls:'pagination-first'"
-						onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=1'"></a>
-					<a class="easyui-linkbutton" data-options="plain:true,iconCls:'pagination-prev'"
-						onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=${pagesource.currentPage-1 }'"></a>
-					[ ${pagesource.currentPage} of ${pagesource.totalPages }]
-					<a class="easyui-linkbutton" data-options="plain:true,iconCls:'pagination-next'"
-						onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=${pagesource.currentPage+1 }'"></a>
-					<a class="easyui-linkbutton" data-options="plain:true,iconCls:'pagination-last'"
-						onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=${pagesource.totalPages }'"></a>
-					[total:${pagesource.totalRows}]
-				</div> --%>
-				<!-- 分页效果结束 -->
 			</div>
 		</div>
 	</div>
@@ -638,14 +624,6 @@ body {
 		showFileList.appendChild(button);
 		showFileList.appendChild(input_text);
 		showFileList.appendChild(br);
-		
-			
-/*
-		var inputText = document.getElementById("showFileList");//用来显示选中的文件信息
-		var temp = inputText.innerHTML;
-		attList = document.getElementsByName("uploadFiles");
-		inputText.innerHTML = temp + getFileName(attList[fileNum].value) + "\n";
-*/	
 	};
 
 	function getFileName(file){
@@ -653,31 +631,6 @@ body {
 	    return file.substring(pos+1);  
 	}
 /*新添加文件上传部分*/
-	
-/*
-   document.getElementById("fileUp").onchange = function() {
-		var formData = new FormData();	
-		formData.append('uploadFiles', document.getElementById('fileUp').files[0]);
-		formData.append('parentFolderId', $("#parentFolderId").val());
-		formData.append('folderPath', $("#folderPath").val());
-		formData.append('pagesource.currentPage', $("#currentPage").val());
-		alert( document.getElementById('fileUp').files[0] + "  "+ $("#parentFolderId").val() 
-				+"  "+ $("#folderPath").val()+"  "+$("#pagesource.currentPage").val());
-		var xmlhttp_upload;
-		if (window.XMLHttpRequest) {
-			xmlhttp_upload = new XMLHttpRequest();
-		} else {
-			xmlhttp_upload = new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		xmlhttp_upload.onreadystatechange = function() {
-		if (xmlhttp_upload.readyState == 4 && xmlhttp_upload.status == 200) {
-				location.reload(true);   
-			}
-		}
-		xmlhttp_upload.open('POST', 'fileUpload.action', true);
-		xmlhttp_upload.send(formData);
-	};
-*/
    </script>
 </body>
 </html>

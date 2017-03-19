@@ -294,7 +294,7 @@ public class f2MgrAction extends ActionSupport implements SessionAware, ModelDri
 			@Result(name = "invalid.token", type = "redirect", location = "pageList.action", params = {
 					"parentFolderId", "%{parentFolderId}", "pagesource.currentPage",
 					"%{pagesource.currentPage}" }) }, interceptorRefs = { @InterceptorRef(value = "defaultStack"),
-							@InterceptorRef(value = "token"),
+							//@InterceptorRef(value = "token"),
 							@InterceptorRef(value = "fileUpload", params = { "maximumSize", "52428800" }) })
 	public String uploadFiles() {
 		String retu = "success";
