@@ -15,40 +15,27 @@
 <body>
 	<form action="jobsList.action" id="search" class="form-horizontal" role="form" method="post">
 		<div class="form-group">
-			<% if(session.getAttribute("jobType").equals("stop")){ %>
+			<%
+				String jobstate = (String) session.getAttribute("jobstate");
+				if (jobstate.equals("stop")) {
+			%>
 			Status:
 			<select required name="jobstate" id="state">
-				<option value="ALL" selected>--ALL--</option>
-				<option value=" and state = 'stop' ">STOP</option>
-				<!-- <option value=" and state = 'running' ">RUNNING</option> -->
-				<!-- <option value=" and state = 'pending'">PENDING</option> -->
-			</select>
-			<%} %>
+				<option value="stop" selected>STOP</option>
+				<!-- <option value="pending">PENDING</option> -->
+			</select> 
+			<%
+				} else if (jobstate.equals("running")) {
+			%>
+			<input type="text" name="jobstate" value="running" required>
+			<%
+				}
+			%>
 			Create Time:
-			<!-- 	<input type="checkbox" name="createTime" id="creatTime" value="select"> -->
-			<%-- 	<%
-				Date date = new Date();
-				SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-dd");
-			%> --%>
 			<input class="inline laydate-icon" id="start" style="width: 100px; margin-right: 10px;" name="fTime" value="${fTime}">
 			--
 			<input class="inline laydate-icon" id="end" style="width: 100px;" name="tTime" value="${tTime}">
-
-			<%-- <div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd" style="width: 150px; display: inline-flex">
-				<input class="form-control" size="16" type="text" name="fTime" value="<%=df.format(date)%>" readonly style="height: 80%">
-				<span class="input-group-addon">
-					<span class="glyphicon glyphicon-calendar"></span>
-				</span>
-			</div>
-			--
-			<div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy-mm-dd" style="width: 150px; display: inline-flex">
-				<input class="form-control" size="16" type="text" name="tTime" value="<%=df.format(date)%>" readonly style="height: 80%">
-				<span class="input-group-addon">
-					<span class="glyphicon glyphicon-calendar"></span>
-				</span>
-			</div> --%>
 			&nbsp; SortBy:
-			<!-- <input type="checkbox" name="sort" value="select"> -->
 			<select name="sortByTime">
 				<option value=" order by bgTime " selected>Begin Time</option>
 				<option value=" order by edTime ">End Time</option>
@@ -60,22 +47,9 @@
 			</select>
 			<a class="btn btn-primary btn-xs" onclick="javascript:$('form#search').submit()"> <span class="glyphicon glyphicon-search"></span> SEARCH
 			</a>
-
-
 		</div>
 	</form>
 	<script type="text/javascript">
-		/* $('.form_date').datetimepicker({
-			language : 'en',
-			weekStart : 1,
-			todayBtn : 1,
-			autoclose : 1,
-			todayHighlight : 1,
-			startView : 2,
-			minView : 2,
-			forceParse : 0
-		}); */
-
 		!function() {
 			laydate.skin('molv');//切换皮肤，请查看skins下面皮肤库
 			laydate({

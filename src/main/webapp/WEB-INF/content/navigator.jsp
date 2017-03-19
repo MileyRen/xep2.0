@@ -22,8 +22,8 @@
 				<ul class="dropdown-menu">
 					<li><a href="job/create.action">新建作业</a></li>
 					<li><a href="job/view.action">查看未开始作业</a></li>
-					<li><a href="jobsListRun.action">作业状态查询-Running</a></li>
-					<li><a href="jobsListStop.action">作业状态查询-Stop</a></li>
+					<li><a href="jobsList.action?jobstate=running">作业状态查询-Running</a></li>
+					<li><a href="jobsList.action?jobstate=stop">作业状态查询-Stop</a></li>
 				</ul>
 			</li>
 			<li><a href="pageList.action?pageTag=1">文件管理页面</a></li>

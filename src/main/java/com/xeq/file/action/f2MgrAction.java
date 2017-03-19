@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -186,10 +185,20 @@ public class f2MgrAction extends ActionSupport implements SessionAware, ModelDri
 			@Result(name = "createFolder", type = "redirect", location = "pageList.action", params = { "parentFolderId",
 					"%{parentFolderId}" }),
 			@Result(name = "error", type = "redirect", location = "pageList.action", params = { "parentFolderId",
-					"%{parentFolderId}" })/*,
-			@Result(name = "invalid.token", type = "redirect", location = "pageList.action", params = {
-					"parentFolderId", "%{parentFolderId}" }) }, interceptorRefs = {
-							@InterceptorRef(value = "defaultStack"), @InterceptorRef(value = "token")*/ })
+					"%{parentFolderId}" })/*
+											 * ,
+											 * 
+											 * @Result(name = "invalid.token",
+											 * type = "redirect", location =
+											 * "pageList.action", params = {
+											 * "parentFolderId",
+											 * "%{parentFolderId}" }) },
+											 * interceptorRefs = {
+											 * 
+											 * @InterceptorRef(value =
+											 * "defaultStack"), @InterceptorRef(
+											 * value = "token")
+											 */ })
 	public String createFolder() {
 		// 创建文件夹,要判断同级文件夹是否重名，若重名则重新插入
 		boolean ret = true;
@@ -212,9 +221,10 @@ public class f2MgrAction extends ActionSupport implements SessionAware, ModelDri
 						ret = false;
 					} else {
 						// 判断name是否已被占用
-						List<FileAndFolder> fileAndFolders = folderService.getAll("From FileAndFolder where userId="
-								+ userId + " and parentFolderId= " + parentFolderId + " and (type='folder' or type='mapping' or type='mapping_copy')");
-						
+						List<FileAndFolder> fileAndFolders = folderService.getAll(
+								"From FileAndFolder where userId=" + userId + " and parentFolderId= " + parentFolderId
+										+ " and (type='folder' or type='mapping' or type='mapping_copy')");
+
 						for (FileAndFolder fileAndFolder : fileAndFolders) {
 							if (name == fileAndFolder.getName() || name.equals(fileAndFolder.getName())) {
 								addFieldError("name", "The " + name + " is already exist!");
