@@ -157,7 +157,7 @@ body {
 					<tr>
 						<th><input type="checkbox"
 								onclick="if(this.checked==true){allCheck('delbulk',true);}else{allCheck('delbulk',false);}"></th>
-						<th>Id</th>
+						<th>Icon</th>
 						<th>Name</th>
 						<th>Create Time</th>
 						<th>Type</th>
@@ -176,7 +176,7 @@ body {
 										<input type="checkbox" disabled="" >
 									</s:if>	
 								</td>
-								<td onclick="return into(${id})"><span class="icon tree-folder"></span> ${id}</td>
+								<td onclick="return into(${id})"><span class="icon tree-folder"></span></td>
 								<td onclick="return into(${id})">${name}</td>
 								<td onclick="return into(${id})"><s:date name="time" format="yyyy-MM-dd" /></td>
 								<td onclick="return into(${id})">${type}</td>
@@ -224,7 +224,7 @@ body {
 						<s:if test="type!='folder' && type!='mapping' && type!='mapping_copy'">
 							<tr>
 								<td><input class="delbulk" type="checkbox" value="[arr]${id}[arr]${type}[arr]${name}"></td>
-								<td><span class="icon tree-file"></span> ${id}</td>
+								<td><span class="icon tree-file"></span></td>
 								<td>${name}</td>
 								<td><s:date name="time" format="yyyy-MM-dd" /></td>
 								<td>${type}</td>
@@ -422,7 +422,7 @@ body {
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h5 class="modal-title" id="myModalLabel">请选择文件上传</h5>
+					<h5 class="modal-title" id="myModalLabel">Please Add Some Files...</h5>
 <!-- 新删除部分 
 					<h5 class="modal-title" id="myModalLabel">
 						<a href="#" class="btn " onclick="addMore()">
@@ -435,7 +435,7 @@ body {
 				<div class="modal-body">
 <!-- 新添加部分开始 -->
 					<form action="fileUpload.action" id="addFiles" method="post" style="padding: 10px 20px 10px 0px;" enctype="multipart/form-data">
-        				<a id="more" href="javascript:void(0)" class="fileup" ><strong style="margin-left: 5px; margin-right: 8px;" class="icon-plus-circle" >选择文件</strong>
+        				<a id="more" href="javascript:void(0)" class="fileup" ><strong style="margin-left: 5px; margin-right: 8px;" class="icon-plus-circle" >select file</strong>
     						<input id="fileUp" name="uploadFiles" type="file" onchange="change()">
 						</a>
 						<input type="hidden" id="parentFolderId" name="parentFolderId" value=${session.parentId }>
