@@ -239,8 +239,13 @@ public class FolderServiceImpl extends BaseDao implements FolderService {
 			String pathindex = temp + PathFormat.strEnd(pathList[i]);
 			if (i == pathList.length - 1) {
 				String fileN = mappingFile.getName();
-				String tp = fileN.substring(fileN.indexOf("."));
-				String fileName = fileN.substring(0, fileN.indexOf("."));
+				int indexof = fileN.indexOf(".");
+				String tp = "";
+				String fileName = fileN;
+				if (indexof > -1) {
+					tp = fileN.substring(indexof);
+					fileName = fileN.substring(0, indexof);
+				}
 				Integer size = this.getAll("from  FileAndFolder where userId=" + user.getId() + " and parentFolderId="
 						+ j + " and name='" + fileName + "' and type='" + tp + "'").size();
 				if (size > 0) {

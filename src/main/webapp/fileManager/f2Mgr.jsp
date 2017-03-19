@@ -47,6 +47,39 @@ body {
 	padding: 0px;
 	margin: 0;
 }
+/*--------文件上传开始----------*/
+.fileup {
+    position: relative;
+    display: inline-block;
+    background: #D0EEFF;
+    border: 1px solid #99D3F5;
+    border-radius: 4px;
+    padding: 4px 12px;
+    overflow: hidden;
+    color: #1E88C7;
+    text-decoration: none;
+    text-indent: 0;
+    line-height: 20px;
+}
+.fileup input {
+    position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+}
+.fileup:hover {
+    background: #AADFFD;
+    border-color: #78C3F3;
+    color: #004974;
+    text-decoration: none;
+}
+.file_text {
+	margin-left:3px;
+	border: 0px;
+	font-size: 14px;
+}
+/*--------文件上传结束----------*/
 </style>
 </head>
 <body>
@@ -75,21 +108,19 @@ body {
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-						    <a href="#"  onclick="javascript:window.location.href='syncFile.action'" class="btn"
-						    data-toggle="tooltip" data-placement="top" title="Sync files and folders">
+							<a href="#" onclick="javascript:window.location.href='syncFile.action'" class="btn" data-toggle="tooltip" data-placement="top" title="Sync files and folders"> 
 								<span class="glyphicon glyphicon-refresh"></span>
-								Sync
+								 Sync
 							</a>
-						
-						</li>
+							</li>
 						<li>
-							<a href="#modal-container-create" class="btn" data-toggle="modal" title="Create new folder">
+							<a href="#modal-container-create" class="btn" data-toggle="modal">
 								<span class="glyphicon glyphicon-plus-sign"></span>
 								Create
 							</a>
 						</li>
 						<li>
-							<a href="#modal-container-upload" class="btn" data-toggle="modal" title="Upload files">
+							<a href="#modal-container-upload" class="btn" data-toggle="modal">
 								<span class="glyphicon glyphicon-cloud-upload"></span>
 								Upload
 							</a>
@@ -99,25 +130,24 @@ body {
 								onclick="confirm(' ARE YOU SURE DELETE THE FOLDER AND FILES IN THOST FOLDER?',
 								function(flag){if(flag){delbulk(${parentId});}
 								else{return false;}
-										})" title="Delete files or folders">
+										})">
 								<span class="glyphicon glyphicon-trash"></span>
 								delete
 							</a>
 						</li>
 						<li>
-							<a class="btn" data-toggle="modal" data-target="#BulkMoveModal" title="Move files or folders">
+							<a class="btn" data-toggle="modal" data-target="#BulkMoveModal">
 								<span class="glyphicon glyphicon-move"></span>
 								Move
 							</a>
 						</li>
-				
+
 						<li>
-							<a href="#" onclick="javascript:window.location.href='backStack.action'" class="btn" title="Up">
-								<span class="glyphicon glyphicon-arrow-up"></span>
+							<a href="#" onclick="javascript:window.location.href='backStack.action'" class="btn">
+								<span class="glyphicon glyphicon-circle-arrow-up"></span>
 								Up
 							</a>
 						</li>
-					
 
 					</ul>
 				</div>
@@ -127,38 +157,40 @@ body {
 					<tr>
 						<th><input type="checkbox"
 								onclick="if(this.checked==true){allCheck('delbulk',true);}else{allCheck('delbulk',false);}"></th>
-						 <th>Icon</th> 
+						<th>Id</th>
 						<th>Name</th>
 						<th>Create Time</th>
 						<th>Type</th>
 						<th>Size</th>
+						<!-- <th>Folder Path</th> -->
 						<th>Action</th>
 					</tr>
 					<s:iterator value="#session.fileList" status="FileAndFolder">
-						<s:if test="type=='folder' or type=='mapping_copy'">
+						<s:if test="type=='folder' || type=='mapping_copy'">
 							<tr>
 								<td>
-								<s:if test="type=='mapping_copy'">
-								    <input  type="checkbox" value="[arr]${id}[arr]${type}[arr]${name}" disabled>
-								</s:if>
-								<s:else>
-								    <input class="delbulk" type="checkbox" value="[arr]${id}[arr]${type}[arr]${name}" >
-								</s:else>
+									<s:if test="type=='folder'">
+										<input class="delbulk" type="checkbox" value="[arr]${id}[arr]${type}[arr]${name}">
+									</s:if>
+									<s:if test="type=='mapping_copy'">
+										<input type="checkbox" disabled="" >
+									</s:if>	
 								</td>
-								<td onclick="return into(${id})"><span class="icon tree-folder"></span><%--  ${id} --%></td>
+								<td onclick="return into(${id})"><span class="icon tree-folder"></span> ${id}</td>
 								<td onclick="return into(${id})">${name}</td>
 								<td onclick="return into(${id})"><s:date name="time" format="yyyy-MM-dd" /></td>
 								<td onclick="return into(${id})">${type}</td>
 								<td onclick="return into(${id})">${size}</td>
 								<td>
 									<div class="btn-group">
-										<a class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown"  <s:if test="type=='mapping_copy'">disabled="disabled"</s:if>>
+									
+										<a class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown"
+										<s:if test="type=='mapping_copy'">disabled="disabled"</s:if>>
 											<span class="glyphicon  glyphicon-pencil"></span>
-											Action
+											edit
 											<span class="caret"></span>
 										</a>
-										
-										<ul class="dropdown-menu" role="menu" style="min-width: 100%;" >
+										<ul class="dropdown-menu" role="menu" style="min-width: 100%;">
 											<li>
 												<form id="del${id}" action="deleteDir.action" method="post" style="display: none">
 													<input type="hidden" name="id" value="${id}">
@@ -183,27 +215,26 @@ body {
 												</a>
 											</li>
 										</ul>
-										</s:if>
 									</div>
 								</td>
 							</tr>
+						</s:if>
 					</s:iterator>
 					<s:iterator value="#session.fileList" status="FileAndFolder">
 						<s:if test="type!='folder' && type!='mapping' && type!='mapping_copy'">
 							<tr>
 								<td><input class="delbulk" type="checkbox" value="[arr]${id}[arr]${type}[arr]${name}"></td>
-								<td><span class="icon tree-file"></span> <%-- ${id} --%></td>
+								<td><span class="icon tree-file"></span> ${id}</td>
 								<td>${name}</td>
 								<td><s:date name="time" format="yyyy-MM-dd" /></td>
 								<td>${type}</td>
 								<td>${size}</td>
-								<%-- <td>${folderPath}</td> --%>
 								<td>
 									<!-- 按钮组开始 -->
 									<div class="btn-group">
 										<a class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown">
 											<span class="glyphicon glyphicon-pencil"></span>
-											Action
+											edit
 											<span class="caret"></span>
 										</a>
 										<ul class="dropdown-menu" role="menu" style="min-width: 100%;">
@@ -400,19 +431,36 @@ body {
 	<!-- 移动文件结束 -->
 	<!-- 上传文件窗口 -->
 	<div class="modal fade" id="modal-container-upload" role="dialog" aria-labelledby="myModalLabel"
-		aria-hidden="true">
-		<div class="modal-dialog">
+		aria-hidden="true" >
+		<div class="modal-dialog"  style="width:500px;max-height: 800px">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h5 class="modal-title" id="myModalLabel">请选择文件上传</h5>
+<!-- 新删除部分 
 					<h5 class="modal-title" id="myModalLabel">
 						<a href="#" class="btn " onclick="addMore()">
 							<span class="glyphicon glyphicon-plus"> </span>
 							Please Add A File...
 						</a>
 					</h5>
+-->
 				</div>
 				<div class="modal-body">
+<!-- 新添加部分开始 -->
+					<form action="fileUpload.action" id="addFiles" method="post" style="padding: 10px 20px 10px 0px;" enctype="multipart/form-data">
+        				<a id="more" href="javascript:void(0)" class="fileup" ><strong style="margin-left: 5px; margin-right: 8px;" class="icon-plus-circle" >选择文件</strong>
+    						<input id="fileUp" name="uploadFiles" type="file" onchange="change()">
+						</a>
+						<input type="hidden" id="parentFolderId" name="parentFolderId" value=${session.parentId }>
+						<input type="hidden" id="folderPath" name="folderPath" value=${session.parentPath }>
+						<input type="hidden" id="currentPage" name="pagesource.currentPage" value="${pagesource.currentPage}">
+					</form>
+					<div id="showFileList">
+						
+					</div>
+<!-- 新添加部分结束 -->
+<!-- 新删除部分 
 					<form action="fileUpload.action" id="addFiles" method="post"
 						style="padding: 10px 20px 10px 80px;" enctype="multipart/form-data">
 						<input type="hidden" name="parentFolderId" value=${session.parentId }>
@@ -421,10 +469,11 @@ body {
 						<div id="more"></div>
 						<s:token />
 					</form>
+-->
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
-					<button type="button" class="btn btn-primary" onclick="$('form#addFiles').submit()">Upload</button>
+					<button type="reset" class="btn btn-default" data-dismiss="modal">cancel</button>
+					<button type="button" class="btn btn-primary" onclick="$('form#addFiles').submit()">Upload</button> 
 				</div>
 			</div>
 		</div>
@@ -447,10 +496,12 @@ body {
 				<div class="modal-body">
 					<form action="addFolder.action" id="addF" target="_parent"
 						style="padding: 10px 20px 10px 40px;" method="post">
-						<%-- <s:token /> --%>
+						<s:token />
+						<%-- <s:fielderror /> --%>
 						<input type="hidden" name="parentFolderId" value=${session.parentId }>
 						<input type="hidden" name="folderPath" value=${session.parentPath }>
 						<input type="hidden" name="pagesource.currentPage" value="${pagesource.currentPage}">
+						<%-- <s:fielderror name="name" /> --%>
 						<div class="input-group">
 							<span class="input-group-addon">
 								<span class="glyphicon glyphicon-folder-close"></span>
@@ -544,6 +595,89 @@ body {
 	    	 document.getElementById("BulktoPathId").value = node.id;
 	    }
 	 });
+/*新添加文件上传部分*/
+	var fileNum = -1;
+	var attList; 
+	var input_fileUp; //接收文件输入的input
+	function change() {		
+		var input_file = document.createElement("input");//存储上传的input文件输入框
+		input_file.type = "file";
+		input_file.name = "uploadFiles";
+		input_file.id = "fileUp";
+		input_file.onchange = change;
+
+		input_fileUp = document.getElementById("fileUp");//获取现有的fileUp
+		input_fileUp.after(input_file);
+		fileNum++;
+		input_fileUp.id = "fileUp"+fileNum;
+
+		var showFileList = document.getElementById("showFileList");
+		var br = document.createElement("br");
+		var span = document.createElement("span");
+		span.className = "glyphicon glyphicon-trash";
+		
+		var input_text = document.createElement("input");//显示信息的input文件输入框
+		input_text.type = "text";
+		attList = document.getElementsByName("uploadFiles");
+		input_text.name = getFileName(attList[fileNum].value);
+		input_text.id = input_fileUp.id;
+		input_text.value = input_text.name;
+		input_text.className = "file_text";
+		
+		var button = document.createElement("button");
+		button.type = "button";
+		button.className = "btn btn-xs";
+		button.appendChild(span);
+		button.onclick = function() {
+			br.remove();
+			button.remove();
+			document.getElementById(input_text.id).remove();
+			input_text.remove();
+		}
+		showFileList.appendChild(br);
+		showFileList.appendChild(button);
+		showFileList.appendChild(input_text);
+		showFileList.appendChild(br);
+		
+			
+/*
+		var inputText = document.getElementById("showFileList");//用来显示选中的文件信息
+		var temp = inputText.innerHTML;
+		attList = document.getElementsByName("uploadFiles");
+		inputText.innerHTML = temp + getFileName(attList[fileNum].value) + "\n";
+*/	
+	};
+
+	function getFileName(file){
+	    var pos = file.lastIndexOf("\\");
+	    return file.substring(pos+1);  
+	}
+/*新添加文件上传部分*/
+	
+/*
+   document.getElementById("fileUp").onchange = function() {
+		var formData = new FormData();	
+		formData.append('uploadFiles', document.getElementById('fileUp').files[0]);
+		formData.append('parentFolderId', $("#parentFolderId").val());
+		formData.append('folderPath', $("#folderPath").val());
+		formData.append('pagesource.currentPage', $("#currentPage").val());
+		alert( document.getElementById('fileUp').files[0] + "  "+ $("#parentFolderId").val() 
+				+"  "+ $("#folderPath").val()+"  "+$("#pagesource.currentPage").val());
+		var xmlhttp_upload;
+		if (window.XMLHttpRequest) {
+			xmlhttp_upload = new XMLHttpRequest();
+		} else {
+			xmlhttp_upload = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp_upload.onreadystatechange = function() {
+		if (xmlhttp_upload.readyState == 4 && xmlhttp_upload.status == 200) {
+				location.reload(true);   
+			}
+		}
+		xmlhttp_upload.open('POST', 'fileUpload.action', true);
+		xmlhttp_upload.send(formData);
+	};
+*/
    </script>
 </body>
 </html>

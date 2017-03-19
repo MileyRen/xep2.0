@@ -1,0 +1,29 @@
+try {
+String toolName = "%s";
+String commandStr = "%s";
+
+String id = "%s";
+int jobId = App.getJobId();
+
+String[] commands = commandStr.split(" ");
+
+Connection conn = App.getConnection();
+PreparedStatement ps = conn.prepareStatement("select * from jobInfo where id=?");
+ps.setInt(1, jobId);
+ResultSet rs = ps.executeQuery();
+rs.next();
+String jobState = rs.getString("processInfo");
+rs.close();
+ps.close();
+Process p = new Process();
+int pid = p.create(toolName, commands);
+jobState = App.updateJobState(id, jobState, "running", 0, pid, new Date().getTime(), 0);
+ps = conn.prepareStatement("update jobInfo set processInfo='"+jobState+"' where id="+jobId);
+ps.executeUpdate();
+ps.close();
+int ret = p.waitFor();
+jobState = App.updateJobState(id, jobState, "finish", ret, 0, 0, new Date().getTime());
+ps = conn.prepareStatement("update jobInfo set processInfo='"+jobState+"' where id="+jobId);
+ps.executeUpdate();
+ps.close();
+} catch(Exception e) {}

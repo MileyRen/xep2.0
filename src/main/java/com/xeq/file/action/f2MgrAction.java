@@ -328,8 +328,13 @@ public class f2MgrAction extends ActionSupport implements SessionAware, ModelDri
 
 				for (int i = 0; i < filesCount; i++) {
 					String fileN = uploadFilesFileName.get(i);
-					String tp = fileN.substring(fileN.indexOf("."));
-					String fileName = fileN.substring(0, fileN.indexOf("."));
+					int indexof = fileN.indexOf(".");
+					String tp = "";
+					String fileName = fileN;
+					if (indexof > -1) {
+						tp = fileN.substring(indexof);
+						fileName = fileN.substring(0, indexof);
+					}
 					/*********** 检查是否有相同文件 ***********/
 					String HQL = "from FileAndFolder WHERE parentFolderId=" + parentFolderId + " AND userId=" + userId
 							+ " AND name='" + fileName + "' AND type='" + tp + "'";

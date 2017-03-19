@@ -67,7 +67,7 @@ function promList_old(arr1, arr2) {
 function allCheck(name, boolValue) {
 	var allvalue = document.getElementsByClassName(name);
 	for (var i = 0; i < allvalue.length; i++) {
-		if ((allvalue[i].type == "checkbox") && (allvalue[i].disabled=!true))
+		if (allvalue[i].type == "checkbox")
 			allvalue[i].checked = boolValue;
 	}
 }
@@ -135,6 +135,7 @@ $('input[id=lefile]').change(function() {
 	$('#photoCover').val($(this).val());
 });
 /** 动态上传文件 */
+/*
 function addMore() {
 	var div = document.getElementById("more");
 	var br = document.createElement("br");
@@ -163,3 +164,4 @@ function addMore() {
 	div.appendChild(br);
 
 }
+*/

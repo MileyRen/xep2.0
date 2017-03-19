@@ -1,0 +1,300 @@
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:02] org.springframework.test.context.support.AbstractTestContextBootstrapper.getDefaultTestExecutionListenerClassNames(259) | Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:02] org.springframework.test.context.support.AbstractTestContextBootstrapper.getTestExecutionListeners(185) | Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@51565ec2, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@482f8f11, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@1593948d, org.springframework.test.context.support.DirtiesContextTestExecutionListener@1b604f19, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7823a2f9, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@4cc0edeb]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:02] org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [spring.xml]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:02] org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [spring-hibernate.xml]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:02] org.springframework.context.support.AbstractApplicationContext.prepareRefresh(578) | Refreshing org.springframework.context.support.GenericApplicationContext@7085bdee: startup date [Sun Mar 19 18:25:02 CST 2017]; root of context hierarchy
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:03] org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(172) | Loading properties file from class path resource [config.properties]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:03] com.alibaba.druid.pool.DruidDataSource.init(669) | {dataSource-1} inited
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:03] org.hibernate.annotations.common.reflection.java.JavaReflectionManager.<clinit>(66) | HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:03] org.hibernate.Version.logVersion(54) | HHH000412: Hibernate Core {4.3.8.Final}
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:03] org.hibernate.cfg.Environment.<clinit>(239) | HHH000206: hibernate.properties not found
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:03] org.hibernate.cfg.Environment.buildBytecodeProvider(346) | HHH000021: Bytecode provider name : javassist
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:03] org.hibernate.cfg.Configuration.addFile(500) | HHH000220: Reading mappings from file: D:\xep_2.0\xep_final\target\classes\com\gene\utils\Tool.hbm.xml
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:04] org.hibernate.cfg.Configuration.addFile(500) | HHH000220: Reading mappings from file: D:\xep_2.0\xep_final\target\classes\com\gene\utils\Tooltype.hbm.xml
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:04] org.hibernate.cfg.Configuration.addFile(500) | HHH000220: Reading mappings from file: D:\xep_2.0\xep_final\target\classes\com\gene\utils\User.hbm.xml
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:04] org.hibernate.dialect.Dialect.<init>(145) | HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:04] org.hibernate.engine.transaction.internal.TransactionFactoryInitiator.initiateService(62) | HHH000399: Using default transaction strategy (direct JDBC transactions)
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:04] org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory.<init>(47) | HHH000397: Using ASTQueryTranslatorFactory
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(207) | HHH000228: Running hbm2ddl schema update
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(218) | HHH000102: Fetching database metadata
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(230) | HHH000396: Updating schema
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.file_and_folder
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [deleteflag, size, mappingpath, name, id, time, type, userid, parentfolderid]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: [fk_49eyck320ldu9tk84ejq6gvvf]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [fk_49eyck320ldu9tk84ejq6gvvf, primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.fileupload_library_dataset
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [update_time, deleted, create_time, size, user_id, folder_id_id, dataset_id, name, id, type]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.flowbasicinfo
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [flownum, auth, groupid, name, createdate, id, userid, flow]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.flowgroupinfo
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [intro, name, id]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.jobinfo
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [bpmn, addon, processinfo, flowbasicinfoid, name, pid, id, state, edtime, userid, bgtime]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.tool
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [savedresults, addeduserid, isshared, toolname, id, tooltypeid, parameters, addedtime, describtion]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: [tool_fk_user, tool_fk_type]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [tool_fk_user_idx, primary, tool_fk_type_idx]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.tooltype
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [addeduserid, showcolor, toolnum, id, typename, describtion]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: [fk_gprk69f419usmk6slgsw47b17]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [fk_gprk69f419usmk6slgsw47b17, primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.user
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [password, isavailable, folder, registertime, roleid, usedstorage, id, initstorge, email, username]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(267) | HHH000232: Schema update complete
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:05] org.springframework.orm.hibernate4.HibernateTransactionManager.afterPropertiesSet(360) | Using DataSource [{
+	CreateTime:"2017-03-19 18:25:03",
+	ActiveCount:0,
+	PoolingCount:1,
+	CreateCount:1,
+	DestroyCount:0,
+	CloseCount:2,
+	ConnectCount:2,
+	Connections:[
+		{ID:1757032717, ConnectTime:"2017-03-19 18:25:04", UseCount:2, LastActiveTime:"2017-03-19 18:25:05"}
+	]
+}
+
+[
+	{
+	ID:1757032717, 
+	poolStatements:[
+		]
+	}
+]] of Hibernate SessionFactory for HibernateTransactionManager
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:06] org.springframework.context.support.AbstractApplicationContext.doClose(960) | Closing org.springframework.context.support.GenericApplicationContext@7085bdee: startup date [Sun Mar 19 18:25:02 CST 2017]; root of context hierarchy
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:06] com.alibaba.druid.pool.DruidDataSource.close(1385) | {dataSource-1} closed
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:20] org.springframework.test.context.support.AbstractTestContextBootstrapper.getDefaultTestExecutionListenerClassNames(259) | Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:20] org.springframework.test.context.support.AbstractTestContextBootstrapper.getTestExecutionListeners(185) | Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@457e2f02, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5c7fa833, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@39aeed2f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@724af044, org.springframework.test.context.transaction.TransactionalTestExecutionListener@4678c730, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@6767c1fc]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:20] org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [spring.xml]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:20] org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [spring-hibernate.xml]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:21] org.springframework.context.support.AbstractApplicationContext.prepareRefresh(578) | Refreshing org.springframework.context.support.GenericApplicationContext@5f2108b5: startup date [Sun Mar 19 18:25:21 CST 2017]; root of context hierarchy
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:21] org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(172) | Loading properties file from class path resource [config.properties]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:21] com.alibaba.druid.pool.DruidDataSource.init(669) | {dataSource-1} inited
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:22] org.hibernate.annotations.common.reflection.java.JavaReflectionManager.<clinit>(66) | HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:22] org.hibernate.Version.logVersion(54) | HHH000412: Hibernate Core {4.3.8.Final}
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:22] org.hibernate.cfg.Environment.<clinit>(239) | HHH000206: hibernate.properties not found
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:22] org.hibernate.cfg.Environment.buildBytecodeProvider(346) | HHH000021: Bytecode provider name : javassist
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:22] org.hibernate.cfg.Configuration.addFile(500) | HHH000220: Reading mappings from file: D:\xep_2.0\xep_final\target\classes\com\gene\utils\Tool.hbm.xml
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:22] org.hibernate.cfg.Configuration.addFile(500) | HHH000220: Reading mappings from file: D:\xep_2.0\xep_final\target\classes\com\gene\utils\Tooltype.hbm.xml
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:22] org.hibernate.cfg.Configuration.addFile(500) | HHH000220: Reading mappings from file: D:\xep_2.0\xep_final\target\classes\com\gene\utils\User.hbm.xml
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:22] org.hibernate.dialect.Dialect.<init>(145) | HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.engine.transaction.internal.TransactionFactoryInitiator.initiateService(62) | HHH000399: Using default transaction strategy (direct JDBC transactions)
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory.<init>(47) | HHH000397: Using ASTQueryTranslatorFactory
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(207) | HHH000228: Running hbm2ddl schema update
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(218) | HHH000102: Fetching database metadata
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(230) | HHH000396: Updating schema
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.file_and_folder
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [deleteflag, size, mappingpath, name, id, time, type, userid, parentfolderid]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: [fk_49eyck320ldu9tk84ejq6gvvf]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [fk_49eyck320ldu9tk84ejq6gvvf, primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.fileupload_library_dataset
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [update_time, deleted, create_time, size, user_id, folder_id_id, dataset_id, name, id, type]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.flowbasicinfo
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [flownum, auth, groupid, name, createdate, id, userid, flow]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.flowgroupinfo
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [intro, name, id]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.jobinfo
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [bpmn, addon, processinfo, flowbasicinfoid, name, pid, id, state, edtime, userid, bgtime]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.tool
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [savedresults, addeduserid, isshared, toolname, id, tooltypeid, parameters, addedtime, describtion]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: [tool_fk_user, tool_fk_type]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [tool_fk_user_idx, primary, tool_fk_type_idx]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.tooltype
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [addeduserid, showcolor, toolnum, id, typename, describtion]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: [fk_gprk69f419usmk6slgsw47b17]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [fk_gprk69f419usmk6slgsw47b17, primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.user
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [password, isavailable, folder, registertime, roleid, usedstorage, id, initstorge, email, username]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:23] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(267) | HHH000232: Schema update complete
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:24] org.springframework.orm.hibernate4.HibernateTransactionManager.afterPropertiesSet(360) | Using DataSource [{
+	CreateTime:"2017-03-19 18:25:21",
+	ActiveCount:0,
+	PoolingCount:1,
+	CreateCount:1,
+	DestroyCount:0,
+	CloseCount:2,
+	ConnectCount:2,
+	Connections:[
+		{ID:734971558, ConnectTime:"2017-03-19 18:25:22", UseCount:2, LastActiveTime:"2017-03-19 18:25:23"}
+	]
+}
+
+[
+	{
+	ID:734971558, 
+	poolStatements:[
+		]
+	}
+]] of Hibernate SessionFactory for HibernateTransactionManager
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:24] org.springframework.context.support.AbstractApplicationContext.doClose(960) | Closing org.springframework.context.support.GenericApplicationContext@5f2108b5: startup date [Sun Mar 19 18:25:21 CST 2017]; root of context hierarchy
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:25:24] com.alibaba.druid.pool.DruidDataSource.close(1385) | {dataSource-1} closed
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:09] org.springframework.test.context.support.AbstractTestContextBootstrapper.getDefaultTestExecutionListenerClassNames(259) | Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:09] org.springframework.test.context.support.AbstractTestContextBootstrapper.getTestExecutionListeners(185) | Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@457e2f02, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5c7fa833, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@39aeed2f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@724af044, org.springframework.test.context.transaction.TransactionalTestExecutionListener@4678c730, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@6767c1fc]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:09] org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [spring.xml]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:09] org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [spring-hibernate.xml]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:10] org.springframework.context.support.AbstractApplicationContext.prepareRefresh(578) | Refreshing org.springframework.context.support.GenericApplicationContext@5f2108b5: startup date [Sun Mar 19 18:26:10 CST 2017]; root of context hierarchy
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:10] org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(172) | Loading properties file from class path resource [config.properties]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:10] com.alibaba.druid.pool.DruidDataSource.init(669) | {dataSource-1} inited
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:11] org.hibernate.annotations.common.reflection.java.JavaReflectionManager.<clinit>(66) | HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:11] org.hibernate.Version.logVersion(54) | HHH000412: Hibernate Core {4.3.8.Final}
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:11] org.hibernate.cfg.Environment.<clinit>(239) | HHH000206: hibernate.properties not found
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:11] org.hibernate.cfg.Environment.buildBytecodeProvider(346) | HHH000021: Bytecode provider name : javassist
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:11] org.hibernate.cfg.Configuration.addFile(500) | HHH000220: Reading mappings from file: D:\xep_2.0\xep_final\target\classes\com\gene\utils\Tool.hbm.xml
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:11] org.hibernate.cfg.Configuration.addFile(500) | HHH000220: Reading mappings from file: D:\xep_2.0\xep_final\target\classes\com\gene\utils\Tooltype.hbm.xml
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:11] org.hibernate.cfg.Configuration.addFile(500) | HHH000220: Reading mappings from file: D:\xep_2.0\xep_final\target\classes\com\gene\utils\User.hbm.xml
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:11] org.hibernate.dialect.Dialect.<init>(145) | HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.engine.transaction.internal.TransactionFactoryInitiator.initiateService(62) | HHH000399: Using default transaction strategy (direct JDBC transactions)
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory.<init>(47) | HHH000397: Using ASTQueryTranslatorFactory
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(207) | HHH000228: Running hbm2ddl schema update
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(218) | HHH000102: Fetching database metadata
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(230) | HHH000396: Updating schema
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.file_and_folder
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [deleteflag, size, mappingpath, name, id, time, type, userid, parentfolderid]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: [fk_49eyck320ldu9tk84ejq6gvvf]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [fk_49eyck320ldu9tk84ejq6gvvf, primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.fileupload_library_dataset
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [update_time, deleted, create_time, size, user_id, folder_id_id, dataset_id, name, id, type]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.flowbasicinfo
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [flownum, auth, groupid, name, createdate, id, userid, flow]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.flowgroupinfo
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [intro, name, id]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.jobinfo
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [bpmn, addon, processinfo, flowbasicinfoid, name, pid, id, state, edtime, userid, bgtime]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.tool
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [savedresults, addeduserid, isshared, toolname, id, tooltypeid, parameters, addedtime, describtion]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: [tool_fk_user, tool_fk_type]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [tool_fk_user_idx, primary, tool_fk_type_idx]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.tooltype
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [addeduserid, showcolor, toolnum, id, typename, describtion]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: [fk_gprk69f419usmk6slgsw47b17]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [fk_gprk69f419usmk6slgsw47b17, primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.user
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [password, isavailable, folder, registertime, roleid, usedstorage, id, initstorge, email, username]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(267) | HHH000232: Schema update complete
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:12] org.springframework.orm.hibernate4.HibernateTransactionManager.afterPropertiesSet(360) | Using DataSource [{
+	CreateTime:"2017-03-19 18:26:10",
+	ActiveCount:0,
+	PoolingCount:1,
+	CreateCount:1,
+	DestroyCount:0,
+	CloseCount:2,
+	ConnectCount:2,
+	Connections:[
+		{ID:734971558, ConnectTime:"2017-03-19 18:26:11", UseCount:2, LastActiveTime:"2017-03-19 18:26:12"}
+	]
+}
+
+[
+	{
+	ID:734971558, 
+	poolStatements:[
+		]
+	}
+]] of Hibernate SessionFactory for HibernateTransactionManager
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:13] org.springframework.context.support.AbstractApplicationContext.doClose(960) | Closing org.springframework.context.support.GenericApplicationContext@5f2108b5: startup date [Sun Mar 19 18:26:10 CST 2017]; root of context hierarchy
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:13] com.alibaba.druid.pool.DruidDataSource.close(1385) | {dataSource-1} closed
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:30] org.springframework.test.context.support.AbstractTestContextBootstrapper.getDefaultTestExecutionListenerClassNames(259) | Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:30] org.springframework.test.context.support.AbstractTestContextBootstrapper.getTestExecutionListeners(185) | Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@457e2f02, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5c7fa833, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@39aeed2f, org.springframework.test.context.support.DirtiesContextTestExecutionListener@724af044, org.springframework.test.context.transaction.TransactionalTestExecutionListener@4678c730, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@6767c1fc]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:30] org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [spring.xml]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:31] org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(317) | Loading XML bean definitions from class path resource [spring-hibernate.xml]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:31] org.springframework.context.support.AbstractApplicationContext.prepareRefresh(578) | Refreshing org.springframework.context.support.GenericApplicationContext@5f2108b5: startup date [Sun Mar 19 18:26:31 CST 2017]; root of context hierarchy
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:31] org.springframework.core.io.support.PropertiesLoaderSupport.loadProperties(172) | Loading properties file from class path resource [config.properties]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:31] com.alibaba.druid.pool.DruidDataSource.init(669) | {dataSource-1} inited
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:32] org.hibernate.annotations.common.reflection.java.JavaReflectionManager.<clinit>(66) | HCANN000001: Hibernate Commons Annotations {4.0.5.Final}
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:32] org.hibernate.Version.logVersion(54) | HHH000412: Hibernate Core {4.3.8.Final}
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:32] org.hibernate.cfg.Environment.<clinit>(239) | HHH000206: hibernate.properties not found
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:32] org.hibernate.cfg.Environment.buildBytecodeProvider(346) | HHH000021: Bytecode provider name : javassist
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:32] org.hibernate.cfg.Configuration.addFile(500) | HHH000220: Reading mappings from file: D:\xep_2.0\xep_final\target\classes\com\gene\utils\Tool.hbm.xml
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:32] org.hibernate.cfg.Configuration.addFile(500) | HHH000220: Reading mappings from file: D:\xep_2.0\xep_final\target\classes\com\gene\utils\Tooltype.hbm.xml
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:32] org.hibernate.cfg.Configuration.addFile(500) | HHH000220: Reading mappings from file: D:\xep_2.0\xep_final\target\classes\com\gene\utils\User.hbm.xml
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:33] org.hibernate.dialect.Dialect.<init>(145) | HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:33] org.hibernate.engine.transaction.internal.TransactionFactoryInitiator.initiateService(62) | HHH000399: Using default transaction strategy (direct JDBC transactions)
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:33] org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory.<init>(47) | HHH000397: Using ASTQueryTranslatorFactory
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:33] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(207) | HHH000228: Running hbm2ddl schema update
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:33] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(218) | HHH000102: Fetching database metadata
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:33] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(230) | HHH000396: Updating schema
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.file_and_folder
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [deleteflag, size, mappingpath, name, id, time, type, userid, parentfolderid]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: [fk_49eyck320ldu9tk84ejq6gvvf]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [fk_49eyck320ldu9tk84ejq6gvvf, primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.fileupload_library_dataset
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [update_time, deleted, create_time, size, user_id, folder_id_id, dataset_id, name, id, type]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.flowbasicinfo
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [flownum, auth, groupid, name, createdate, id, userid, flow]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.flowgroupinfo
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [intro, name, id]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.jobinfo
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [bpmn, addon, processinfo, flowbasicinfoid, name, pid, id, state, edtime, userid, bgtime]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.tool
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [savedresults, addeduserid, isshared, toolname, id, tooltypeid, parameters, addedtime, describtion]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: [tool_fk_user, tool_fk_type]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [tool_fk_user_idx, primary, tool_fk_type_idx]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.tooltype
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [addeduserid, showcolor, toolnum, id, typename, describtion]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: [fk_gprk69f419usmk6slgsw47b17]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [fk_gprk69f419usmk6slgsw47b17, primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(66) | HHH000261: Table found: xep.user
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(67) | HHH000037: Columns: [password, isavailable, folder, registertime, roleid, usedstorage, id, initstorge, email, username]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(69) | HHH000108: Foreign keys: []
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.TableMetadata.<init>(70) | HHH000126: Indexes: [primary]
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.hibernate.tool.hbm2ddl.SchemaUpdate.execute(267) | HHH000232: Schema update complete
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.springframework.orm.hibernate4.HibernateTransactionManager.afterPropertiesSet(360) | Using DataSource [{
+	CreateTime:"2017-03-19 18:26:31",
+	ActiveCount:0,
+	PoolingCount:1,
+	CreateCount:1,
+	DestroyCount:0,
+	CloseCount:2,
+	ConnectCount:2,
+	Connections:[
+		{ID:734971558, ConnectTime:"2017-03-19 18:26:33", UseCount:2, LastActiveTime:"2017-03-19 18:26:34"}
+	]
+}
+
+[
+	{
+	ID:734971558, 
+	poolStatements:[
+		]
+	}
+]] of Hibernate SessionFactory for HibernateTransactionManager
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] org.springframework.context.support.AbstractApplicationContext.doClose(960) | Closing org.springframework.context.support.GenericApplicationContext@5f2108b5: startup date [Sun Mar 19 18:26:31 CST 2017]; root of context hierarchy
+[spring_struts2_Hibernate_demo][INFO] [2017-03-19 18:26:34] com.alibaba.druid.pool.DruidDataSource.close(1385) | {dataSource-1} closed
