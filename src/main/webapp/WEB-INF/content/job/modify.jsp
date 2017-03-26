@@ -39,10 +39,32 @@
 <%@include file="/WEB-INF/content/navigator.jsp"%>
 <div style="margin: 0 150px; position: relative;">
 
+<form id='form' class="form-horizontal" role="form" style='text-align: center;'>
+
+<%-- <c:if test="${info.id>0 }"> --%>
+<p id='job-name-container' style="
+    width: 43%;
+    display: inline-block;
+    margin-left: 2.6%;
+"><label class="col-sm-2 control-label label" style="
+    text-align: right;
+    width: 20%;
+    font-size: medium;
+">Job Name: </label> <input type="text" id="job-name" name="jobName" style="
+    width: 79%;
+" required="required" class="detail-area-with-button-influence form-control" value='${info.name }'>
+</p>
+<%-- </c:if> --%>
+
 <c:choose>
-<c:when test="${fn:startsWith(title, '创建') }">
-<p><label style='margin: 15px 30px 15px 15px;'>选择流程:</label><select class='select'>
-<option selected value=''></option>
+<c:when test="${fn:startsWith(title, 'Create') }">
+<p id='select-flow-container' style="
+    width: 43%;
+    display: inline-block;
+"><label class="col-sm-2 control-label label" style="width:20%;text-align: right;font-size: medium;">Select flow:</label><select class='select' style="
+    width: 79%;
+">
+<option selected value=''>Flow name</option>
 <c:forEach items="${flowBasicInfos }" var='item'>
 <option value="${item.id }">${item.name }</option>
 </c:forEach>
@@ -50,7 +72,6 @@
 </c:when>
 </c:choose>
 
-<form id='form' class="form-horizontal" role="form">
 <!-- 
 <section id="show-area" class="ac-container">
 	<%--<div class="ac-div">--%>
@@ -64,11 +85,27 @@
 	<%--</div>--%>
 </section>
  -->
+<c:if test="${info.id>0 }">
+<hr />
+<p><label class="col-sm-2 control-label label" style="
+    text-align: right;
+    width: 16.9%;
+    font-size: medium;
+">Output Location: </label> <input id='output-file-location-input' type="text" style="
+    width: 60.4%;
+    margin-left: -0.5%;
+    cursor: default;
+" required="required" onkeydown="return false" placeholder='Output File Location' class="detail-area-with-button-influence form-control" value="${info.name }"><input type="button" value="browse" id='output-file-location-button' class="btn btn-info button">
+</p>
+<hr />
+</c:if>
 <section id="show-area">
 </section>
 <p class="btn-container">
-<input id="confirm" type="button" class="btn btn-primary" value="确定"><input id="cancel" type="button" class="btn btn-primary" value="取消">
-<input id="run" value="执行" class="btn btn-primary" type="button"><input id='submit' type="submit" style="display:none;">
+<c:if test="${info.id>0 }">
+<input id="confirm" type="button" class="btn btn-info" value="Submit"><input id="cancel" type="button" class="btn btn-info" value="Cancel">
+<input id="run" value="Start" class="btn btn-info" type="button"><input id='submit' type="submit" style="display:none;">
+</c:if>
 </p>
 </form></div>
 
@@ -76,7 +113,7 @@
 <c:when test="${!empty flowBasicInfo }">
 <script>
 	<c:choose>
-	<c:when test="${fn:startsWith(title, '创建') }">
+	<c:when test="${fn:startsWith(title, 'Create') }">
 	var id = 0;
 	var flowId = "${flowBasicInfo.id }";
 	var flowName = undefined;
@@ -105,6 +142,24 @@
 	}
 	$(document).ready(function() {
 		$('.select').on('change', onChange);
+
+		if($('#job-name').length == 0) {
+			var p = $('#select-flow-container');
+			var label = p.children('label');
+			var select = p.children('select');
+			p.removeAttr('style');
+			label.css('width', '16.7%');
+			select.css('width', '72.6%');
+			select.css('margin-left', '-6%');
+		} else if($('#select-flow-container').length == 0) {
+			var p = $('#job-name-container');
+			var label = p.children('label');
+			var select = p.children('select');
+			p.removeAttr('style');
+			label.css('width', '16.7%');
+			select.css('width', '72.6%');
+			select.css('margin-left', '-6%');
+		}
 	});
 </script>
 </body>

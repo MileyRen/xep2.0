@@ -79,12 +79,12 @@ function Flow(bindID, xmlStr, editable, title) {
 				nodeInforDom = nodeInforDom[0];
 				_setNodeInformation(nodeInforDom.id, nodeInforDom.getAttribute('tool-id'), nodeInforDom.getAttribute('name'), nodeInforDom);
 				var toolId = nodeInforDom.getAttribute('tool-id');
-				for(var l in tools) {
+			/*	for(var l in tools) {
 					if(tools[l].id == toolId) {
 						jsonNodes[id].color = tools[l].color || 'white';
 						break;
 					}
-				}
+				}*/
 			}
 		}
 

@@ -36,6 +36,7 @@
 		<div id="show">
 			<table class="table table-hover" id="jobList">
 				<tr>
+				<th>id</th>
 					<TH>Name</TH>
 					<th>Begin Time</th>
 					<th>End Time</th>
@@ -45,6 +46,7 @@
 				</tr>
 				<s:iterator value="#session.jcList" status="JobCss">
 					<tr>
+					<td>${id }</td>
 						<td>${name}</td>
 						<td>${bgTime}</td>
 						<td>${edTime}</td>

@@ -19,7 +19,7 @@
 <head>
 	<base href="<%=basePath%>"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>未开始作业基本信息</title>
+	<title>Not Started Job</title>
 	<link rel="stylesheet" href="css/job/common.css" type="text/css">
 	<link rel="stylesheet" href="css/job/view.css" type="text/css">
 	<link rel="stylesheet" href="css/jqpagination.css" type="text/css">
@@ -33,27 +33,47 @@
 <body>
 <%@include file="/WEB-INF/content/navigator.jsp"%>
 <div style="margin: 0 150px; position: relative;">
-<h2>用户全部未开始作业 <input type="button" id="delete" class="btn btn-primary" value="删除"></h2>
+<h2>Not Started Job <input type="button" id="delete" class="btn btn-info" value="Delete"></h2>
 <table id="show-area" class="table table-hover view-table">
 	<thead>
 	<tr>
 		<th class="delete"></th>
-		<th class="name">名字</th>
-		<th class="user">用户</th>
-		<th class="flow-name">流程名字</th>
-		<th class="detail">修改</th>
-		<th class="start">启动</th>
+		<th class="name">name</th>
+		<th class="user">user</th>
+		<th class="flow-name">flow name</th>
+		<th class="detail">action</th>
+<!-- 		<th class="start">启动</th> -->
 	</tr>
 	</thead>
 	<tbody id="flowList">
 	<c:forEach items="${jfuInfos }" var="info">
 		<tr>
 			<td class="delete"><input type="checkbox" value="${info.id}"></td>
-			<td class="name">${info.id }</td>
+			<td class="name">${info.flowBasicInfoName }</td>
 			<td class="user">${info.userName }</td>
 			<td class="flow-name">${info.flowBasicInfoName }</td>
-			<td class="detail"><a target="_blank" href="job/modify.action?id=${info.id}">修改</a>
-			<td class="detail"><a target="_blank" href="job/start.action?jobId=${info.id}">启动</a>
+			<td class="detail">
+<%-- 			<a target="_blank" href="job/modify.action?id=${info.id}">修改</a> --%>
+<%-- 			<td class="detail"><a target="_blank" href="job/start.action?jobId=${info.id}">启动</a> --%>
+				<div class="btn-group">
+	    			<a class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown">
+							<span class="glyphicon  glyphicon-pencil"></span>action
+							<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu" role="menu" style="min-width: 100%;">
+						<li>
+						    <a href="job/modify.action?id=${info.id}">
+						    	<span class="glyphicon glyphicon-adjust"></span>
+								modify
+						     </a>
+						</li><li>
+						    <a href="job/start.action?jobId=${info.id}">
+						    	<span class="glyphicon glyphicon-adjust"></span>
+								start
+						     </a>
+						</li>
+					</ul>
+    			</div>
 			</td>
 		</tr>
 	</c:forEach>

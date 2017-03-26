@@ -23,7 +23,7 @@
 	<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
 
 	<!-- XXX点信息 -->
-	<title>输出信息</title>
+	<title>Information</title>
 	<script type="text/javascript" src="js/jquery-latest.js"></script>
 	<script type="text/javascript" src="js/GooFunc.js"></script>
 	<script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -53,8 +53,8 @@
 <table id='show' class='table table-hover view-table'>
 	<thead><tr>
 	<th class='no'>#</th>
-	<th class='node'>节点</th>
-	<th class='name'>名字</th>
+	<th class='node'>node</th>
+	<th class='name'>name</th>
 	</tr></thead>
 	<tbody id='show-body'>
 	</tbody>

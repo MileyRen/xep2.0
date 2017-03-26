@@ -24,7 +24,7 @@
 <html>
 <head>
 	<base href="<%=basePath%>"/>
-	<title>选择文件</title>
+	<title>Select File</title>
 	<link rel="stylesheet" href="css/job/common.css" type="text/css">
 	<link rel="stylesheet" href="css/job/modify2.css" type="text/css">
 	<link rel="stylesheet" type="text/css" href="css/SimpleTree/SimpleTree.css"/>

@@ -1,6 +1,6 @@
 $(document).ready(function () {
 	var queryString = window.location.search.substring(1).split('&');
-	var title = "节点详细信息"
+	var title = "Node Information"
 		, id;
 	for (var i = 0; i < queryString.length; i++) {
 		queryString[i] = queryString[i].split('=');
@@ -14,20 +14,21 @@ $(document).ready(function () {
 	}
 
 	if (!id || !window.opener) {
-		alert('信息不完整，窗口关闭');
+		alert('Information fragmentary，window closed.');
 		window.close();
 	}
 
 	// $('.nodeName').attr('value', title);
 
-	if (title != '节点详细信息') {
-		title += ' 详细信息';
+	if (title != 'Node Information') {
+		title += ' Detail';
 	}
 	document.title = title;
 
 	$(window).on('beforeunload', closeAction);
 
 	var tools = window.opener.tools;		// xmlPath对应的是文本文档
+	var toolTypes = window.opener.toolTypes;
 	var toolInfos = {};						// 文档转化后的结果，使用ID作为索引，储存全部工具
 
 	var $max = 0;		// 全部隐藏ID等需要序列化的东西的取值地方
@@ -42,17 +43,26 @@ $(document).ready(function () {
 	(function (id) {
 		// 装填工具
 		for (var i = 0; i < tools.length; i++) {
-			var option = document.createElement('option');
-			option.value = tools[i].id;
-			option.innerHTML = tools[i].toolName;
-			option.dataset.color = tools[i].color || 'white';
-			$('#form > p > .tool').append(option);
+//			var option = document.createElement('option');
+//			option.value = tools[i].id;
+//			option.innerHTML = tools[i].toolName;
+//			option.dataset.color = tools[i].color || 'white';
+//			option.dataset.toolTypeId = tools[i].toolTypeId;
+//			$('#form > p > .tool').append(option);
 
 			// 转化xml
 			toolInfos[tools[i].id] = {
 				name: tools[i].toolName,
+				savedResults: tools[i].savedResults,
 				xml: $(new DOMParser().parseFromString(tools[i].xmlPath, 'text/xml')).children('tool')[0]
 			};
+		}
+
+		for (var i = 0; i < toolTypes.length; i++) {
+			var option = document.createElement('option');
+			option.value = toolTypes[i].id;
+			option.innerHTML = toolTypes[i].typeName;
+			$('#tools-select .tool-type').append(option);
 		}
 
 		// 已经有的节点信息
@@ -63,7 +73,25 @@ $(document).ready(function () {
 			|| {toolId: tools[0].id							// 空
 				, toolName: tools[0].toolName
 				, xml: toolInfos[tools[0].id].xml};
-		$('#form > p > .tool')[0].value = nodeInfor.toolId;
+
+		for(var i=0; i<tools.length; i++) {
+			if(tools[i].id == nodeInfor.toolId) {
+				$('#tools-select .tool-type')[0].value = tools[i].toolTypeId;
+				break;
+			}
+		}
+		var toolTypeId = $('#tools-select .tool-type')[0].value;
+		for(var i=0; i<tools.length; i++) {
+			if(toolTypeId == tools[i].toolTypeId) {
+				var option = document.createElement('option');
+				option.value = tools[i].id;
+				option.innerHTML = tools[i].toolName;
+				option.dataset.color = tools[i].color || 'white';
+				option.dataset.toolTypeId = tools[i].toolTypeId;
+				$('#tools-select .tool').append(option);
+			}
+		}
+		$('#tools-select .tool')[0].value = nodeInfor.toolId;
 
 		// 装填infos数组以及fieldset
 		if(!nodeInfor.xml) {
@@ -71,21 +99,48 @@ $(document).ready(function () {
 		}
 		// var params = dom.getElementsByTagName('params')[0].children;
 
-		var fieldset = $('#form > .fieldset')[0];
-		loadTool($(nodeInfor.xml).children('params')[0], fieldset);		// 目前直接使用fieldset作为最外部的container
+		// 加载节点名字
+		$('.node-name').prop('value', $($('.tool').children('option')[$('.tool')[0].selectedIndex]).html());
 
-		pSelectedToolIndex = $('#form').children('p').children('.tool')[0].value;
+		var fieldset = $('#form > .fieldset')[0];
+		// 此处修改为tbody
+		// TODO
+		loadTool($(nodeInfor.xml).children('params')[0], $(fieldset).children('table').children('tbody')[0]);		// 目前直接使用fieldset作为最外部的container
+
+		pSelectedToolIndex = $('#tools-select .tool')[0].value;
 	})(id);
 
 	// 工具改变
 	$('.tool').on('change', function (e) {
-		$('#form > .fieldset').empty();
+		$('#form > .fieldset').children('table').children('tbody').empty();
 		selectInfos = {};
-		var legend = document.createElement('legend');
-		$(legend).html('选项');
-		$('#form > .fieldset').append(legend);
 
-		loadTool($(toolInfos[e.target.value].xml).children('params')[0], $('#form > .fieldset')[0]);
+		$('.node-name').prop('value', $($('.tool').children('option')[$('.tool')[0].selectedIndex]).html());
+		loadTool($(toolInfos[e.target.value].xml).children('params')[0], $('#form > .fieldset').children('table').children('tbody')[0]);
+	});
+
+	$('.tool-type').on('change', function (e) {
+		// 重置新的tool的select，设置初始值
+		$('#tools-select .tool').children().remove();
+		for(var i=0; i<tools.length; i++) {
+			if(e.target.value == tools[i].toolTypeId) {
+				var option = document.createElement('option');
+				option.value = tools[i].id;
+				option.innerHTML = tools[i].toolName;
+				option.dataset.color = tools[i].color || 'white';
+				option.dataset.toolTypeId = tools[i].toolTypeId;
+				$('#tools-select .tool').append(option);
+			}
+		}
+		$('#tools-select .tool')[0].selectedIndex = 0;
+		// 执行tool的select的数据
+		$('#form > .fieldset').children('table').children('tbody').empty();
+		selectInfos = {};
+
+		if($('#tools-select .tool')[0].value) {
+			$('.node-name').prop('value', $($('.tool').children('option')[$('.tool')[0].selectedIndex]).html());
+			loadTool($(toolInfos[$('#tools-select .tool')[0].value].xml).children('params')[0], $('#form > .fieldset').children('table').children('tbody')[0]);
+		}
 	});
 
 	$('#confirm').on('click', function () {
@@ -98,14 +153,18 @@ $(document).ready(function () {
 			return;
 		}
 
-		var selectedToolIndex = $('#form').children('p').children('.tool')[0].value;
-		var toolId = $(form).children('p').children('.tool')[0].value;
+		var selectedToolIndex = $('#tools-select .tool')[0].value;
+		var toolId = $("#tools-select .tool")[0].value;
 		var flowToolDoc = toolInfos[selectedToolIndex].xml;
 		var flowTool = $(flowToolDoc)[0];
 		var name = $(flowTool).attr('name');
 		$(flowTool).attr('id', id);
 		$(flowTool).attr('tool-id', toolId);
+		// TODO 此处的获取数据是有问题的
 		saveTool(getMostInsideContainer($(form).children('.fieldset')[0]), $(flowTool).children('params')[0]);
+		if(toolInfos[selectedToolIndex].savedResults && toolInfos[selectedToolIndex].savedResults != 0) {
+			$(flowTool).find('output').attr('value', '-1');
+		}
 
 		var pWin = window.opener;
 		pWin.instance.setNodeInformation(id, toolId, name, flowToolDoc);
@@ -123,15 +182,14 @@ $(document).ready(function () {
 			}
 		}
 
-		var nodeName = $(form).children('p').children('.detail-area')[0].selectedOptions[0].innerHTML;
-		resetPWindow(nodeName, $(form).children('p').children('.detail-area')[0].selectedOptions[0].dataset.color);
+		var nodeName = $('.node-name').prop('value');
+		resetPWindow(nodeName, $("#tools-select .tool")[0].selectedOptions[0].dataset.color);
 		window.close();
 	});
 
 	$('#cancel').on('click', function () {
 		window.close();
 	});
-
 
 	/**
 	 * 获取储存属性的容器的最里面一层
@@ -141,26 +199,14 @@ $(document).ready(function () {
 		if(!container) {
 			return;
 		}
-		while(true) {
-			var children = $(container).children();
-			if(!children.length)
-				return;
-			if(!(children[0].tagName == 'div' || children[0].tagName == 'fieldset')) {
-				return container;
-			}
-			container = children[0];
+		if(container.tagName == 'TR') {
+			container = $(container).children('td')[0];
 		}
+		return $(container).children('table').children('tbody')[0];
 	}
 
 	function getRealSelect(container) {
-		while(true) {
-			var children = $(container).children('.'+attrIdentity);
-			if(children.length == 0) {
-				container = $(container).children()[0];
-			} else {
-				return children[0];
-			}
-		}
+		return $(container).find('.'+attrIdentity)[0];
 	}
 
 	/**
@@ -171,7 +217,8 @@ $(document).ready(function () {
 	 * @param {Element} option	即option
 	 */
 	function saveTool(container, option) {
-		var values = $(container).children('p').children('.'+attrIdentity);
+		// TODO 此处的p应该被修改
+		var values = $(container).children('tr').children('td').children('.'+attrIdentity);
 		var options = $(option).children(':not(value)');
 		for(var i=0; i<values.length; i++) {
 			var tag = options[i].tagName;
@@ -189,6 +236,7 @@ $(document).ready(function () {
 				for(var j=0; j<ops.length; j++) {
 					var v = $(ops[j]).children('value').html();
 					if(v == value) {
+						// TODO 此处的数据有问题
 						saveTool(getMostInsideContainer($('#'+values[i].dataset.divId)[0]), ops[j]);
 						break;
 					}
@@ -225,6 +273,7 @@ $(document).ready(function () {
 					$(container).append(createNumber(params[i]));
 				} else if(type == 'select') {
 					var select = createSelect(params[i]);
+					// TODO 此处
 					var selectDom = getRealSelect(select);
 					$(container).append(select);
 					var options = $(params[i]).children();
@@ -238,10 +287,11 @@ $(document).ready(function () {
 					for(var j=0; j<options.length; j++) {
 						var v = $(options[j]).children('value').html();
 						if(v == value) {
+							// 这里是用来包含select内部的数据的地方
 							var sContainer = createDiv();
 							combineSelect(selectDom, sContainer, params[i]);
 							$(container).append(sContainer);
-							loadTool(options[j], sContainer);
+							loadTool(options[j], getMostInsideContainer(sContainer));
 							break;
 						}
 					}
@@ -256,8 +306,20 @@ $(document).ready(function () {
 
 	// 创建div，并且赋予div样式
 	function createDiv() {
-		var div = document.createElement('div');
-		return div;
+		var tr = document.createElement('tr');
+		var td = document.createElement('td');
+		$(td).prop('colspan', '4');
+		var table = document.createElement('table');
+		$(table).prop('border', '1');
+		$(table).css('border-collapse', 'collapse');
+		$(table).css('border-width', '0px');
+		$(table).css('border-style', 'hidden');
+		$(table).css('border-color', 'gainsboro');
+		$(table).css('width', '100%');
+		$(table).append('<tbody></tbody>');
+		$(td).append(table);
+		$(tr).append(td);
+		return tr;
 	}
 
 	// 将select和div以及selectInfos关联起来
@@ -269,72 +331,110 @@ $(document).ready(function () {
 	}
 
 	function createInput(element) {
-		var p = document.createElement('p');
-		$(p).addClass('form-group');
+		var tr = document.createElement('tr');
+		$(tr).addClass('form-group');
+		var td = document.createElement('td');
+		$(td).css('width', '30%');
 		var label = document.createElement('label');
-		$(label).addClass('col-sm-2');
 		$(label).addClass('control-label');
 		$(label).addClass('label');
-		$(label).html($(element).attr('label'));
+		$(label).html($(element).attr('label')+':');
+		$(td).append(label);
+		$(tr).append(td);
+		td = document.createElement('td');
+		$(td).css('width', '70%');
+		$(td).css('padding', '10px');
 		var input = document.createElement('input');
-		$(input).attr('value', '输入文件');
+		$(input).attr('value', 'Input File');
 		$(input).css('cursor', 'url(icon/cancel.ico), auto');
 		$(input).addClass('detail-area');
 		$(input).addClass('form-control');
 		$(input).addClass(attrIdentity);
 		$(input).attr('disabled', true);
-		$(p).append(label);
-		$(p).append(input);
-		return p;
+		$(input).attr('placeholder', 'Input File');
+		$(td).append(input);
+		$(tr).append(td);
+		return tr;
 	}
 
 	function createOutput(element) {
-		var p = document.createElement('p');
-		$(p).addClass('form-group');
+		var tr = document.createElement('tr');
+		$(tr).addClass('form-group');
+		var td = document.createElement('td');
+		$(td).css('width', '30%');
+
 		var label = document.createElement('label');
-		$(label).addClass('col-sm-2');
-		$(label).addClass('control-label')
+		$(label).addClass('control-label');
 		$(label).addClass('label');
-		$(label).html($(element).attr('label'));
+		$(label).html($(element).attr('label')+':');
+
+		$(td).append(label);
+		$(tr).append(td);
+		td = document.createElement('td');
+		$(td).css('width', '70%');
+		$(td).css('padding', '10px');
+
 		var output = document.createElement('input');
-		$(output).attr('value', '输出文件');
+		$(output).attr('value', 'Output File');
 		$(output).css('cursor', 'url(icon/cancel.ico), auto');
 		$(output).addClass('detail-area');
 		$(output).addClass('form-control');
 		$(output).addClass(attrIdentity);
 		$(output).attr('disabled', true);
-		$(p).append(label);
-		$(p).append(output);
-		return p;
+
+		$(td).append(output);
+		$(tr).append(td);
+
+		return tr;
 	}
 
 	function createFixed(element) {
-		var p = document.createElement('p');
-		$(p).addClass('form-group');
+		var tr = document.createElement('tr');
+		$(tr).addClass('form-group');
+		var td = document.createElement('td');
+		$(td).css('width', '30%');
+
 		var label = document.createElement('label');
-		$(label).addClass('col-sm-2');
-		$(label).addClass('control-label')
+		$(label).addClass('control-label');
 		$(label).addClass('label');
-		$(label).html('固定参数');
+		$(label).html('Fixed Parameter:');
+
+		$(td).append(label);
+		$(tr).append(td);
+		td = document.createElement('td');
+		$(td).css('width', '70%');
+		$(td).css('padding', '10px');
+
 		var value = document.createElement('label');
 		$(value).html($(element).attr('value'));
-		$(value).addClass('col-sm-2');
+		$(value).css('cursor', 'url(icon/cancel.ico), auto');
+		$(value).css('background', '#eee');
 		$(value).addClass('detail-area');
 		$(value).addClass('value');
 		$(value).addClass(attrIdentity);
-		$(p).append(label);
-		$(p).append(value);
-		return p;
+
+		$(td).append(value);
+		$(tr).append(td);
+		return tr;
 	}
 
 	function createNumber(element) {
-		var p = document.createElement('p');
-		$(p).addClass('form-group');
+		var tr = document.createElement('tr');
+		$(tr).addClass('form-group');
+		var td = document.createElement('td');
+		$(td).css('width', '30%');
+
 		var label = document.createElement('label');
-		$(label).addClass('col-sm-2');
-		$(label).addClass('control-label')
+		$(label).addClass('control-label');
 		$(label).addClass('label');
-		$(label).html($(element).attr('label'));
+		$(label).html($(element).attr('label')+':');
+
+		$(td).append(label);
+		$(tr).append(td);
+		td = document.createElement('td');
+		$(td).css('width', '70%');
+		$(td).css('padding', '10px');
+
 		var input = document.createElement('input');
 		$(input).attr('maxLength', $(element).attr('size'));
 		$(input).attr('type', 'text');
@@ -343,23 +443,34 @@ $(document).ready(function () {
 		$(input).addClass('form-control');
 		$(input).addClass('value');
 		$(input).addClass(attrIdentity);
+		$(input).attr('placeholder', $(element).attr('type'));
 		var value = $(element).attr('value');
 		if (value) {
 			input.value = value;
 		}
-		$(p).append(label);
-		$(p).append(input);
-		return p;
+
+		$(td).append(input);
+		$(tr).append(td);
+		return tr;
 	}
 
 	function createSelect(element) {
-		var p = document.createElement('p');
-		$(p).addClass('form-group');
+		var tr = document.createElement('tr');
+		$(tr).addClass('form-group');
+		var td = document.createElement('td');
+		$(td).css('width', '30%');
+
 		var label = document.createElement('label');
-		$(label).addClass('col-sm-2');
-		$(label).addClass('control-label')
+		$(label).addClass('control-label');
 		$(label).addClass('label');
-		$(label).html($(element).attr('label'));
+		$(label).html($(element).attr('label')+':');
+
+		$(td).append(label);
+		$(tr).append(td);
+		td = document.createElement('td');
+		$(td).css('width', '70%');
+		$(td).css('padding', '10px');
+
 		var select = document.createElement('select');
 		var options = $(element).children();
 		for(var i=0; i<options.length; i++) {
@@ -378,15 +489,16 @@ $(document).ready(function () {
 		$(select).addClass('select');
 		$(select).addClass('value');
 		$(select).addClass(attrIdentity);
-		$(p).append(label);
-		$(p).append(select);
+
+		$(td).append(select);
+		$(tr).append(td);
 
 		$(select).on('change', function(e) {
 			var value = e.target.value;
 			var divId = e.target.dataset.divId;
-			var xml = selectInfos[divId].xml
+			var xml = selectInfos[divId].xml;
 			var options = $(xml).children();
-			var container = $('#'+divId)[0];
+			var container = getMostInsideContainer($('#'+divId)[0]);
 
 			///////////////////////////////////////
 			var cChildren = $(container).find('.'+containerIdentity);
@@ -405,17 +517,26 @@ $(document).ready(function () {
 			}
 		});
 
-		return p;
+		return tr;
 	}
 
 	function createTextArea(element) {
-		var p = document.createElement('p');
-		$(p).addClass('form-group');
+		var tr = document.createElement('tr');
+		$(tr).addClass('form-group');
+		var td = document.createElement('td');
+		$(td).css('width', '30%');
+
 		var label = document.createElement('label');
-		$(label).addClass('col-sm-2');
-		$(label).addClass('control-label')
+		$(label).addClass('control-label');
 		$(label).addClass('label');
-		$(label).html($(element).attr('label'));
+		$(label).html($(element).attr('label')+':');
+
+		$(td).append(label);
+		$(tr).append(td);
+		td = document.createElement('td');
+		$(td).css('width', '70%');
+		$(td).css('padding', '10px');
+
 		var textarea = document.createElement('textarea');
 		var value = $(element).attr('value');
 		if (value) {
@@ -427,9 +548,11 @@ $(document).ready(function () {
 		$(textarea).addClass('value');
 		$(textarea).addClass(attrIdentity);
 		$(textarea).prop('rows', '3');
-		$(p).append(label);
-		$(p).append(textarea);
-		return p;
+		$(textarea).attr('placeholder', $(element).attr('type'));
+
+		$(td).append(textarea);
+		$(tr).append(td);
+		return tr;
 	}
 
 	/**

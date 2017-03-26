@@ -23,7 +23,7 @@
 <head>
 	<base href="<%=basePath%>"/>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>流程基本信息</title>
+	<title>Flow Information</title>
 	<link rel="stylesheet" href="css/flow/common.css" type="text/css">
 	<link rel="stylesheet" href="css/flow/view.css" type="text/css">
 	<link rel="stylesheet" href="css/jqpagination.css" type="text/css">
@@ -40,26 +40,26 @@
 <body>
 <%@include file="/WEB-INF/content/navigator.jsp"%>
 <div style="margin: 0 150px; position: relative;">
-<h2>&nbsp;</h2>
-<form id="filterDateForm"><p>Date:&nbsp;<input readonly type="text" class="form-control" name="startDate" id="startDate" required>to:&nbsp;<input readonly type="text" class="form-control" name="endDate" id="endDate" required>Privilege:&nbsp;
+<h2>Work Flow&nbsp;</h2>
+<form id="filterDateForm"><p>Date:&nbsp;<input placeholder='StartDate' readonly type="text" class="form-control" name="startDate" id="startDate" required>to:&nbsp;<input placeholder='EndDate' readonly type="text" class="form-control" name="endDate" id="endDate" required>Privilege:&nbsp;
 <select class="group-filter">
 <option selected value=""></option>
-<option value="0">私有</option>
-<option value="1">共享</option>
-<option value="2">系统</option>
+<option value="0">Private</option>
+<option value="1">Shared</option>
+<option value="2">System</option>
 </select>
-<input type="button" id="filterDate" class="btn btn-primary" value="筛选"></p><input type="submit" style="display:none;" class="submit"></form>
+<button type="button" id="filterDate" class="btn btn-info"><span class="glyphicon glyphicon-search"></span>search</button></p><input type="submit" style="display:none;" class="submit"></form>
 <table id="show-area" class="table table-hover view-table">
 	<thead>
 	<tr>
 		<th class="delete"></th>
-		<th class="name">名字</th>
-		<th class="user-id">用户</th>
-		<th class="privilege">权限</th>
-		<th class="node-num">节点数量</th>
-		<th class="create-date">修改日期</th>
-		<th class="detail">修改</th>
-		<th class="create-job">删除</th>
+		<th class="name">name</th>
+		<th class="user-id">user</th>
+		<th class="privilege">auth</th>
+		<th class="node-num">node</th>
+		<th class="create-date">modify date</th>
+		<th class="detail">action</th>
+<!-- 		<th class="create-job">删除</th> -->
 	</tr>
 	</thead>
 	<tbody id="flowList">
@@ -69,20 +69,39 @@
 			<td class="name">${info.name }</td>
 			<td class="user-id">${info.userName }</td>
 			<td class="privilege"><c:choose><c:when
-					test="${info.auth==0 }">私有</c:when><c:when
-					test="${info.auth==1 }">共享</c:when><c:otherwise>系统</c:otherwise></c:choose></td>
+					test="${info.auth==0 }">Private</c:when><c:when
+					test="${info.auth==1 }">Shared</c:when><c:otherwise>System</c:otherwise></c:choose></td>
 			<td class="node-num">${info.flowNum }</td>
 			<td class="create-date">${info.createDate }</td>
 			<td class="detail">
-					<input type="button" value="修改" class="btn btn-primary view-btn-in-table" onclick="modifyColumn(this, ${info.id}, '${info.name}', ${info.auth})">
+<%-- 					<input type="button" value="修改" class="btn btn-info view-btn-in-table" onclick="modifyColumn(this, ${info.id}, '${info.name}', ${info.auth})"> --%>
+				<div class="btn-group">
+    			<a class="btn btn-info dropdown-toggle btn-xs" data-toggle="dropdown">
+						<span class="glyphicon  glyphicon-pencil"></span>edit
+						<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu" role="menu" style="min-width: 100%;">
+					<li>
+					    <a href="javascript:;" onclick="modifyColumn(this, ${info.id}, '${info.name}', ${info.auth})">
+					    	<span class="glyphicon glyphicon-adjust"></span>
+							modify
+					     </a>
+					    </li><li>
+					    <a href="javascript:;" onclick="deleteOneColumn('${info.id}')">
+					    	<span class="glyphicon glyphicon-trash"></span>
+							delete
+					     </a>
+				    </li>
+				</ul>
+    			</div>
 			</td>
-			<td class="create-job"><input type="button" value="删除" class="btn btn-primary view-btn-in-table" onclick="deleteOneColumn('${info.id}')"></td>
+<%-- 			<td class="create-job"><input type="button" value="删除" class="btn btn-info view-btn-in-table" onclick="deleteOneColumn('${info.id}')"></td> --%>
 		</tr>
 	</c:forEach>
 	</tbody>
 </table>
 <div id="page">
-	<input type="button" id="add" class="btn btn-primary" value="新增"><input type="button" id="delete" class="btn btn-primary" value="删除">
+	<input type="button" id="add" class="btn btn-info" value="Add"><input type="button" id="delete" class="btn btn-info" value="Delete">
 	<div class="pagination">
 		<a href="#" class="first" data-action="first">&laquo;</a>
 		<a href="#" class="previous" data-action="previous">&lsaquo;</a>
@@ -99,7 +118,7 @@
 			<td class="name">no name</td>
 			<td class="user-id"><%=userName %>
 			</td>
-			<td class="privilege">私有</td>
+			<td class="privilege">Private</td>
 			<td class="node-num">0</td>
 			<td class="create-date"><%
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -117,58 +136,59 @@
 	<div class="worker">
 		<input type="text" class="name form-control" required>
 		<select class="privilege">
-			<option selected value="0">私有</option>
-			<option value="1">共享</option>
+			<option selected value="0">Private</option>
+			<option value="1">Shared</option>
 			<% if (isAdmin) {
-				out.println("<option value='2'>系统</option>");
+				out.println("<option value='2'>System</option>");
 			} %>
 		</select>
-		<input type="button" value="确定" class="btn btn-primary" id="confirm"><input type="button" value="取消" class="btn btn-primary" id="cancel">
+		<input type="button" value="Confirm" class="btn btn-info" id="confirm"><input type="button" value="Cancel" class="btn btn-info" id="cancel">
 	</div>
 </div>
 </div>
 <script type="text/javascript">
 var page = window.location.search.substring(1).split('&');
 var maxPage = parseInt((${maxPage }-1) / 10) + 1;
+$(document).ready(function() {
+	function DatePicker(beginSelector,endSelector){
+	    // 仅选择日期
+	    $(beginSelector).datepicker(
+	    {
+	    	language:  "zh-CN",
+	    	autoclose: true,
+	    	startView: 0,
+	    	format: "yyyy-mm-dd",
+	    	clearBtn:true,
+	    	todayBtn:false,
+	    	endDate:new Date()
+	    }).on('changeDate', function(ev){
+	    	if(ev.date){
+	    		$(endSelector).datepicker('setStartDate', new Date(ev.date.valueOf()))
+	    	}else{
+	    		$(endSelector).datepicker('setStartDate',null);
+	    	}
+	    });
 
-function DatePicker(beginSelector,endSelector){
-    // 仅选择日期
-    $(beginSelector).datepicker(
-    {
-    	language:  "zh-CN",
-    	autoclose: true,
-    	startView: 0,
-    	format: "yyyy-mm-dd",
-    	clearBtn:true,
-    	todayBtn:false,
-    	endDate:new Date()
-    }).on('changeDate', function(ev){
-    	if(ev.date){
-    		$(endSelector).datepicker('setStartDate', new Date(ev.date.valueOf()))
-    	}else{
-    		$(endSelector).datepicker('setStartDate',null);
-    	}
-    });
+	    $(endSelector).datepicker(
+	    {
+	    	language:  "zh-CN",
+	    	autoclose: true,
+	    	startView:0,
+	    	format: "yyyy-mm-dd",
+	    	clearBtn:true,
+	    	todayBtn:false,
+	    	endDate:new Date()
+	    }).on('changeDate', function(ev){  
+	    	if(ev.date){
+	    		$(beginSelector).datepicker('setEndDate', new Date(ev.date.valueOf()))
+	    	}else{
+	    		$(beginSelector).datepicker('setEndDate',new Date());
+	    	} 
+	    });
+	}
 
-    $(endSelector).datepicker(
-    {
-    	language:  "zh-CN",
-    	autoclose: true,
-    	startView:0,
-    	format: "yyyy-mm-dd",
-    	clearBtn:true,
-    	todayBtn:false,
-    	endDate:new Date()
-    }).on('changeDate', function(ev){  
-    	if(ev.date){
-    		$(beginSelector).datepicker('setEndDate', new Date(ev.date.valueOf()))
-    	}else{
-    		$(beginSelector).datepicker('setEndDate',new Date());
-    	} 
-    });
-}
-
-DatePicker("#startDate","#endDate");
+	DatePicker("#startDate","#endDate");
+});
 </script>
 <script src="js/flow/view.js">
 </script>

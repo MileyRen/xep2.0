@@ -9,28 +9,21 @@
 <meta http-equiv="expires" content="0">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>Insert title here</title>
-
 </head>
 
 <%! 
 	String jsonStr = new String();
 %>
-
 <script type="text/javascript">
-
 	function getJsonStrFromRequest(){
 		var str = '<%=request.getAttribute("jsonStr")%>';
 		document.getElementById("mySavedModel").value = str;
 	}
-
 	function show(){
 		getJsonStrFromRequest(); 
 		makeSVG();
 	}
-
-	
 </script>
 <body>
 	<a onclick="show()" class="btn btn-primary ">show flow chart</a>
@@ -52,7 +45,7 @@
        </textarea>
 		<button onclick="makeSVG()" >Render as SVG</button>
 		</div>
-		<div id="SVGArea"></div>
+		<div id="SVGArea" ></div>
 
 	</div>
 	

@@ -99,7 +99,11 @@ $get('cancel').addEventListener('click', function () {
 
 	$get('add').disabled = false;
 	$get('delete').disabled = false;
+	$get('filterDate').disabled = false;
 	linkDisabled = false;
+
+	$('.dropdown-toggle').css('pointer-events', 'initial');
+	$('.btn-group').css('display', 'inline-block');
 });
 
 $get('filterDate').addEventListener('click', function() {
@@ -146,7 +150,7 @@ function modifyColumn(item, id, name, auth, groupId) {
 	worker.getElementsByClassName('name')[0].value = name;
 //	worker.getElementsByClassName('group')[0].value = groupId;
 	worker.getElementsByClassName('privilege')[0].value = auth;
-	var offsetTop = getElCoordinate(item).top-78;
+	var offsetTop = getElCoordinate(item).top-110;
 	var offsetLeft = getElCoordinate($get('show-area')).left-150;
 	offsetTop += 4;
 	$get('work-area').style.left = offsetLeft + 'px';
@@ -156,10 +160,15 @@ function modifyColumn(item, id, name, auth, groupId) {
 
 	$get('add').disabled = true;
 	$get('delete').disabled = true;
+	$get('filterDate').disabled = true;
 	linkDisabled = true;
+
+	$('.dropdown-toggle').css('pointer-events', 'none');
 
 	viewJSP.clear();
 	viewJSP.id = id;
+
+	$(item).closest('.btn-group').css('display', 'none');
 
 	$get('confirm').disabled = false;
 	$get('cancel').disabled = false;
@@ -199,7 +208,7 @@ $(document).ready(function () {
 		link_string: 'flow/view.action?page={page_number}',
 		current_page: page, //设置当前页 默认为1
 		max_page: maxPage, //设置最大页 默认为1
-		page_string: '第{current_page}页，共{max_page}页',
+		page_string: '{current_page}th page of {max_page}',
 		paged: function (p) {
 			if (p == page) {
 				return;

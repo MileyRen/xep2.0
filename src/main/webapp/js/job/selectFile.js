@@ -22,6 +22,7 @@ $(document).ready(function () {
 				var selectedFileId = $(a).prop('id');
 				var filePath = getFilePath(selectedFileId);
 				window.filePath = filePath;
+				window.selectedFileId = selectedFileId;
 				window.close();
 			}
 			a.dataset.href = false;

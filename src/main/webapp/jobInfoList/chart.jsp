@@ -39,51 +39,22 @@
 <title>JobStep</title>
 </head>
 <body>
-	<%@include file="/WEB-INF/content/navigator.jsp"%>
-	<div class="container">
-		<div class="row clearfix">
-			<div class="col-md-12 column">
-				<nav class="navbar navbar-default" role="navigation">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<a class="navbar-brand" href="#">name:${jobStep.name}</a>
-					</div>
-					<div>
-						<ul class="nav navbar-nav">
-							<li><a>status:${jobStep.state}</a></li>
-						</ul>
-						<ul class="nav navbar-nav navbar-right">
-							<li><a href="jobsList.action?jobstate=${jobstate}">BACK</a></li>
-						</ul>
-					</div>
-				</div>
-				</nav>
-				<div class="row clearfix">
-					<div class="col-md-12 column">
-						<table class="table table-condensed">
-							<tr>
-								<th>Name</th>
-								<th>Begin Time</th>
-								<th>End Time</th>
-								<th>Status</th>
-							</tr>
-							<s:iterator value="#session.processInfo" status="JobStep">
-								<tr class="${css}">
-									<td>${name}</td>
-									<td>${bgTime}</td>
-									<td>${edTime}</td>
-									<td>
-										<span class="label label-${label}">${state}</span>
-									</td>
-								</tr>
-							</s:iterator>
-						</table>
-					</div>
-				</div>
-			</div>
+	<div class="container" >
+		<div id="flowTip">
+			<p>名字：${fBasicInfo.name }</p>
+			<p>用户ID：${fBasicInfo.userId }</p>
+			<p>节点数量：${fBasicInfo.flowNum }</p>
+			<p>详细信息：</p>
 		</div>
-        <%-- <div><%@include file="draw.jsp"%></div> --%>
-		<div><a href="jobInfoList/chart.jsp" class="btn btn-primary" target="_blank">show flow chart</a></div>
+		<div id='flowInfo' style="display: none;">${fBasicInfo.flow }</div>
+		<div id="flow"></div>
+		<script>
+			var flow = document.getElementById('flowInfo').innerHTML.replace(
+					/\+/g, '%20');
+			flow = decodeURIComponent(flow);
+			var instance = new Flow('flow', flow, false, '${fBasicInfo.name }');
+			instance.setToolTipInfo('flowTip');
+		</script>
 	</div>
 </body>
 </html>

@@ -23,14 +23,21 @@
 	<link rel="stylesheet" href="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/flow/modifyInputOutput.css">
 
-	<title>修改输入输出映射</title>
+	<title>IO Mapping</title>
 	<script type="text/javascript" src="js/jquery-latest.js"></script>
 	<script type="text/javascript" src="js/GooFunc.js"></script>
 	<script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h2>修改输入输出映射</h2>
-<p>现在可以指定输入到输出之间的关系，左边是前一个节点的输出信息，右边是后一个节点的输入信息</p>
+<h2 title='You can now specify the relationship between the input and output, the left is the output of the previous node, while the right is the input of the latter node'>Modify the mapping between Output And Input</h2>
+<table style='margin-bottom:20px;'><tbody><tr><td id='left-node-name' style=" text-align: center;
+    width: 280px; font-size: 30px;
+"></td><td style=" text-align: right;
+    width: 400px; font-size: 30px; background: url(images/arrow-modify-input-and-output.png) 50% 0 no-repeat;
+    background-size: 40% 100%;
+"></td><td id='right-node-name' style="
+    width: 280px; font-size: 30px; text-align: center;
+"></td></tr></tbody></table>
 <div id='output' style='float: left; border: 1px red solid; width: 280px; height: 500px; border-radius: 5px; box-shadow: 0 0 3px grey;'>
 	<!-- <p class='item'>This is a Output Line</p>
 	<p class='item'>This is a Output Line</p>
@@ -38,6 +45,18 @@
 	<p class='item'>This is a Output Line</p>-->
 </div>
 <svg id='paint-area' style='float: left;' width="400px" height="500px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+	<marker id="arrow"
+	        markerUnits="strokeWidth"
+	        markerWidth="5"
+	        markerHeight="5"
+	        viewBox="0 0 12 12"
+	        refX="6"
+	        refY="6"
+	        orient="auto">
+		<path d="M2,2 L10,6 L2,10 L6,6 L2,2" style="fill: #000000;" />
+	</marker>
+	</defs>
 
 	<!--<circle class="radio" cx="25" cy="20" r="10" stroke="grey" stroke-width="5" fill="red"/>
 	<circle class="radio" cx="25" cy="60" r="10" stroke="grey" stroke-width="5" fill="red"/>
@@ -57,7 +76,7 @@
 	<p class='item'>This is a Input Line</p>-->
 </div>
 <div style='position: absolute; bottom: 10px;'>
-	<input type='button' value='确定' class='btn btn-primary' id='confirm'><input type='button' class='btn btn-primary' value='取消' id='cancel'>
+	<input type='button' value='Confirm' class='btn btn-info' id='confirm'><input type='button' class='btn btn-info' value='Cancel' id='cancel'>
 </div>
 <script type='text/javascript'>
 var instance = undefined;

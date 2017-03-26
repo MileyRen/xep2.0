@@ -27,6 +27,17 @@ $(document).ready(function () {
 		for (var i = 0; i < scriptTask.length; i++) {
 			addNode($(scriptTask[i]).children('tool')[0], $(scriptTask[i]).attr('name'));
 		}
+
+		$('#output-file-location-button').on('click', function() {
+			var child = window.open('job/selectFile.action?selectFolder=1', 'File list', 'height=500, width=380, top=50, left=500, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no');
+			$(child).on('beforeunload', function() {
+				if(child.filePath) {
+					$('#output-file-location-input').prop('value', '~'+child.filePath);
+					$('#output-file-location-input')[0].dataset.selectedFileId = child.selectedFileId;
+				}
+			});
+		});
+
 		fixInput();
 	})();
 
@@ -63,15 +74,22 @@ $(document).ready(function () {
 		output = output.replace(/%20/g, '+');
 
 		var form = document.createElement('form');
-		$(form).prop('action', 'job/confirmCreate.action');
+		if(id != 0)
+			$(form).prop('action', 'job/confirmCreate.action?id='+id);
+		else
+			$(form).prop('action', 'job/confirmCreate.action');
 		$(form).prop('method', 'POST');
 		$(form).css('display', 'none');
 		var flowBasicInfoId = document.createElement('input');
 		flowBasicInfoId.name = 'flowBasicInfoId';
 		flowBasicInfoId.value = flowId;
+		var jobName = document.createElement('input');
+		jobName.value = $('#job-name').prop('value');
+		jobName.name = 'name';
 		var bpmn = document.createElement('input');
 		bpmn.name = 'bpmn';
 		bpmn.value = output;
+		$(form).append(jobName);
 		$(form).append(flowBasicInfoId);
 		$(form).append(bpmn);
 		$(document.body).append(form);
@@ -93,9 +111,13 @@ $(document).ready(function () {
 		var flowBasicInfoId = document.createElement('input');
 		flowBasicInfoId.name = 'flowBasicInfoId';
 		flowBasicInfoId.value = flowId;
+		var jobName = document.createElement('input');
+		jobName.value = $('#job-name').prop('value');
+		jobName.name = 'name';
 		var bpmn = document.createElement('input');
 		bpmn.name = 'bpmn';
 		bpmn.value = output;
+		$(form).append(jobName);
 		$(form).append(flowBasicInfoId);
 		$(form).append(bpmn);
 		$(document.body).append(form);
@@ -125,10 +147,10 @@ $(document).ready(function () {
 			if(input.dataset.ref == 'fromFlow') {
 				$(xml).attr('value', input.dataset.value);
 			} else if(input.dataset.ref == 'fromDatabase') {
-				if(input.dataset.fileNameID) {
-					$(xml).attr('value', $(input).prop('value')+'/'+$('#'+input.dataset.fileNameID).attr('value'));
+				if(input.dataset.output) {
+					$(xml).attr('value', $('#output-file-location-input').prop('value').substring(1)+'/'+$('#output-file-location-input')[0].dataset.selectedFileId+'/'+$(input).prop('value'));
 				} else {
-					$(xml).attr('value', $(input).prop('value'));
+					$(xml).attr('value', $(input).prop('value').substring(1));
 				}
 			} else {
 				$(xml).attr('value', '0');
@@ -274,9 +296,23 @@ $(document).ready(function () {
 					var outputFile = outputFileList[toolId];
 					$(input).prop('value', '/'+outputFile.name+'/'+outputFile.children[outputFileId].label);
 				} else if(input.dataset.ref == 'fromDatabase') {
-					$(input).prop('value', $(xml).attr('value'));
+//					$(input).prop('value', $(xml).attr('value'));
+					if(input.dataset.output) {
+						var value = $(xml).attr('value');
+						if(!value) {
+							continue;
+						}
+						var index = value.lastIndexOf('/');
+						$(input).prop('value', value.substring(index+1));
+						value = value.substring(0, index);
+						index = value.lastIndexOf('/');
+						$('#output-file-location-input')[0].dataset.selectedFileId = value.substring(index+1);
+						$('#output-file-location-input').prop('value', '~'+value.substring(0, index));
+					} else {
+						$(input).prop('value', '~'+$(xml).attr('value'));
+					}
 				} else {
-					$(input).prop('value', '不保存');
+					$(input).prop('value', 'Not Save');
 				}
 			}
 		}
@@ -297,7 +333,7 @@ $(document).ready(function () {
 		$(label).addClass('col-sm-2');
 		$(label).addClass('control-label');
 		$(label).addClass('label');
-		$(label).html($(element).attr('label'));
+		$(label).html($(element).attr('label')+':');
 		var input = document.createElement('input');
 		$(input).prop('id', genID());
 		$(input).prop('required', 'required');
@@ -328,16 +364,16 @@ $(document).ready(function () {
 		});*/
 		var inputFromDB = document.createElement('input');
 		$(inputFromDB).prop('type', 'button');
-		$(inputFromDB).prop('value', '从数据库中选择');
+		$(inputFromDB).prop('value', 'browse');
 		$(inputFromDB).prop('id', genID());
 		$(inputFromDB).addClass('btn');
-		$(inputFromDB).addClass('btn-primary');
+		$(inputFromDB).addClass('btn-info');
 		$(inputFromDB).addClass('button');
 		$(inputFromDB).on('click', function() {
-			var child = window.open('job/selectFile.action', '文件列表', 'height=500, width=380, top=50, left=500, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no');
+			var child = window.open('job/selectFile.action', 'File List', 'height=500, width=380, top=50, left=500, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no');
 			$(child).on('beforeunload', function() {
 				if(child.filePath) {
-					$(input).prop('value', child.filePath);
+					$(input).prop('value', '~'+child.filePath);
 					$(input)[0].dataset.ref = "fromDatabase";
 				}
 			});
@@ -360,18 +396,19 @@ $(document).ready(function () {
 		$(label).addClass('col-sm-2');
 		$(label).addClass('control-label');
 		$(label).addClass('label');
-		$(label).html($(element).attr('label'));
-		var output = document.createElement('input');
-		$(output).prop('id', genID());
-		$(output).prop('placeholder', '输出到数据库的位置');
-		$(output).prop('required', 'required');
-		$(output).css('cursor', 'default');
-		$(output).addClass('detail-area-with-button-influence-output');
-		$(output).addClass('form-control');
-		$(output).addClass(attrIdentity);
-		$(output).on('keydown', function() {
-			return false;
-		});
+		$(label).html($(element).attr('label')+':');
+		genID();
+//		var output = document.createElement('input');
+//		$(output).prop('id', genID());
+//		$(output).prop('placeholder', 'Output location');
+//		$(output).prop('required', 'required');
+//		$(output).css('cursor', 'default');
+//		$(output).addClass('detail-area-with-button-influence-output');
+//		$(output).addClass('form-control');
+//		$(output).addClass(attrIdentity);
+//		$(output).on('keydown', function() {
+//			return false;
+//		});
 		nodeInfor[currentID()] = {xml: element};
 		outputFileList[outputFileList.currentID].children[$(element).attr('id')] = {
 			value: $(element).attr('value'),
@@ -389,30 +426,31 @@ $(document).ready(function () {
 			$(output).prop('value', '不保存');
 			$(output)[0].dataset.ref = "notSaved";
 		});*/
-		var outputToDB = document.createElement('input');
-		$(outputToDB).prop('type', 'button');
-		$(outputToDB).prop('value', '输出到数据库');
-		$(outputToDB).prop('id', genID());
-		$(outputToDB).addClass('btn');
-		$(outputToDB).addClass('btn-primary');
-		$(outputToDB).addClass('button');
-		$(outputToDB).on('click', function() {
-			var child = window.open('job/selectFile.action?selectFolder=1', '文件列表', 'height=500, width=380, top=50, left=500, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no');
-			$(child).on('beforeunload', function() {
-				if(child.filePath) {
-					$(output).prop('value', child.filePath);
-					$(output)[0].dataset.ref = "fromDatabase";
-				}
-			});
-		});
+//		var outputToDB = document.createElement('input');
+//		$(outputToDB).prop('type', 'button');
+//		$(outputToDB).prop('value', 'To Database');
+//		$(outputToDB).prop('id', genID());
+//		$(outputToDB).addClass('btn');
+//		$(outputToDB).addClass('btn-info');
+//		$(outputToDB).addClass('button');
+//		$(outputToDB).on('click', function() {
+//			var child = window.open('job/selectFile.action?selectFolder=1', 'File list', 'height=500, width=380, top=50, left=500, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no');
+//			$(child).on('beforeunload', function() {
+//				if(child.filePath) {
+//					$(output).prop('value', '~'+child.filePath);
+//					$(output)[0].dataset.ref = "fromDatabase";
+//					$(output)[0].dataset.selectedFileId = child.selectedFileId;
+//				}
+//			});
+//		});
 		$(p).append(label);
-		genID();
-		output.dataset.fileNameID = currentID();
-		$(p).append(output);
+//		genID();
+//		output.dataset.fileNameID = currentID();
+//		$(p).append(output);
 //		$(p).append(outputNotSaved);
-		$(p).append('<label style="width: 10px; text-align: center;">/</label>');
-		$(p).append('<input type="text" class="detail-area-with-button-influence-output form-control" id="'+currentID()+'" placeholder="文件名" required="required">');
-		$(p).append(outputToDB);
+//		$(p).append('<label style="width: 10px; text-align: center;">/</label>');
+		$(p).append('<input type="text" data-ref="fromDatabase" data-output="true" value="'+$(element).attr('label')+'" class="'+attrIdentity+' detail-area-with-button-influence-output form-control" id="'+currentID()+'" placeholder="File name" required="required">');
+//		$(p).append(outputToDB);
 		return p;
 	}
 
@@ -424,7 +462,7 @@ $(document).ready(function () {
 		$(label).addClass('col-sm-2');
 		$(label).addClass('control-label');
 		$(label).addClass('label');
-		$(label).html('固定参数');
+		$(label).html('Fixed Parameter');
 		var value = document.createElement('label');
 		$(value).html($(element).attr('value'));
 		$(value).addClass('col-sm-2');

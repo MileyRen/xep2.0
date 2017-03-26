@@ -26,16 +26,16 @@
 	<script type="text/javascript" src="js/GooFunc.js"></script>
 	<script type="text/javascript" src="js/my.js"></script>
 	<script type="text/javascript" src="js/flow.js"></script>
-	<title>${create }流程</title>
+	<title>${create }Flow</title>
 </head>
 <body>
 
 <div id="flowTip">
 	<p>id is ${info.id }</p>
-	<p>流程名字：${info.name }</p>
-	<p>可用工具数量：${fn:length(tools) }</p>
-	<p>工具种类：${fn:length(toolTypes) }</p>
-	<p>组别种类：${fn:length(groups) }</p>
+	<p>Flow Name：${info.name }</p>
+	<p>Tools Num：${fn:length(tools) }</p>
+	<p>Types Num：${fn:length(toolTypes) }</p>
+	<p>Groups：${fn:length(groups) }</p>
 </div>
 
 <div id='flow'>
@@ -52,6 +52,7 @@
 		for(Tools t : tools) {
 			%>tool = {}<%
 			%>;tool.id = '<% out.print(t.getId());
+			%>';tool.savedResults = '<% out.print(t.getSavedResults());
 			%>';tool.toolName = '<% out.print(t.getToolName());
 			%>';tool.toolId = '<% out.print(t.getId());
 			%>';tool.toolTypeId = '<% out.print(t.getToolTypeId());
@@ -130,7 +131,11 @@
 
 		pWindow.$get('add').disabled = false;
 		pWindow.$get('delete').disabled = false;
+		pWindow.$get('filterDate').disabled = false;
 		pWindow.linkDisabled = false;
+
+		$(pWindow.document).find('.btn-group').css('display', 'inline-block');
+		$(pWindow.document).find('.dropdown-toggle').css('pointer-events', 'initial');
 	}
 </script>
 </body>

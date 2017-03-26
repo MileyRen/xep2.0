@@ -7,33 +7,33 @@
 	<div>
 		<ul class="nav navbar-nav">
 <!-- 			<li class="active"><a href="#">iOS</a></li> -->
-			<li><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-				工具<b class="caret"></b></a>
+			<li><a a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+				tool<b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li><a href="${pageContext.request.contextPath}/tooltype/get_all_tooltype.action">工具类型管理</a></li>
-					<li><a href="${pageContext.request.contextPath}/tool/getall.action">工具管理</a></li>
+					<li><a href="${pageContext.request.contextPath}/tooltype/get_all_tooltype.action">type manage</a></li>
+					<li><a href="${pageContext.request.contextPath}/tool/getall.action">tool manage</a></li>
 			</ul></li>
-			<li><a href="flow/view.action">流程</a></li>
+			<li><a href="flow/view.action">Work Flow</a></li>
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					作业
+					job
 					<b class="caret"></b>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="job/create.action">新建作业</a></li>
-					<li><a href="job/view.action">查看未开始作业</a></li>
+					<li><a href="job/create.action">create</a></li>
+					<li><a href="job/view.action">waiting</a></li>
 					<li><a href="jobsList.action?jobstate=(state = 'RUNNING')">Running job</a></li>
 					<li><a href="jobsList.action?jobstate=(state = 'STOP' OR state='ERROR')">Stopped job</a></li>
 				</ul>
 			</li>
-			<li><a href="pageList.action?pageTag=1">文件管理页面</a></li>
+			<li><a href="pageList.action?pageTag=1">file manager</a></li>
 			<li><a a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					用户<b class="caret"></b></a>
+					user<b class="caret"></b></a>
 				<ul class="dropdown-menu">
-					<li><a href="${pageContext.request.contextPath}/user/userinfo.jsp">查看用户信息</a></li>
-					<li><a href="${pageContext.request.contextPath}/user/modify.jsp">修改密码</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/userinfo.jsp">user information</a></li>
+					<li><a href="${pageContext.request.contextPath}/user/modify.jsp">modify password</a></li>
 					<c:if test="${sessionScope.user.roleId==1}">
-					<li><a href="${pageContext.request.contextPath}/user/usermanage?op=check">用户审核</a></li>
+						<li><a href="${pageContext.request.contextPath}/user/usermanage?op=check">audit</a></li>
 					</c:if>
 			</ul></li>
 		</ul>

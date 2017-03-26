@@ -24,7 +24,7 @@
 	<link rel="stylesheet" href="css/flow/modify2.css" type="text/css">
 
 	<!-- XXX点信息 -->
-	<title>节点详细信息</title>
+	<title>Node Detail</title>
 	<script type="text/javascript" src="js/jquery-latest.js"></script>
 	<script type="text/javascript" src="js/GooFunc.js"></script>
 	<script src="https://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -33,12 +33,17 @@
 <!-- 节点名字 -->
 <form id='form' action="javascript:;" class="form-horizontal" role="form">
 <!-- 	<p class="form-group"><label class="col-sm-2 control-label">节点名字</label><input class='nodeName detail-area form-control' required="required"></p> -->
-	<p class="form-group"><label class="col-sm-2 control-label">所指定工具</label><select class="tool detail-area select" required="required"></select></p>
+	<table id='tools-select' border="1" style="border-color: gainsboro; border-collapse: collapse;width: 85%;margin: 0 0 0 7.5%;">
+	<tr><td style="width: 30%; text-align: left;" class="col-sm-2 control-label">Type:</td><td style="width: 70%; padding: 10px;"><select class="tool-type detail-area select" required="required"></select></td></tr>
+	<tr><td style="width: 30%; text-align: left;" class="col-sm-2 control-label">Tool:</td><td style="width: 70%; padding: 10px; "><select class="tool detail-area select" required="required"></select></td></tr>
+	<tr><td style="width: 30%; text-align: left;" class="col-sm-2 control-label">Name:</td><td style="width: 70%; padding: 10px; "><input class="node-name detail-area" required="required"></td></tr>
+	</table>
 	<fieldset class='fieldset'>
-		<legend data-count='0'>选项</legend>
+		<legend data-count='0'>Parameter</legend>
+		<table id='table' border="1" style="border-color: gainsboro; border-collapse: collapse;width: 85%;margin: 0 0 0 7.5%;"><tbody id='tbody'></tbody></table>
 		<%--<p><label class='tool-id-count'>参数1</label><input><span><a href="javascript:void(0)">删除选项</a></span></p>--%>
 	</fieldset>
-	<p class="form-group btn-container"><input class="btn btn-primary" type="button" id="confirm" value="确定"><input class="btn btn-primary" type="button" id="cancel" value="取消"><input type="submit" class="submit" style="display: none;"></p>
+	<p class="form-group btn-container"><input class="btn btn-info" type="button" id="confirm" value="Confirm"><input class="btn btn-info" type="button" id="cancel" value="Cancel"><input type="submit" class="submit" style="display: none;"></p>
 </form>
 <!-- 工具 -->
 

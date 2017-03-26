@@ -68,6 +68,9 @@ $(document).ready(function() {
 	from = instance.getNodeInformation(fromId);
 	to = instance.getNodeInformation(toId);
 
+	$('#left-node-name').html(instance.getInstance().$nodeData[fromId].name);
+	$('#right-node-name').html(instance.getInstance().$nodeData[toId].name);
+
 	$('#confirm').on('click', function() {
 		save();
 		saved = true;
@@ -88,23 +91,29 @@ $(document).ready(function() {
 			max = outputs.length;
 		}
 		max *= 82;
-		if(max < 500) {
-			max = 500;
-		}
+//		if(max < 500) {
+//			max = 500;
+//		}
 		$('#output').css('height', max+'px');
 		$('#paint-area').css('height', max+'px');
 		$('#input').css('height', max+'px');
-		$('body').css('height', (max+150)+'px');
+		$('body').css('height', (max+190)+'px');
 	})();
 
 	for(var i=0; i<outputs.length; i++) {
 		var item = createItem({label:$(outputs[i]).attr('label'), id:$(outputs[i]).prop('id')});
 		$('#output').append(item);
+		if(i%2 == 1) {
+			$(item).css('background-color', 'rgb(135, 206, 235)');
+		}
 		$('#'+register.svgID).append(createRelevantPoint({x:25,y:40+i*80}, {id:$(item).prop('id'), position:register.point.position.left}));
 	}
 	for(var i=0; i<inputs.length; i++) {
 		var item = createItem({label:$(inputs[i]).attr('label'), id:0, value: $(inputs[i]).attr('value')});
 		$('#input').append(item);
+		if(i%2 == 1) {
+			$(item).css('background-color', 'rgb(135, 206, 235)');
+		}
 		var point = createRelevantPoint({x:370,y:40+i*80}, {id:$(item).prop('id'), position:register.point.position.right});
 		$('#'+register.svgID).append(point);
 		var outputID = $(inputs[i]).attr('value');
@@ -238,9 +247,9 @@ $(document).ready(function() {
 				$('#'+tempData.line.id)[0].dataset.rightPointID = This.id;
 			}
 			This.dataset.line = tempData.line.id;
-			setSubTitle($('#'+This.dataset.line)[0].dataset.leftPointID, 'Linked To '+$(to.xml).attr('name')+'-'
+			setSubTitle($('#'+This.dataset.line)[0].dataset.leftPointID, 'Linked To '+instance.getInstance().$nodeData[toId].name+'-'
 				+$('#'+$('#'+$('#'+This.dataset.line)[0].dataset.rightPointID)[0].dataset.id).find('.label-title').html());
-			setSubTitle($('#'+This.dataset.line)[0].dataset.rightPointID, 'Linked From '+$(from.xml).attr('name')+'-'
+			setSubTitle($('#'+This.dataset.line)[0].dataset.rightPointID, 'Linked From '+instance.getInstance().$nodeData[fromId].name+'-'
 				+$('#'+$('#'+$('#'+This.dataset.line)[0].dataset.leftPointID)[0].dataset.id).find('.label-title').html());
 		} else {
 			// 还原点
@@ -303,7 +312,7 @@ $(document).ready(function() {
 						value = value.substring(0, endPos);
 						if(value == fromId) {
 							if(outputId == information.id) {
-								$(label).html('Linked To '+$(xml).attr('name')+'-'+$(toes[j]).attr('label'));
+								$(label).html('Linked To '+instance.getInstance().$nodeData[inst.$lineData[i].to].name+'-'+$(toes[j]).attr('label'));
 								flag = true;
 								break;
 							}
@@ -323,14 +332,20 @@ $(document).ready(function() {
 				var outputID = information.value.substring(endPos+1);
 				var value = information.value.substring(0, endPos);
 				var xml = instance.getNodeInformation(value).xml;
-				var title = $(xml).attr('name');
-				var subTitle = $(xml).find('#'+outputId).attr('label');
+				var title = instance.getInstance().$nodeData[value].name;
+				var subTitle = $(xml).find('#'+outputID).attr('label');
 				$(label).html('Linked From '+title+'-'+subTitle);
 			} else {
 				$(label).html('Not Linked.');
 			}
 		}
 		$(p).append(label);
+//		var prev = $(p).prev();
+//		if(prev.length == 1) {
+//			if(prev.css('background-color') != 'rgb(135, 206, 235)') {
+//				prev.css('background-color', 'rgb(135, 206, 235)');
+//			}
+//		}
 		return p;
 	}
 
@@ -364,6 +379,7 @@ $(document).ready(function() {
 		$(liner).attr('y2', point2.y);
 		$(liner).css('stroke', register.line.stroke);
 		$(liner).css('stroke-width', register.line.strokeWidth);
+		$(liner).attr('marker-end', 'url(#arrow)');
 		return liner;
 	}
 
@@ -379,7 +395,8 @@ $(document).ready(function() {
 					continue;
 				}
 				var output = $('#'+$('#'+$('#'+radios[i].dataset.line)[0].dataset.leftPointID)[0].dataset.id)[0].dataset.outputId;
-				$(from.xml).find('#'+output).attr('value', '0');
+				if($(from.xml).find('#'+output).attr('value') != '-1')
+					$(from.xml).find('#'+output).attr('value', '0');
 				// 断开和fromId的output有关的所有input
 				var inst = instance.getInstance();
 				for(var j in inst.$lineData) {

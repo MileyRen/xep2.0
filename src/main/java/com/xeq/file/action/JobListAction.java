@@ -25,7 +25,9 @@ import com.gene.utils.User;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
+import com.ssh.xep.entity.FlowBasicInfo;
 import com.ssh.xep.entity.JobInfo;
+import com.ssh.xep.service.FlowBasicInfoService;
 import com.xeq.file.dao.impl.BaseDao;
 import com.xeq.file.dao.impl.PathFormat;
 import com.xeq.file.domain.JobCss;
@@ -43,6 +45,8 @@ public class JobListAction extends ActionSupport
 	private HttpServletRequest request;
 	@Autowired
 	private JobsService jobsService;
+	@Autowired
+	private FlowBasicInfoService flowBasicInfoService;
 	@Autowired
 	private PageSource jobpageSource;
 	private Integer id;
@@ -75,13 +79,13 @@ public class JobListAction extends ActionSupport
 			String sortByTime = request.getParameter("sortByTime");
 			String sortDA = request.getParameter("sortDA");
 			String jobstate = request.getParameter("jobstate");
-			if(jobstate==null||jobstate==""){
-				jobstate=(String) session.get("jobstate");
+			if (jobstate == null || jobstate == "") {
+				jobstate = (String) session.get("jobstate");
 			}
 			StringBuffer sf = new StringBuffer();
 			sf.append(hql);
 			if (jobstate != null) {
-				sf.append(" and "+jobstate+" ");
+				sf.append(" and " + jobstate + " ");
 			}
 			if (fTime != 0 && tTime == 0) {
 				sf.append(" and bgTime > " + fTime + " ");
@@ -143,7 +147,7 @@ public class JobListAction extends ActionSupport
 	@Action(value = "jobInfo", results = { @Result(name = "success", location = "/jobInfoList/jobStep.jsp"),
 			@Result(name = "input", location = "login.jsp"),
 			@Result(name = "noStart", location = "/jobInfoList/jobStep.jsp") })
-	public String getJobsInfo() {
+	public String getJobsInfo() throws UnsupportedEncodingException {
 		logger.info("-----------------------查询JOB的详细信息------------------------");
 		User user = (User) session.get("user");
 		if (user == null) {
@@ -153,7 +157,17 @@ public class JobListAction extends ActionSupport
 		JobInfo jf = jobsService.getJobInfo(id);
 		/** 获取processInfo内容 */
 		String processInfo = jf.getProcessInfo();
+		Integer folwBasicInfoId = jf.getFlowBasicInfoId();
+		try {
+			FlowBasicInfo fBasicInfo = flowBasicInfoService.get(folwBasicInfoId);
+			if (fBasicInfo != null) {
+				session.put("fBasicInfo", fBasicInfo);
+			}
+		} catch (DocumentException e1) {
+			logger.info("get basicInfo error");
+		}
 
+		
 		session.put("jobStep", jf);
 
 		/***** 解析processInfo *****/

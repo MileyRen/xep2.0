@@ -19,7 +19,7 @@ $(document).ready(function () {
 		link_string: 'job/view.action?page={page_number}',
 		current_page: page, //设置当前页 默认为1
 		max_page: maxPage, //设置最大页 默认为1
-		page_string: '第{current_page}页，共{max_page}页',
+		page_string: '{current_page} th page of {max_page}',
 		paged: function (p) {
 			if (p == page) {
 				return;
