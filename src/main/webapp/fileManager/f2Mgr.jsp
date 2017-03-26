@@ -28,24 +28,12 @@
 <link rel="stylesheet" type="text/css" href="styleRen/jquery-easyui-1.3.6/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="styleRen/jquery-easyui-1.3.6/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="styleRen/jquery-easyui-1.3.6/themes/fgr.css">
-
-<link rel="stylesheet" type="text/css"
-	href="styleRen/jquery-easyui-1.3.6/themes/bootstrap/pagination.css">
-<link rel="stylesheet" type="text/css" href="styleRen/jquery-easyui-1.3.6/demo/demo.css">
-<script type="text/javascript" src="styleRen/jquery.min.js"></script>
 <script type="text/javascript" src="styleRen/jquery-easyui-1.3.6/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="styleRen/jsFileManager/folder.js"></script>
 <script type="text/javascript" src="styleRen/jsFileManager/Popup.js"></script>
 <style type="text/css">
 input[type=file] {
 	display: inline;
-}
-
-body {
-	font-family: verdana, helvetica, arial, sans-serif;
-	/* font-size: 12px; */
-	padding: 0px;
-	margin: 0;
 }
 /*--------文件上传开始----------*/
 .fileup {
@@ -132,7 +120,7 @@ body {
 								else{return false;}
 										})">
 								<span class="glyphicon glyphicon-trash"></span>
-								delete
+								Delete
 							</a>
 						</li>
 						<li>
@@ -309,39 +297,6 @@ body {
 	</div>
 	<!-- 弹出框开始 -->
 
-	<!-- 批量移动文件夹 -->
-	<!-- 
-	<div class="modal fade" id="BulkMoveModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">
-						<a href="#" class="btn">
-							<span class="glyphicon glyphicon-plus"> </span>
-							Move Folders and Files To A Folder...
-						</a>
-					</h4>
-				</div>
-				<div class="modal-body" style="height: 250px">
-					<div class="form-group" style="padding: 10px 20px 10px 80px;">
-						<select id="bulkTree" style="width: 300px" class="form-control"></select>
-						<br>
-						<input type="hidden" name="pagesource.currentPage" value="${pagesource.currentPage}" />
-						<input type="hidden" name="parentFolderId" value="${session.parentId }" />
-						<input type="hidden" name="toIdBulk" id="BulktoPathId" value="">
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary"
-						onclick="promList_old(${pagesource.currentPage},${session.parentId })">Submit</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	-->
 	<div class="modal fade" id="BulkMoveModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -372,7 +327,7 @@ body {
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 					<button type="button" class="btn btn-primary"
-						onclick="MoveList(${pagesource.currentPage},${session.parentId })">Submit</button>
+						onclick="MoveList(${pagesource.currentPage},${session.parentId })">Move</button>
 				</div>
 			</div>
 		</div>
@@ -423,14 +378,6 @@ body {
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 					<h5 class="modal-title" id="myModalLabel">Please Add Some Files...</h5>
-<!-- 新删除部分 
-					<h5 class="modal-title" id="myModalLabel">
-						<a href="#" class="btn " onclick="addMore()">
-							<span class="glyphicon glyphicon-plus"> </span>
-							Please Add A File...
-						</a>
-					</h5>
--->
 				</div>
 				<div class="modal-body">
 <!-- 新添加部分开始 -->
@@ -445,17 +392,6 @@ body {
 					<div id="showFileList">
 						
 					</div>
-<!-- 新添加部分结束 -->
-<!-- 新删除部分 
-					<form action="fileUpload.action" id="addFiles" method="post"
-						style="padding: 10px 20px 10px 80px;" enctype="multipart/form-data">
-						<input type="hidden" name="parentFolderId" value=${session.parentId }>
-						<input type="hidden" name="folderPath" value=${session.parentPath }>
-						<input type="hidden" name="pagesource.currentPage" value="${pagesource.currentPage}">
-						<div id="more"></div>
-						<s:token />
-					</form>
--->
 				</div>
 				<div class="modal-footer">
 					<button type="reset" class="btn btn-default" data-dismiss="modal">cancel</button>
