@@ -33,7 +33,7 @@
 	
 </script>
 <body>
-	<a onclick="show()" class="btn btn-primary ">show dialog</a>
+	<a onclick="show()" class="btn btn-primary ">show flow chart</a>
 	<br>
 	<!-- <h1>测试request对象</h1> -->
 	<% jsonStr = (String)request.getAttribute("jsonStr");%>

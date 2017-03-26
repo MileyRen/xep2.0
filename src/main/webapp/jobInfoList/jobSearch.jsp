@@ -17,12 +17,13 @@
 		<div class="form-group">
 			<%
 				String jobstate = (String) session.getAttribute("jobstate");
-				if (jobstate.equals("stop")) {
+				if (jobstate.equals("(state = 'STOP' OR state='ERROR')")||jobstate.equals("(state = 'STOP')")||jobstate.equals("(state = 'ERROR')")) {
 			%>
 			Status:
 			<select required name="jobstate" id="state">
-				<option value="stop" selected>STOP</option>
-				<!-- <option value="pending">PENDING</option> -->
+				 <option value="(state = 'STOP' OR state='ERROR')" selected >--Status--</option>
+				 <option value="(state = 'STOP')" >STOP</option>
+				 <option value="(state = 'ERROR')">ERROR</option>
 			</select> 
 			<%
 				} else if (jobstate.equals("running")) {
@@ -41,8 +42,7 @@
 				<option value=" order by edTime ">End Time</option>
 			</select>
 			<select name="sortDA">
-				<option value="" selected>--select--</option>
-				<option value=" desc ">desc</option>
+				<option value=" desc " selected>desc</option>
 				<option value=" asc ">asc</option>
 			</select>
 			<a class="btn btn-primary btn-xs" onclick="javascript:$('form#search').submit()"> <span class="glyphicon glyphicon-search"></span> SEARCH

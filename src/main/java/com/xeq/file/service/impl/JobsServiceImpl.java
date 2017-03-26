@@ -68,6 +68,9 @@ public class JobsServiceImpl implements JobsService {
 				} else if (value == "finish" || value.equals("finish")) {
 					jStep.setCss("success");
 					jStep.setLabel("success");
+				} else if (value == "error" || value.equals("error")) {
+					jStep.setCss("error");
+					jStep.setLabel("danger");
 				} else {
 					jStep.setCss("info");
 					jStep.setLabel("info");
@@ -114,9 +117,12 @@ public class JobsServiceImpl implements JobsService {
 				} else if (value == "running" || value.equalsIgnoreCase("running")) {
 					jCss.setCss("info");
 					jCss.setLabel("info");
+				} else if (value == "error" || value.equalsIgnoreCase("error")) {
+					jCss.setCss("error");
+					jCss.setLabel("danger");
 				} else {
 					jCss.setCss("");
-					jCss.setLabel("");
+					jCss.setLabel("default");
 				}
 				jcList.add(jCss);
 			}

@@ -1,4 +1,5 @@
 package com.xeq.file.action;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -73,15 +74,15 @@ public class JobListAction extends ActionSupport
 			long tTime = jobsService.getTime(request.getParameter("tTime"));
 			String sortByTime = request.getParameter("sortByTime");
 			String sortDA = request.getParameter("sortDA");
-			String jobType = request.getParameter("jobstate");
-			String jobstate = " and state = '" + jobType + "'";
+			String jobstate = request.getParameter("jobstate");
+			if(jobstate==null||jobstate==""){
+				jobstate=(String) session.get("jobstate");
+			}
 			StringBuffer sf = new StringBuffer();
 			sf.append(hql);
-
-			if (jobType != null && !jobType.equals("ALL")) {
-				sf.append(jobstate);
+			if (jobstate != null) {
+				sf.append(" and "+jobstate+" ");
 			}
-
 			if (fTime != 0 && tTime == 0) {
 				sf.append(" and bgTime > " + fTime + " ");
 			} else if (fTime == 0 && tTime != 0) {
@@ -132,7 +133,7 @@ public class JobListAction extends ActionSupport
 			session.put("jobpagesource", jobpageSource);
 			session.put("jcList", jcList);
 			session.put("jList", jList);
-			session.put("jobstate", jobType);
+			session.put("jobstate", jobstate);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
