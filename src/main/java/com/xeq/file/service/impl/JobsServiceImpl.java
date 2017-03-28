@@ -68,12 +68,15 @@ public class JobsServiceImpl implements JobsService {
 				} else if (value == "finish" || value.equals("finish")) {
 					jStep.setCss("success");
 					jStep.setLabel("success");
+				} else if (value == "success" || value.equals("success")) {
+					jStep.setCss("success");
+					jStep.setLabel("success");
 				} else if (value == "error" || value.equals("error")) {
 					jStep.setCss("error");
 					jStep.setLabel("danger");
 				} else {
-					jStep.setCss("info");
-					jStep.setLabel("info");
+					jStep.setCss("warning");
+					jStep.setLabel("warning");
 				}
 			}
 		}
@@ -120,9 +123,15 @@ public class JobsServiceImpl implements JobsService {
 				} else if (value == "error" || value.equalsIgnoreCase("error")) {
 					jCss.setCss("error");
 					jCss.setLabel("danger");
+				} else if (value == "finish" || value.equalsIgnoreCase("finish")) {
+					jCss.setCss("success");
+					jCss.setLabel("success");
+				} else if (value == "success" || value.equalsIgnoreCase("success")) {
+					jCss.setCss("success");
+					jCss.setLabel("success");
 				} else {
-					jCss.setCss("");
-					jCss.setLabel("default");
+					jCss.setCss("warning");
+					jCss.setLabel("warning");
 				}
 				jcList.add(jCss);
 			}

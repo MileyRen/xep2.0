@@ -15,7 +15,7 @@
 <body>
 	<form action="jobsList.action" id="search" class="form-horizontal" role="form" method="post">
 		<div class="form-group">
-			<%
+<%-- 			<%
 				String jobstate = (String) session.getAttribute("jobstate");
 				if (jobstate.equals("(state = 'STOP' OR state='ERROR')")||jobstate.equals("(state = 'STOP')")||jobstate.equals("(state = 'ERROR')")) {
 			%>
@@ -31,7 +31,14 @@
 			<input type="hidden" name="jobstate" value="running" required>
 			<%
 				}
-			%>
+			%> --%>
+			Status:
+			<select required name="stateSearch" id="state">
+				<s:iterator value="#session.stateList" var="str">
+				 <option value="${str}">${str} </option>
+				</s:iterator>
+			</select> 
+			
 			Create Time:
 			<input class="inline laydate-icon" id="start" style="width: 100px; margin-right: 10px;" name="fTime" value="${fTime}">
 			--

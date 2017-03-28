@@ -22,8 +22,8 @@
 				<ul class="dropdown-menu">
 					<li><a href="job/create.action">create</a></li>
 					<li><a href="job/view.action">waiting</a></li>
-					<li><a href="jobsList.action?jobstate=(state = 'RUNNING')">Running job</a></li>
-					<li><a href="jobsList.action?jobstate=(state = 'STOP' OR state='ERROR')">Stopped job</a></li>
+					<li><a href="jobsList.action?jobstate=run">Running job</a></li>
+					<li><a href="jobsList.action?jobstate=stop">Stopped job</a></li>
 				</ul>
 			</li>
 			<li><a href="pageList.action?pageTag=1">file manager</a></li>

@@ -3,8 +3,10 @@ package com.xeq.file.action;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -35,6 +37,8 @@ import com.xeq.file.domain.JobStep;
 import com.xeq.file.domain.PageSource;
 import com.xeq.file.domain.ScriptState;
 import com.xeq.file.service.JobsService;
+
+import freemarker.template.utility.StringUtil;
 
 @Namespace("/")
 public class JobListAction extends ActionSupport
@@ -79,14 +83,37 @@ public class JobListAction extends ActionSupport
 			String sortByTime = request.getParameter("sortByTime");
 			String sortDA = request.getParameter("sortDA");
 			String jobstate = request.getParameter("jobstate");
-			if (jobstate == null || jobstate == "") {
-				jobstate = (String) session.get("jobstate");
+			String stateSearch = request.getParameter("stateSearch");
+			String stateSql = "";
+			Set<String> stateList = new HashSet<String>();
+
+			if (StringUtils.isNotBlank(stateSearch)) {
+				stateSql = " and (state = '" + stateSearch + "') ";
+			} else {
+				if (StringUtils.isBlank(jobstate)) {
+					jobstate = (String) session.get("jobstate");
+				}
+			}
+			if (StringUtils.isBlank(stateSearch) && StringUtils.isNotBlank(jobstate)) {
+				if (jobstate.equals("run")) {
+					// RUNNING
+					stateSql = " and (state = 'RUNNING' OR state='PENDING') ";
+					List<JobInfo> jobInfos = jobsService.getJobList(hql + stateSql);
+					for (JobInfo jobInfo : jobInfos) {
+						stateList.add(jobInfo.getState());
+					}
+				} else if (jobstate.equals("stop")) {
+					// OTHERS
+					stateSql = " and (state !='RUNNING' AND state !='PENDING') ";
+					List<JobInfo> jobInfos = jobsService.getJobList(hql + stateSql);
+					for (JobInfo jobInfo : jobInfos) {
+						stateList.add(jobInfo.getState());
+					}
+				}
 			}
 			StringBuffer sf = new StringBuffer();
 			sf.append(hql);
-			if (jobstate != null) {
-				sf.append(" and " + jobstate + " ");
-			}
+			sf.append(stateSql);
 			if (fTime != 0 && tTime == 0) {
 				sf.append(" and bgTime > " + fTime + " ");
 			} else if (fTime == 0 && tTime != 0) {
@@ -137,7 +164,12 @@ public class JobListAction extends ActionSupport
 			session.put("jobpagesource", jobpageSource);
 			session.put("jcList", jcList);
 			session.put("jList", jList);
-			session.put("jobstate", jobstate);
+			if (StringUtils.isNotBlank(jobstate)) {
+				session.put("jobstate", jobstate);
+			}
+			if (stateList.size() > 0) {
+				session.put("stateList", stateList);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -167,7 +199,6 @@ public class JobListAction extends ActionSupport
 			logger.info("get basicInfo error");
 		}
 
-		
 		session.put("jobStep", jf);
 
 		/***** 解析processInfo *****/
