@@ -34,6 +34,7 @@
 			%> --%>
 			Status:
 			<select required name="stateSearch" id="state">
+			 	<option value="" selected>--Select--</option>
 				<s:iterator value="#session.stateList" var="str">
 				 <option value="${str}">${str} </option>
 				</s:iterator>

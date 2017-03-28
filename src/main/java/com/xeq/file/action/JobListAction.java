@@ -2,6 +2,7 @@ package com.xeq.file.action;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -23,6 +24,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleIfStatement.Else;
 import com.gene.utils.User;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -167,6 +169,9 @@ public class JobListAction extends ActionSupport
 			if (StringUtils.isNotBlank(jobstate)) {
 				session.put("jobstate", jobstate);
 			}
+			if (stateSearch != null) {
+				session.put("stateSearch", stateSearch);
+			}
 			if (stateList.size() > 0) {
 				session.put("stateList", stateList);
 			}
@@ -190,27 +195,36 @@ public class JobListAction extends ActionSupport
 		/** 获取processInfo内容 */
 		String processInfo = jf.getProcessInfo();
 		Integer folwBasicInfoId = jf.getFlowBasicInfoId();
-		try {
-			FlowBasicInfo fBasicInfo = flowBasicInfoService.get(folwBasicInfoId);
-			if (fBasicInfo != null) {
-				session.put("fBasicInfo", fBasicInfo);
-			}
-		} catch (DocumentException e1) {
-			logger.info("get basicInfo error");
-		}
-
-		session.put("jobStep", jf);
-
+		FlowBasicInfo fBasicInfo = null;
 		/***** 解析processInfo *****/
 		Document document;
 		try {
+			fBasicInfo = flowBasicInfoService.get(folwBasicInfoId);
 			document = (Document) DocumentHelper.parseText(URLDecoder.decode(processInfo, "utf-8"));
 			Element rootElement = (org.dom4j.Element) document.getRootElement();
 			List<JobStep> processLists = new ArrayList<JobStep>();
 			processLists = jobsService.getNodes(rootElement, processLists);
-			for (JobStep jobStep : processLists) {
-				System.out.println(jobStep.toString());
+			if (fBasicInfo != null) {
+				String flow = URLDecoder.decode(fBasicInfo.getFlow(), "utf-8");
+				for (JobStep jobStep : processLists) {
+					String stepId = jobStep.getId();
+					String stepState = jobStep.getState();
+					String folwId = "<tool id=\"" + stepId + "\"";
+					String folwColor = folwId;
+					if (stepState.equalsIgnoreCase("STOP") || stepState.equalsIgnoreCase("FINISH")) {
+						folwColor += " color=\"green\" ";
+					} else if (stepState.equalsIgnoreCase("ERROR") || stepState.equalsIgnoreCase("ABORT")) {
+						folwColor += " color=\"red\" ";
+					} else if (stepState.equalsIgnoreCase("PENDING")) {
+						folwColor += " color=\"gray\" ";
+					} else {
+						folwColor += " color=\"yellow\" ";
+					}
+					flow = flow.replaceAll(folwId, folwColor);
+					fBasicInfo.setFlow(URLEncoder.encode(flow, "utf-8"));
+				}
 			}
+			session.put("fBasicInfo", fBasicInfo);
 			session.put("processInfo", processLists);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -220,14 +234,7 @@ public class JobListAction extends ActionSupport
 			return "noStart";
 		}
 		/***** 解析processInfo结束 *****/
-
-		/** 绘图开始 */
-		List<ScriptState> list = new ArrayList<ScriptState>();
-		list = PathFormat.getDraw(processInfo);
-		String jsonStr = ConvertToJSON.convert(list);
-		System.out.println(jsonStr);
-		request.setAttribute("jsonStr", jsonStr);
-		/** 绘图结束 */
+		session.put("jobStep", jf);
 		return SUCCESS;
 	}
 

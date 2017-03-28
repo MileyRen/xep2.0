@@ -63,14 +63,13 @@
 			</table>
 		</div>
 		<!-- 分页效果开始 -->
-
 		<div>
 			<ul class="pagination">
-				<li><a href="jobsList.action?jobstate=${jobstate}&jobpageSource.currentPage=1">&laquo;</a></li>
-				<li><a href="jobsList.action?jobstate=${jobstate}&jobpageSource.currentPage=${jobpagesource.currentPage-1 }">previous</a></li>
+				<li><a href="jobsList.action?stateSearch=${stateSearch}&jobpageSource.currentPage=1">&laquo;</a></li>
+				<li><a href="jobsList.action?stateSearch=${stateSearch}&jobpageSource.currentPage=${jobpagesource.currentPage-1 }">previous</a></li>
 				<li><a>[${jobpagesource.currentPage} of ${jobpagesource.totalPages }] [total:${jobpagesource.totalRows}]</a></li>
-				<li><a href="jobsList.action?jobstate=${jobstate}&jobpageSource.currentPage=${jobpagesource.currentPage+1 }">next</a></li>
-				<li><a href="jobsList.action?jobstate=${jobstate}&jobpageSource.currentPage=${jobpagesource.totalPages}">&raquo;</a></li>
+				<li><a href="jobsList.action?stateSearch=${stateSearch}&jobpageSource.currentPage=${jobpagesource.currentPage+1 }">next</a></li>
+				<li><a href="jobsList.action?stateSearch=${stateSearch}&jobpageSource.currentPage=${jobpagesource.totalPages}">&raquo;</a></li>
 			</ul>
 		</div>
 		<!--分页效果结束 -->

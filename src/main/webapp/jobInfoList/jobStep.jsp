@@ -26,8 +26,8 @@
 <script type="text/javascript" src="styleRen/GooFunc.js"></script>
 <script type="text/javascript" src="styleRen/my.js"></script>
 <script type="text/javascript" src="styleRen/flow_sel.js"></script>
-
-<style>
+<title>JobStep</title>
+<style type="text/css">
 #flowTip {
 	display: none;
 	width: 200px;
@@ -36,7 +36,6 @@
 	box-shadow: 0 0 1px 0;
 }
 </style>
-<title>JobStep</title>
 </head>
 <body>
 	<%@include file="/WEB-INF/content/navigator.jsp"%>
@@ -53,7 +52,7 @@
 							<li><a>status:${jobStep.state}</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li><a href="jobsList.action?jobstate=${jobstate}">BACK</a></li>
+							<li><a href="jobsList.action?stateSearch=${stateSearch}">BACK</a></li>
 						</ul>
 					</div>
 				</div>
@@ -82,8 +81,28 @@
 				</div>
 			</div>
 		</div>
-        <%-- <div><%@include file="draw.jsp"%></div> --%>
-		<div><a href="jobInfoList/chart.jsp" class="btn btn-primary" target="_blank">show flow chart</a></div>
+		<div><a class="btn btn-primary" onclick="show()">show flow chart</a>
+			<div id="flowTip">
+				<p>名字：${fBasicInfo.name }</p>
+				<p>用户ID：${fBasicInfo.userId }</p>
+				<p>节点数量：${fBasicInfo.flowNum }</p>
+				<p>详细信息：</p>
+			</div>
+			<div id='flowInfo' style="display: none;">${fBasicInfo.flow }</div>
+			<div id="flow" style="display:none"></div>
+			<script>
+				var flow = document.getElementById('flowInfo').innerHTML.replace(
+					/\+/g, '%20');
+				flow = decodeURIComponent(flow);
+				var instance = new Flow('flow', flow, false, '${fBasicInfo.name }');
+				instance.setToolTipInfo('flowTip');
+				
+				function show(){
+					var show = document.getElementById('flow');  
+					show.style.display="block";
+				}
+			</script>
+		</div>
 	</div>
 </body>
 </html>
