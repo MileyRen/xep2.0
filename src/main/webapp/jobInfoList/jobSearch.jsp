@@ -15,23 +15,6 @@
 <body>
 	<form action="jobsList.action" id="search" class="form-horizontal" role="form" method="post">
 		<div class="form-group">
-<%-- 			<%
-				String jobstate = (String) session.getAttribute("jobstate");
-				if (jobstate.equals("(state = 'STOP' OR state='ERROR')")||jobstate.equals("(state = 'STOP')")||jobstate.equals("(state = 'ERROR')")) {
-			%>
-			Status:
-			<select required name="jobstate" id="state">
-				 <option value="(state = 'STOP' OR state='ERROR')" selected >--Status--</option>
-				 <option value="(state = 'STOP')" >STOP</option>
-				 <option value="(state = 'ERROR')">ERROR</option>
-			</select> 
-			<%
-				} else if (jobstate.equals("running")) {
-			%>
-			<input type="hidden" name="jobstate" value="running" required>
-			<%
-				}
-			%> --%>
 			Status:
 			<select required name="stateSearch" id="state">
 			 	<option value="" selected>--Select--</option>

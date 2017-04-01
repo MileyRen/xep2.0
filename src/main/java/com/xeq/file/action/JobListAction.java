@@ -87,32 +87,37 @@ public class JobListAction extends ActionSupport
 			String jobstate = request.getParameter("jobstate");
 			String stateSearch = request.getParameter("stateSearch");
 			String stateSql = "";
+			String selectSql = "";
 			Set<String> stateList = new HashSet<String>();
-
+			if (StringUtils.isBlank(jobstate)) {
+				jobstate = (String) session.get("jobstate");
+			}
+			if (jobstate.equals("run")) {
+				// RUNNING
+				selectSql = hql + " and (state = 'RUNNING' OR state='PENDING') ";
+			} else if (jobstate.equals("stop")) {
+				// OTHERS
+				selectSql = hql + " and (state !='RUNNING' AND state !='PENDING') ";
+			}
+			List<JobInfo> jobInfos = jobsService.getJobList(selectSql);
+			for (JobInfo jobInfo : jobInfos) {
+				stateList.add(jobInfo.getState());
+			}
+			
 			if (StringUtils.isNotBlank(stateSearch)) {
 				stateSql = " and (state = '" + stateSearch + "') ";
-			} else {
-				if (StringUtils.isBlank(jobstate)) {
-					jobstate = (String) session.get("jobstate");
-				}
 			}
+
 			if (StringUtils.isBlank(stateSearch) && StringUtils.isNotBlank(jobstate)) {
 				if (jobstate.equals("run")) {
 					// RUNNING
 					stateSql = " and (state = 'RUNNING' OR state='PENDING') ";
-					List<JobInfo> jobInfos = jobsService.getJobList(hql + stateSql);
-					for (JobInfo jobInfo : jobInfos) {
-						stateList.add(jobInfo.getState());
-					}
 				} else if (jobstate.equals("stop")) {
 					// OTHERS
 					stateSql = " and (state !='RUNNING' AND state !='PENDING') ";
-					List<JobInfo> jobInfos = jobsService.getJobList(hql + stateSql);
-					for (JobInfo jobInfo : jobInfos) {
-						stateList.add(jobInfo.getState());
-					}
 				}
 			}
+
 			StringBuffer sf = new StringBuffer();
 			sf.append(hql);
 			sf.append(stateSql);
@@ -172,9 +177,7 @@ public class JobListAction extends ActionSupport
 			if (stateSearch != null) {
 				session.put("stateSearch", stateSearch);
 			}
-			if (stateList.size() > 0) {
-				session.put("stateList", stateList);
-			}
+			session.put("stateList", stateList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -3,7 +3,9 @@ package com.ssh.xep;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
@@ -54,7 +56,12 @@ public class test {
 
 	@Test
 	public void te() {
-		System.out.println("set="+".set.".indexOf("."));
+		String string = "sdfasdfadsf   <tool id=\"_jbpm-unique-10\"";
+		string.replace("<tool id=\"_jbpm-unique-10\"", "<tool id=\"_jbpm-unique-10\" color=\"red\"");
+		System.out.println(string);
+	
+		String s = "sdfasdfadsf   <tool id=\"_jbpm-unique-10\"";
+		String s1 = s.replaceAll("_jbpm-unique-10", "<tool id=\"_jbpm-unique-10\" color=\"red\"");
+		System.out.println(s1);
 	}
-
 }

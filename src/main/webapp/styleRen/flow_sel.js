@@ -30,8 +30,8 @@ function Flow(bindID, xmlStr, editable, title) {
 
 	editable = editable == undefined ? true : editable;
 	var property = {
-		width: window.screen.width,
-		height: window.screen.height,
+		width: 1000,
+		height: 600,
 		toolBtns: ["task"],
 		haveHead: true,
 		headBtns: ["save"],//如果haveHead=true，则定义HEAD区的按钮，现在head被放在了侧方
