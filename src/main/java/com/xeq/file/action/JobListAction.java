@@ -95,7 +95,7 @@ public class JobListAction extends ActionSupport
 			if (jobstate.equals("run")) {
 				// RUNNING
 				selectSql = hql + " and (state = 'RUNNING' OR state='PENDING') ";
-			} else if (jobstate.equals("stop")) {
+			} else if (jobstate.equals("finish")||jobstate.equals("stop")) {
 				// OTHERS
 				selectSql = hql + " and (state !='RUNNING' AND state !='PENDING') ";
 			}
@@ -112,7 +112,7 @@ public class JobListAction extends ActionSupport
 				if (jobstate.equals("run")) {
 					// RUNNING
 					stateSql = " and (state = 'RUNNING' OR state='PENDING') ";
-				} else if (jobstate.equals("stop")) {
+				} else if (jobstate.equals("finish")) {
 					// OTHERS
 					stateSql = " and (state !='RUNNING' AND state !='PENDING') ";
 				}

@@ -35,7 +35,8 @@
 					<c:if test="${sessionScope.user.roleId==1}">
 						<li><a href="${pageContext.request.contextPath}/user/usermanage?op=check">audit</a></li>
 					</c:if>
-			</ul></li>
+				</ul>
+			</li>
 		</ul>
 	</div>
 	<div style="float:right; display: inline-block;">

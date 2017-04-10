@@ -28,24 +28,12 @@
 <link rel="stylesheet" type="text/css" href="styleRen/jquery-easyui-1.3.6/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="styleRen/jquery-easyui-1.3.6/themes/icon.css">
 <link rel="stylesheet" type="text/css" href="styleRen/jquery-easyui-1.3.6/themes/fgr.css">
-
-<link rel="stylesheet" type="text/css"
-	href="styleRen/jquery-easyui-1.3.6/themes/bootstrap/pagination.css">
-<link rel="stylesheet" type="text/css" href="styleRen/jquery-easyui-1.3.6/demo/demo.css">
-<script type="text/javascript" src="styleRen/jquery.min.js"></script>
 <script type="text/javascript" src="styleRen/jquery-easyui-1.3.6/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="styleRen/jsFileManager/folder.js"></script>
 <script type="text/javascript" src="styleRen/jsFileManager/Popup.js"></script>
 <style type="text/css">
 input[type=file] {
 	display: inline;
-}
-
-body {
-	font-family: verdana, helvetica, arial, sans-serif;
-	/* font-size: 12px; */
-	padding: 0px;
-	margin: 0;
 }
 /*--------文件上传开始----------*/
 .fileup {
@@ -108,6 +96,12 @@ body {
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li>
+							<a href="#" onclick="javascript:window.location.href='syncFile.action'" class="btn" data-toggle="tooltip" data-placement="top" title="Sync files and folders"> 
+ 								<span class="glyphicon glyphicon-refresh"></span>
+ 								 Sync
+ 							</a>
+						</li>
+						<li>
 							<a href="#modal-container-create" class="btn" data-toggle="modal">
 								<span class="glyphicon glyphicon-plus-sign"></span>
 								Create
@@ -126,7 +120,7 @@ body {
 								else{return false;}
 										})">
 								<span class="glyphicon glyphicon-trash"></span>
-								delete
+								Delete
 							</a>
 						</li>
 						<li>
@@ -138,8 +132,8 @@ body {
 
 						<li>
 							<a href="#" onclick="javascript:window.location.href='backStack.action'" class="btn">
-								<span class="glyphicon glyphicon-circle-arrow-left"></span>
-								Previous
+								<span class="glyphicon glyphicon-circle-arrow-up"></span>
+ 								Up
 							</a>
 						</li>
 
@@ -151,19 +145,27 @@ body {
 					<tr>
 						<th><input type="checkbox"
 								onclick="if(this.checked==true){allCheck('delbulk',true);}else{allCheck('delbulk',false);}"></th>
-						<th>Id</th>
+						<th>Icon</th>
 						<th>Name</th>
 						<th>Create Time</th>
 						<th>Type</th>
 						<th>Size</th>
 						<!-- <th>Folder Path</th> -->
-						<th>Operate</th>
+						<th>Action</th>
 					</tr>
 					<s:iterator value="#session.fileList" status="FileAndFolder">
-						<s:if test="type=='folder'">
+						<s:if test="type=='folder' || type=='mapping_copy'">
 							<tr>
-								<td><input class="delbulk" type="checkbox" value="[arr]${id}[arr]${type}[arr]${name}"></td>
-								<td onclick="return into(${id})"><span class="icon tree-folder"></span> ${id}</td>
+								<td>
+ 									<s:if test="type=='folder'">
+ 										<input class="delbulk" type="checkbox" value="[arr]${id}[arr]${type}[arr]${name}">
+ 									</s:if>
+ 									<s:if test="type=='mapping_copy'">
+ 										<input type="checkbox" disabled >
+ 									</s:if>	
+ 								</td>
+ 								<td onclick="return into(${id})"><span class="icon tree-folder"></span></td>
+							
 								<td onclick="return into(${id})">${name}</td>
 								<td onclick="return into(${id})"><s:date name="time" format="yyyy-MM-dd" /></td>
 								<td onclick="return into(${id})">${type}</td>
@@ -171,7 +173,8 @@ body {
 								<%-- <td onclick="return into(${id})">${folderPath}</td> --%>
 								<td>
 									<div class="btn-group">
-										<a class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown">
+										<a class="btn btn-primary dropdown-toggle btn-xs" data-toggle="dropdown"
+ 										<s:if test="type=='mapping_copy'">disabled="disabled"</s:if>>
 											<span class="glyphicon  glyphicon-pencil"></span>
 											edit
 											<span class="caret"></span>
@@ -207,10 +210,10 @@ body {
 						</s:if>
 					</s:iterator>
 					<s:iterator value="#session.fileList" status="FileAndFolder">
-						<s:if test="type!='folder'">
+						<s:if test="type!='folder' && type!='mapping' && type!='mapping_copy'">
 							<tr>
 								<td><input class="delbulk" type="checkbox" value="[arr]${id}[arr]${type}[arr]${name}"></td>
-								<td><span class="icon tree-file"></span> ${id}</td>
+								<td><span class="icon tree-file"></span></td>
 								<td>${name}</td>
 								<td><s:date name="time" format="yyyy-MM-dd" /></td>
 								<td>${type}</td>
@@ -270,79 +273,32 @@ body {
 				</table>
 				<!-- 文件列表结束 -->
 				<!-- 分页效果开始 -->
-				<div style="margin: 20px 0;"></div>
-				<div>
-			<ul class="pagination">
-				<li>
-					<a onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=1'">&laquo;</a>
-				</li>
-				<li>
-					<a onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=${pagesource.currentPage-1 }'">previous</a>
-				</li>
-				<li>
-					<a>[ ${pagesource.currentPage} of ${pagesource.totalPages }]
-						 [total:${pagesource.totalRows}]</a>
-				</li>
-				<li>
-					<a onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=${pagesource.currentPage+1 }'">next</a>
-				</li>
-				<li>
-					<a onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=${pagesource.totalPages }'">&raquo;</a>
-				</li>
-			</ul>
-		</div>
-			<%-- 	
-				<div class="easyui-panel" style="height: 50px; padding: 10px 20px 10px 40px;">
-					<a class="easyui-linkbutton" data-options="plain:true,iconCls:'pagination-first'"
-						onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=1'"></a>
-					<a class="easyui-linkbutton" data-options="plain:true,iconCls:'pagination-prev'"
-						onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=${pagesource.currentPage-1 }'"></a>
-					[ ${pagesource.currentPage} of ${pagesource.totalPages }]
-					<a class="easyui-linkbutton" data-options="plain:true,iconCls:'pagination-next'"
-						onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=${pagesource.currentPage+1 }'"></a>
-					<a class="easyui-linkbutton" data-options="plain:true,iconCls:'pagination-last'"
-						onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=${pagesource.totalPages }'"></a>
-					[total:${pagesource.totalRows}]
-				</div> --%>
-				<!-- 分页效果结束 -->
+			<div style="margin: 20px 0;"></div>
+			<div>
+				<ul class="pagination">
+					<li>
+						<a onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=1'">&laquo;</a>
+					</li>
+					<li>
+						<a onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=${pagesource.currentPage-1 }'">previous</a>
+					</li>
+					<li>
+						<a>[ ${pagesource.currentPage} of ${pagesource.totalPages }]
+						</a>
+					</li>
+					<li>
+						<a onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=${pagesource.currentPage+1 }'">next</a>
+					</li>
+					<li>
+						<a onclick="javascript:window.location.href='pageList.action?parentFolderId=${parentFolderId}&pagesource.currentPage=${pagesource.totalPages }'">&raquo;</a>
+					</li>
+				</ul>
 			</div>
 		</div>
+	</div>
 	</div>
 	<!-- 弹出框开始 -->
 
-	<!-- 批量移动文件夹 -->
-	<!-- 
-	<div class="modal fade" id="BulkMoveModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">
-						<a href="#" class="btn">
-							<span class="glyphicon glyphicon-plus"> </span>
-							Move Folders and Files To A Folder...
-						</a>
-					</h4>
-				</div>
-				<div class="modal-body" style="height: 250px">
-					<div class="form-group" style="padding: 10px 20px 10px 80px;">
-						<select id="bulkTree" style="width: 300px" class="form-control"></select>
-						<br>
-						<input type="hidden" name="pagesource.currentPage" value="${pagesource.currentPage}" />
-						<input type="hidden" name="parentFolderId" value="${session.parentId }" />
-						<input type="hidden" name="toIdBulk" id="BulktoPathId" value="">
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-primary"
-						onclick="promList_old(${pagesource.currentPage},${session.parentId })">Submit</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	-->
 	<div class="modal fade" id="BulkMoveModal" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -373,7 +329,7 @@ body {
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 					<button type="button" class="btn btn-primary"
-						onclick="MoveList(${pagesource.currentPage},${session.parentId })">Submit</button>
+						onclick="MoveList(${pagesource.currentPage},${session.parentId })">Move</button>
 				</div>
 			</div>
 		</div>
@@ -423,20 +379,12 @@ body {
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-					<h5 class="modal-title" id="myModalLabel">请选择文件上传</h5>
-<!-- 新删除部分 
-					<h5 class="modal-title" id="myModalLabel">
-						<a href="#" class="btn " onclick="addMore()">
-							<span class="glyphicon glyphicon-plus"> </span>
-							Please Add A File...
-						</a>
-					</h5>
--->
+					<h5 class="modal-title" id="myModalLabel">Please Add Some Files...</h5>
 				</div>
 				<div class="modal-body">
-<!-- 新添加部分开始 -->
-					<form action="fileUpload.action" id="addFiles" method="post" style="padding: 10px 20px 10px 0px;" enctype="multipart/form-data"> 
-        				<a id="more" href="javascript:void(0)" class="fileup" ><strong style="margin-left: 5px; margin-right: 8px;" class="icon-plus-circle" >选择文件</strong>
+				<!-- 新添加部分开始 -->
+					<form action="fileUpload.action" id="addFiles" method="post" style="padding: 10px 20px 10px 0px;" enctype="multipart/form-data">
+        				<a id="more" href="javascript:void(0)" class="fileup" ><strong style="margin-left: 5px; margin-right: 8px;" class="icon-plus-circle" >select file</strong>
     						<input id="fileUp" name="uploadFiles" type="file" onchange="change()">
 						</a>
 						<input type="hidden" id="parentFolderId" name="parentFolderId" value=${session.parentId }>
@@ -447,16 +395,6 @@ body {
 						
 					</div>
 <!-- 新添加部分结束 -->
-<!-- 新删除部分 
-					<form action="fileUpload.action" id="addFiles" method="post"
-						style="padding: 10px 20px 10px 80px;" enctype="multipart/form-data">
-						<input type="hidden" name="parentFolderId" value=${session.parentId }>
-						<input type="hidden" name="folderPath" value=${session.parentPath }>
-						<input type="hidden" name="pagesource.currentPage" value="${pagesource.currentPage}">
-						<div id="more"></div>
-						<s:token />
-					</form>
--->
 				</div>
 				<div class="modal-footer">
 					<button type="reset" class="btn btn-default" data-dismiss="modal">cancel</button>
